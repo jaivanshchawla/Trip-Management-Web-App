@@ -1,0 +1,10 @@
+{
+    "regions": ["sin1"],
+    "crons": [
+    {
+      "path": "/api/cron/send-expiry-notifications?cron_secret=aK4gH9sLpW2bVzF5nQ9xR7jG",
+      "schedule": "0 5 * * *"
+    }
+  ]
+  }
+  

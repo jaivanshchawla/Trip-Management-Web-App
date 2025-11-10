@@ -1,0 +1,362 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+
+}
+
+@layer base {
+  :root {
+    --background: 250, 250, 250;
+    --foreground: 0, 0, 0;
+    --card: 255, 255, 255;
+    --card-foreground: 0, 0, 0;
+    --popover: 255, 255, 255;
+    --popover-foreground: 0, 0, 0;
+    --primary: 255, 106, 0;
+    --primary-foreground: 255, 255, 255;
+    --secondary: 90, 90, 90;
+    --secondary-foreground: 255, 255, 255;
+    --muted: 195, 195, 195;
+    --muted-foreground: 90, 90, 90;
+    --accent: 255, 106, 0;
+    --accent-foreground: 255, 255, 255;
+    --destructive: 204, 85, 0; /* Updated to a rusty orange tone */
+    --destructive-foreground: 255, 255, 255;
+    --border: 195, 195, 195;
+    --input: 195, 195, 195;
+    --ring: 0, 0, 0;
+    --radius: 0.5rem;
+    --splash: rgba(255, 255, 255, 0.3);
+    --light-orange: #ffa666;
+    --light-orange-button: #ffcaa4;
+    --bottom-nav-bar: #FE8631;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-gradient-radial-home {
+    background: radial-gradient(ellipse at 80% 50%, #FFC499 0%, #FFFFFF 80%);
+  }
+  .bg-gradient-radial-home2 {
+    background: radial-gradient(ellipse at 80% 50%, #FFFFFF 0%, #FFC499 80%);
+  }
+  .bg-gradient-radial {
+    background: radial-gradient(#FFC499, white);
+  }
+}
+
+/* For Firefox */
+/* For Firefox */
+.thin-scrollbar {
+  scrollbar-width: thin; /* Makes scrollbar thin */
+  scrollbar-color: #FE8631 transparent; /* Thumb color and track color */
+  
+}
+
+/* For WebKit-based browsers (Chrome, Safari, Edge) */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+  height: 8px;
+  border-radius: 20px; /* Adjust the height of the scrollbar (for horizontal scroll) */
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Track color (background behind the thumb) */
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #FE8631; /* Scrollbar thumb color */
+  border-radius: 10px; /* Round the corners of the scrollbar thumb */
+  border: 2px solid transparent; /* Optional: Adds padding inside thumb */
+}
+
+/* Hover effect for WebKit-based browsers */
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #FE6E00; /* Darken thumb on hover */
+}
+
+/* Active effect for WebKit-based browsers */
+.thin-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: #FE5200; /* Darken thumb when active */
+}
+
+/* Firefox scrollbar track (for better rounding) */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #FE8631 transparent; /* Thumb color and track color */
+  scrollbar-track-border-radius: 10px; /* Rounded scrollbar for Firefox */
+}
+
+
+
+/* Custom table styling specifically targeting tables with class "custom-table" */
+
+.table-container {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate; /* Allows for rounded corners */
+  border-spacing: 0;
+  font-size: 16px; /* Default font size */
+  table-layout: auto;
+  border-radius: 12px;
+  overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+}
+
+/* Add a wrapper around the table for horizontal scrolling */
+.custom-table-wrapper {
+  overflow-x: auto; /* Ensures responsiveness */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 16px 16px; /* Improved padding */
+  text-align: left;
+  border: 1px solid #00000040; /* Added border */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.custom-table th {
+  background-color: var(--bottom-nav-bar); /* Darker, more modern header background */
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px; /* Adjust font size */
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f9fafb; /* Light grey for even rows */
+}
+
+.custom-table tbody tr:hover {
+  background-color: #ffe4c4; /* Feedback color on hover */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.custom-table tbody td {
+  color: #2d3748;
+  vertical-align: top; /* Align the text to the top */
+}
+
+.custom-table tbody tr:active {
+  background-color: #e2e8f0; /* Feedback color on click */
+}
+
+.custom-table tbody tr.selected {
+  background-color: #4a5568; /* Highlight selected row */
+  color: #ffffff;
+}
+
+.custom-table tbody tr.selected td {
+  color: #ffffff; /* Ensure text is readable on selected row */
+}
+
+.custom-table tfoot td {
+  padding: 16px 24px;
+  background-color: #edf2f7; /* Footer background color */
+  font-weight: bold;
+  border-top: 2px solid #4a5568;
+}
+
+.custom-table tfoot td:first-child {
+  border-left: none;
+}
+
+.custom-table tfoot td:last-child {
+  border-right: none;
+}
+
+.custom-table caption {
+  caption-side: bottom;
+  padding: 10px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.custom-table caption a {
+  color: #4a5568;
+  text-decoration: none;
+}
+
+.custom-table caption a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+
+/* For smaller laptops (1024px or less) */
+@media (max-width: 1260px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 14px; /* Reduce font size */
+    padding: 12px; /* Reduce padding */
+  }
+
+  .custom-table th {
+    font-size: 13px; /* Smaller header font size */
+  }
+}
+
+/* For very small laptops (768px or less) */
+@media (max-width: 768px) {
+  .custom-table {
+    font-size: 12px; /* Smaller font size for the table */
+    table-layout: fixed; /* Fix table layout for smaller screens */
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 8px; /* Compact padding */
+  }
+
+  .custom-table caption {
+    font-size: 12px; /* Smaller caption text */
+  }
+}
+
+/* Ensure scrollability on smaller screens */
+.custom-table-wrapper {
+  overflow-x: auto; /* Horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+}
+
+
+.modal-class{
+  @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-40 flex items-center justify-center
+}
+
+input:not([type="checkbox"]) {
+  @apply w-full px-3 py-2 border-2 border-black/25 focus:outline-none focus:ring-1 focus:ring-gray-300 rounded-full text-sm text-gray-700 file:bg-lightOrangeButtonColor file:border-none file:rounded-lg file:px-2 file:py-1 file:cursor-pointer hover:file:bg-bottomNavBarColor hover:file:text-white;
+}
+
+
+textarea {
+  @apply w-full px-3 py-2 border border-lightOrange rounded-lg focus:outline-none focus:ring focus:ring-lightOrange;
+}
+
+label {
+  @apply block text-xs font-medium text-gray-700 mb-1
+}
+
+select {
+  @apply cursor-pointer
+  w-full
+  mt-1
+  p-2
+  border
+  rounded
+  border-black/25
+  focus:ring-1 focus:ring-gray-300 
+  transition-all
+  duration-200
+  ease-in-out
+  bg-white
+  text-gray-800
+  shadow-sm
+  focus:shadow-md
+  outline-none
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+.hide-scrollbar:hover,
+.hide-scrollbar:focus,
+.hide-scrollbar:focus-within {
+  scrollbar-width: auto;
+  -ms-overflow-style: auto;
+}
+
+.hide-scrollbar:hover::-webkit-scrollbar,
+.hide-scrollbar:focus::-webkit-scrollbar,
+.hide-scrollbar:focus-within::-webkit-scrollbar {
+  display: block;
+}
+

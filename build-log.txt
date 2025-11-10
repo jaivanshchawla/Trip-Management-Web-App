@@ -1,0 +1,554 @@
+
+> transportbook@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.23
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ ⚠ Compiled with warnings
+
+./node_modules/jsonwebtoken/lib/asymmetricKeyDetailsSupported.js
+A Node.js API is used (process.version at line: 3) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jsonwebtoken/lib/asymmetricKeyDetailsSupported.js
+./node_modules/jsonwebtoken/lib/validateAsymmetricKey.js
+./node_modules/jsonwebtoken/verify.js
+./node_modules/jsonwebtoken/index.js
+
+./node_modules/jsonwebtoken/lib/psSupported.js
+A Node.js API is used (process.version at line: 3) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jsonwebtoken/lib/psSupported.js
+./node_modules/jsonwebtoken/verify.js
+./node_modules/jsonwebtoken/index.js
+
+./node_modules/jsonwebtoken/lib/rsaPssKeyDetailsSupported.js
+A Node.js API is used (process.version at line: 3) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jsonwebtoken/lib/rsaPssKeyDetailsSupported.js
+./node_modules/jsonwebtoken/lib/validateAsymmetricKey.js
+./node_modules/jsonwebtoken/verify.js
+./node_modules/jsonwebtoken/index.js
+
+./node_modules/jws/lib/data-stream.js
+A Node.js API is used (process.nextTick at line: 29) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/jws/lib/data-stream.js
+./node_modules/jws/lib/sign-stream.js
+./node_modules/jws/index.js
+./node_modules/jsonwebtoken/decode.js
+./node_modules/jsonwebtoken/index.js
+
+   Linting and checking validity of types ...
+
+./src/app/(admin)/admin-page/page.tsx
+54:6  Warning: React Hook useEffect has a missing dependency: 'fetchUsers'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/documents/companyDocuments/page.tsx
+57:6  Warning: React Hook useEffect has a missing dependency: 'fetchDocuments'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/documents/otherDocuments/page.tsx
+58:6  Warning: React Hook useEffect has a missing dependency: 'fetchDocuments'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/documents/tripDocuments/[tripId]/page.tsx
+44:8  Warning: React Hook useEffect has a missing dependency: 'fetchTrip'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/drivers/[driverId]/trips/page.tsx
+30:9  Warning: The 'trips' logical expression could make the dependencies of useMemo Hook (at line 43) change on every render. To fix this, wrap the initialization of 'trips' in its own useMemo() Hook.  react-hooks/exhaustive-deps
+
+./src/app/user/expenses/draft/page.tsx
+91:29  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/user/expenses/officeExpense/page.tsx
+192:29  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+205:8  Warning: React Hook useEffect has a missing dependency: 'getBook'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/expenses/page.tsx
+110:27  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/user/expenses/tripExpense/page.tsx
+111:27  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/user/expenses/truckExpense/page.tsx
+103:27  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/user/shopkhata/page.tsx
+45:27  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/user/shopkhata/[shopId]/layout.tsx
+47:5  Warning: React Hook useEffect has a missing dependency: 'fetchDriverDetails'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/shopkhata/[shopId]/page.tsx
+39:6  Warning: React Hook useEffect has a missing dependency: 'fetchAccounts'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/suppliers/page.tsx
+71:27  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/app/user/suppliers/[supplierId]/trucks/page.tsx
+61:8  Warning: React Hook useMemo has a missing dependency: 'supplier?.supplierTrucks'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/trips/create/page.tsx
+37:6  Warning: React Hook useEffect has missing dependencies: 'refetchDrivers', 'refetchParties', and 'refetchTrucks'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+66:6  Warning: React Hook useEffect has a missing dependency: 'trips'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/trips/invoice/page.tsx
+154:6  Warning: React Hook useEffect has a missing dependency: 'fetchData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/trips/[tripId]/page.tsx
+64:6  Warning: React Hook useCallback has unnecessary dependencies: 'router' and 'trip'. Either exclude them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/app/user/trucks/[truckNo]/driverExpense/page.tsx
+52:6  Warning: React Hook useEffect has a missing dependency: 'fetchOther'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+54:9  Warning: The 'handleDelete' function makes the dependencies of useMemo Hook (at line 125) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of 'handleDelete' in its own useCallback() Hook.  react-hooks/exhaustive-deps
+
+./src/app/user/trucks/[truckNo]/trips/page.tsx
+49:6  Warning: React Hook useMemo has a missing dependency: 'truck?.truckLedger'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+141:6  Warning: React Hook useMemo has a missing dependency: 'sortedTrips'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/AddExpenseModal.tsx
+122:8  Warning: React Hook useEffect has a missing dependency: 'fetchUserExpenseTypes'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+138:8  Warning: React Hook useMemo has a missing dependency: 'ctxTrips'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+265:8  Warning: React Hook useEffect has missing dependencies: 'tripId' and 'truckNo'. Either include them or remove the dependency array. If 'setFormData' needs the current value of 'tripId', you can also switch to useReducer instead of useState and read 'tripId' in the reducer.  react-hooks/exhaustive-deps
+310:8  Warning: React Hook useEffect has missing dependencies: 'formData.driver' and 'formData.shop_id'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+321:8  Warning: React Hook useEffect has missing dependencies: 'pathname' and 'trips'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/driver/DriverDocument.tsx
+53:6  Warning: React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/ExpenseFilterModal.tsx
+45:12  Warning: React Hook useEffect has a missing dependency: 'fetchUserExpenseTypes'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/hooks/useAnimatedNumber.ts
+38:6  Warning: React Hook useEffect has a missing dependency: 'displayValue'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/layout/MainLayout.tsx
+60:6  Warning: React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+67:6  Warning: React Hook useEffect has a missing dependency: 'primaryMenuItems'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/layout/TruckLayout.tsx
+34:11  Warning: The 'tabs' array makes the dependencies of useEffect Hook (at line 76) change on every render. To fix this, wrap the initialization of 'tabs' in its own useMemo() Hook.  react-hooks/exhaustive-deps
+
+./src/components/OtpLogin.tsx
+84:6  Warning: React Hook useEffect has a missing dependency: 'verifyOtp'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/shopkhata/ShopBalance.tsx
+26:6  Warning: React Hook useEffect has a missing dependency: 'fetchBalance'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/supplier/SupplierName.tsx
+16:7  Warning: React Hook useEffect has a missing dependency: 'fetchSupplierName'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/EditTripForm.tsx
+127:3  Warning: React Hook useMemo has unnecessary dependencies: 'hasSupplier' and 'selectedTruck'. Either exclude them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/FrieghtMemo.tsx
+266:6  Warning: React Hook useEffect has a missing dependency: 'payments'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+275:6  Warning: React Hook useEffect has a missing dependency: 'trip'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/RouteInputs.tsx
+24:30  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/DataList.tsx
+83:4  Warning: React Hook useEffect has a missing dependency: 'onTotalAdvanceChange'. Either include it or remove the dependency array. If 'onTotalAdvanceChange' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/ExpenseModal.tsx
+134:6  Warning: React Hook useEffect has a missing dependency: 'trip?.driver'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/Profit/TripRevenue.tsx
+34:8  Warning: React Hook useEffect has a missing dependency: 'revenue'. Either include it or remove the dependency array. You can also do a functional update 'setRevenue(r => ...)' if you only need 'revenue' in the 'setRevenue' call.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/Profit.tsx
+40:5  Warning: React Hook useMemo has a missing dependency: 'trip.tripCharges'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+45:5  Warning: React Hook useMemo has a missing dependency: 'trip.tripCharges'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+88:5  Warning: React Hook useCallback has missing dependencies: 'setTrip' and 'toast'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+104:6  Warning: React Hook useCallback has a missing dependency: 'setTrip'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/TripFunctions/FrieghtInvoice.tsx
+147:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+378:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+397:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/trip/tripDetail/TripFunctions/InoiveForm.tsx
+118:8  Warning: React Hook useEffect has a missing dependency: 'fetchUser'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/TripFunctions/LoadingSlip.tsx
+209:8  Warning: React Hook useEffect has a missing dependency: 'fetchUser'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+234:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+382:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/trip/tripDetail/TripFunctions/StatusButton.tsx
+30:6  Warning: React Hook useEffect has a missing dependency: 'fillPercentage'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/trip/tripDetail/TripFunctions/ViewBill.tsx
+92:6  Warning: React Hook useEffect has a missing dependency: 'fetchInvoiceData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/truck/TruckDocument.tsx
+41:8  Warning: React Hook useEffect has a missing dependency: 'toast'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/context/reminderContext.tsx
+58:6  Warning: React Hook useEffect has a missing dependency: 'router'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/utils/DocGeneration.tsx
+95:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+363:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+383:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+485:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+718:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/97) ...
+B [Error]: Dynamic server usage: Route /api/drivers/documents couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at m (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\drivers\documents\route.js:1:828)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/drivers/documents couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching users: Dynamic server usage: Route /api/admin/users couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+Error fetching reminders: B [Error]: Dynamic server usage: Route /api/documents/reminders couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at x (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\documents\reminders\route.js:1:1307)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/documents/reminders couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching documents: B [Error]: Dynamic server usage: Route /api/documents/recent couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at h (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\documents\recent\route.js:1:1018)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/documents/recent couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+B [Error]: Dynamic server usage: Route /api/dashboard couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at y (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\dashboard\route.js:1:4649)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/dashboard couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+B [Error]: Dynamic server usage: Route /api/expenses/tripExpense couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at h (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\expenses\tripExpense\route.js:1:946)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/expenses/tripExpense couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+B [Error]: Dynamic server usage: Route /api/expenses/truckExpense couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at h (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\expenses\truckExpense\route.js:1:946)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/expenses/truckExpense couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching expenses: B [Error]: Dynamic server usage: Route /api/expenses/calculate couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at $ (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\expenses\calculate\route.js:1:827)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/expenses/calculate couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+B [Error]: Dynamic server usage: Route /api/generateReport couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\generateReport\route.js:1:894)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/generateReport couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (24/97) 
+B [Error]: Dynamic server usage: Route /api/search couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at T (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\search\route.js:1:1234)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/search couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+B [Error]: Dynamic server usage: Route /api/trips/documents couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at m (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\trips\documents\route.js:1:824)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/trips/documents couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error processing token invalidation: B [Error]: Dynamic server usage: Route /api/logout couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at S (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\logout\route.js:1:842)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38411
+    at async e_.execute (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:27880)
+    at async e_.handle (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:39943)
+    at async exportAppRoute (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\export\routes\app-route.js:77:26)
+    at async exportPageImpl (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\export\worker.js:175:20)
+    at async Span.traceAsyncFn (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\trace\trace.js:154:20) {
+  description: "Route /api/logout couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching truck documents: B [Error]: Dynamic server usage: Route /api/trucks/documents couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:329
+    at g (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\chunks\8695.js:1:371)
+    at m (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\.next\server\app\api\trucks\documents\route.js:1:824)
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\Jaivansh Chawla\Documents\projects\Awajahi\awajahi\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/trucks/documents couldn't be rendered statically because it used `request.cookies`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (48/97) 
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+   Generating static pages (72/97) 
+ ✓ Generating static pages (97/97)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                              Size     First Load JS
+┌ ○ /                                                    10.5 kB         138 kB
+├ ○ /_not-found                                          184 B          89.2 kB
+├ ○ /about                                               1.41 kB         102 kB
+├ ○ /admin-login                                         2.74 kB        98.6 kB
+├ ○ /admin-page                                          4.83 kB         105 kB
+├ ƒ /api/admin/login                                     0 B                0 B
+├ ƒ /api/admin/users                                     0 B                0 B
+├ ƒ /api/contact                                         0 B                0 B
+├ ƒ /api/cron/send-expiry-notifications                  0 B                0 B
+├ ƒ /api/dashboard                                       0 B                0 B
+├ ƒ /api/documents                                       0 B                0 B
+├ ƒ /api/documents/[documentId]                          0 B                0 B
+├ ƒ /api/documents/extractExpenseRecipt                  0 B                0 B
+├ ƒ /api/documents/recent                                0 B                0 B
+├ ƒ /api/documents/reminders                             0 B                0 B
+├ ƒ /api/documents/validate                              0 B                0 B
+├ ƒ /api/drivers                                         0 B                0 B
+├ ƒ /api/drivers/[driverId]                              0 B                0 B
+├ ƒ /api/drivers/[driverId]/accounts/[accountId]         0 B                0 B
+├ ƒ /api/drivers/[driverId]/calculateBalance             0 B                0 B
+├ ƒ /api/drivers/[driverId]/documents                    0 B                0 B
+├ ƒ /api/drivers/[driverId]/name                         0 B                0 B
+├ ƒ /api/drivers/create                                  0 B                0 B
+├ ƒ /api/drivers/documents                               0 B                0 B
+├ ƒ /api/expenses                                        0 B                0 B
+├ ƒ /api/expenses/[expenseId]                            0 B                0 B
+├ ƒ /api/expenses/calculate                              0 B                0 B
+├ ƒ /api/expenses/draft                                  0 B                0 B
+├ ƒ /api/expenses/draft/[expenseId]                      0 B                0 B
+├ ƒ /api/expenses/expenseType                            0 B                0 B
+├ ƒ /api/expenses/officeExpense                          0 B                0 B
+├ ƒ /api/expenses/officeExpense/calculate                0 B                0 B
+├ ƒ /api/expenses/tripExpense                            0 B                0 B
+├ ƒ /api/expenses/tripExpense/calculate                  0 B                0 B
+├ ƒ /api/expenses/truckExpense                           0 B                0 B
+├ ƒ /api/expenses/truckExpense/calculate                 0 B                0 B
+├ ƒ /api/files/get-share-link                            0 B                0 B
+├ ƒ /api/generateReport                                  0 B                0 B
+├ ƒ /api/invoices                                        0 B                0 B
+├ ƒ /api/invoices/[invoiceId]                            0 B                0 B
+├ ƒ /api/login                                           0 B                0 B
+├ ƒ /api/login/sendOtp                                   0 B                0 B
+├ ƒ /api/login/verifyOtp                                 0 B                0 B
+├ ƒ /api/logout                                          0 B                0 B
+├ ƒ /api/notifications/send-test-notifications           0 B                0 B
+├ ƒ /api/notifications/set-token                         0 B                0 B
+├ ƒ /api/parties                                         0 B                0 B
+├ ƒ /api/parties/[partyId]                               0 B                0 B
+├ ƒ /api/parties/[partyId]/payments                      0 B                0 B
+├ ƒ /api/parties/[partyId]/payments/[paymentId]          0 B                0 B
+├ ƒ /api/parties/create                                  0 B                0 B
+├ ƒ /api/s3Upload                                        0 B                0 B
+├ ƒ /api/schedule-demo                                   0 B                0 B
+├ ƒ /api/search                                          0 B                0 B
+├ ƒ /api/shopkhata                                       0 B                0 B
+├ ƒ /api/shopkhata/[shopId]                              0 B                0 B
+├ ƒ /api/shopkhata/[shopId]/accounts                     0 B                0 B
+├ ƒ /api/shopkhata/[shopId]/accounts/[accountsId]        0 B                0 B
+├ ƒ /api/shopkhata/[shopId]/accounts/calculate           0 B                0 B
+├ ƒ /api/suppliers                                       0 B                0 B
+├ ƒ /api/suppliers/[supplierId]                          0 B                0 B
+├ ƒ /api/suppliers/[supplierId]/calculateBalance         0 B                0 B
+├ ƒ /api/suppliers/[supplierId]/payments                 0 B                0 B
+├ ƒ /api/suppliers/[supplierId]/payments/[paymentId]     0 B                0 B
+├ ƒ /api/suppliers/[supplierId]/payments/trips           0 B                0 B
+├ ƒ /api/suppliers/[supplierId]/payments/trips/[tripId]  0 B                0 B
+├ ƒ /api/suppliers/[supplierId]/updateTruckHire          0 B                0 B
+├ ƒ /api/tripCharges/[chargeId]                          0 B                0 B
+├ ƒ /api/trips                                           0 B                0 B
+├ ƒ /api/trips/[tripId]                                  0 B                0 B
+├ ƒ /api/trips/[tripId]/accounts/[accountId]             0 B                0 B
+├ ƒ /api/trips/[tripId]/documents                        0 B                0 B
+├ ƒ /api/trips/[tripId]/expenses                         0 B                0 B
+├ ƒ /api/trips/documents                                 0 B                0 B
+├ ƒ /api/trips/getEwaybillDetails                        0 B                0 B
+├ ƒ /api/trips/getEwaybillDetails/text                   0 B                0 B
+├ ƒ /api/trips/invoice                                   0 B                0 B
+├ ƒ /api/trips/invoice/download                          0 B                0 B
+├ ƒ /api/trips/party/[partyId]                           0 B                0 B
+├ ƒ /api/trips/party/[partyId]/accounts                  0 B                0 B
+├ ƒ /api/trips/supplier/[supplierId]                     0 B                0 B
+├ ƒ /api/trips/truck/[truckNo]                           0 B                0 B
+├ ƒ /api/trucks                                          0 B                0 B
+├ ƒ /api/trucks/[truckNo]                                0 B                0 B
+├ ƒ /api/trucks/[truckNo]/documents                      0 B                0 B
+├ ƒ /api/trucks/[truckNo]/expense                        0 B                0 B
+├ ƒ /api/trucks/[truckNo]/summary                        0 B                0 B
+├ ƒ /api/trucks/create                                   0 B                0 B
+├ ƒ /api/trucks/documents                                0 B                0 B
+├ ƒ /api/users                                           0 B                0 B
+├ ƒ /api/users/grant-access                              0 B                0 B
+├ ƒ /api/users/revoke-access/[userId]                    0 B                0 B
+├ ○ /contact                                             1.41 kB         102 kB
+├ ○ /expense-management                                  1.55 kB         103 kB
+├ ○ /login                                               14.7 kB         183 kB
+├ ○ /privacy-policy                                      712 B           102 kB
+├ ○ /route-optimization                                  1.56 kB         103 kB
+├ ○ /sitemap.xml                                         0 B                0 B
+├ ○ /terms                                               712 B           102 kB
+├ ○ /trip-management                                     1.56 kB         103 kB
+├ ○ /user                                                373 B          89.4 kB
+├ ○ /user/documents                                      3.12 kB         485 kB
+├ ○ /user/documents/companyDocuments                     4.84 kB         184 kB
+├ ○ /user/documents/driverDocuments                      2.17 kB         239 kB
+├ ƒ /user/documents/driverDocuments/[driverId]           1.34 kB        90.4 kB
+├ ○ /user/documents/otherDocuments                       4.95 kB         189 kB
+├ ○ /user/documents/tripDocuments                        4.64 kB         482 kB
+├ ƒ /user/documents/tripDocuments/[tripId]               11.7 kB         467 kB
+├ ○ /user/documents/truckDocuments                       3.87 kB         241 kB
+├ ƒ /user/documents/truckDocuments/[truckNo]             1.41 kB        90.4 kB
+├ ○ /user/drivers                                        9.59 kB         271 kB
+├ ƒ /user/drivers/[driverId]                             9.72 kB         161 kB
+├ ƒ /user/drivers/[driverId]/documents                   14 kB           480 kB
+├ ƒ /user/drivers/[driverId]/trips                       1.32 kB         388 kB
+├ ○ /user/drivers/create                                 3.55 kB        99.4 kB
+├ ○ /user/expenses                                       2.63 kB         189 kB
+├ ○ /user/expenses/draft                                 2.3 kB          189 kB
+├ ○ /user/expenses/officeExpense                         2.59 kB         189 kB
+├ ○ /user/expenses/tripExpense                           2.51 kB         189 kB
+├ ○ /user/expenses/truckExpense                          2.5 kB          189 kB
+├ ○ /user/home                                           93.7 kB         589 kB
+├ ○ /user/invoice                                        10.3 kB         180 kB
+├ ○ /user/parties                                        8.3 kB          270 kB
+├ ƒ /user/parties/[singleparty]/details                  3.29 kB         106 kB
+├ ƒ /user/parties/[singleparty]/monthly-balances         184 B          89.2 kB
+├ ƒ /user/parties/[singleparty]/passbook                 6.97 kB         159 kB
+├ ƒ /user/parties/[singleparty]/trips                    1.39 kB         388 kB
+├ ○ /user/parties/create                                 3.65 kB        99.5 kB
+├ ○ /user/profile/access                                 3.3 kB         99.1 kB
+├ ○ /user/profile/details                                12.8 kB         122 kB
+├ ○ /user/profile/reports                                4.74 kB         101 kB
+├ ○ /user/search                                         11.7 kB         397 kB
+├ ○ /user/shopkhata                                      6.23 kB         174 kB
+├ ƒ /user/shopkhata/[shopId]                             7.7 kB          159 kB
+├ ○ /user/shopkhata/create                               3.07 kB         103 kB
+├ ○ /user/suppliers                                      6.2 kB          173 kB
+├ ƒ /user/suppliers/[supplierId]/passbook                5.55 kB         157 kB
+├ ƒ /user/suppliers/[supplierId]/trips                   7.35 kB         396 kB
+├ ƒ /user/suppliers/[supplierId]/trucks                  4.03 kB         399 kB
+├ ○ /user/suppliers/create                               3.42 kB        99.2 kB
+├ ○ /user/trips                                          266 kB          720 kB
+├ ƒ /user/trips/[tripId]                                 20.6 kB         650 kB
+├ ƒ /user/trips/[tripId]/documents                       14.1 kB         480 kB
+├ ○ /user/trips/create                                   38.2 kB         399 kB
+├ ○ /user/trips/invoice                                  26.2 kB         629 kB
+├ ○ /user/trucks                                         7.27 kB         518 kB
+├ ƒ /user/trucks/[truckNo]                               4.21 kB         399 kB
+├ ƒ /user/trucks/[truckNo]/documents                     14 kB           480 kB
+├ ƒ /user/trucks/[truckNo]/driverExpense                 7.33 kB         158 kB
+├ ƒ /user/trucks/[truckNo]/fuel                          6.8 kB          152 kB
+├ ƒ /user/trucks/[truckNo]/maintainence                  7.33 kB         158 kB
+├ ƒ /user/trucks/[truckNo]/trips                         4.22 kB         382 kB
+└ ○ /user/trucks/create                                  2.37 kB         178 kB
++ First Load JS shared by all                            89 kB
+  ├ chunks/2117-ef4d1ad417265ab6.js                      31.8 kB
+  ├ chunks/fd9d1056-24a9f08f1d20e796.js                  53.6 kB
+  └ other shared chunks (total)                          3.62 kB
+
+
+ƒ Middleware                                             42.7 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
