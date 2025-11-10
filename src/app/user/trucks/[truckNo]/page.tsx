@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState,  } from 'react';
-import { IExpense, } from '@/utils/interface';
 import { useParams, useRouter } from 'next/navigation';
 import { statuses } from '@/utils/schema';
 import dynamic from 'next/dynamic';
@@ -27,21 +26,21 @@ const TruckPage = () => {
   const [revenue, setRevenue] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [modelOpen, setModelOpen] = useState(false);
-  const [selected, setSelected] = useState<IExpense | null>(null);
+  const [selected, setSelected] = useState(null);
 
   const AddExpenseModal = dynamic(() => import('@/components/AddExpenseModal'), { ssr: false })
 
-  const handleExpense = async (editedExpense: IExpense) => {
+  const handleExpense = async (editedExpense) => {
     try {
       if (selected) {
-        const expense: any = await handleEditExpense(editedExpense, selected._id as string);
-        setTruck((prev: any) => ({
+        const expense = await handleEditExpense(editedExpense, selected._id);
+        setTruck((prev) => ({
           ...prev,
-          truckLedger: prev.truckLedger.map((item: any) => (item._id === expense._id ? expense : item)),
+          truckLedger: prev.truckLedger.map((item) => (item._id === expense._id ? expense : item)),
         }));
       } else {
-        const expense: any = await handleAddExpense(editedExpense);
-        setTruck((prev: any) => ({
+        const expense = await handleAddExpense(editedExpense);
+        setTruck((prev) => ({
           ...prev,
           truckLedger: [expense, ...prev.truckLedger], // Add new expense at the beginning
         }));
@@ -52,13 +51,13 @@ const TruckPage = () => {
     }
   };
 
-  const handleDeleteExpense = async (id: string) => {
+  const handleDeleteExpense = async (id) => {
     try {
       const expense = await DeleteExpense(id);
       if (expense) {
-        setTruck((prev: any) => ({
+        setTruck((prev) => ({
           ...prev,
-          truckLedger: prev.truckLedger.filter((item: any) => item._id !== expense._id),
+          truckLedger: prev.truckLedger.filter((item) => item._id !== expense._id),
         }));
       }
     } catch (error) {
@@ -82,7 +81,7 @@ const TruckPage = () => {
 
         setTotalExpense(profitData.truckExpense);
         setRevenue(profitData.tripRevenue);
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching data:', error);
         alert(error.message);
       }
@@ -114,7 +113,7 @@ const TruckPage = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {truck.truckLedger.map((item: any, index: number) => (
+            {truck.truckLedger.map((item, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <div className='flex items-center space-x-2'>
@@ -175,7 +174,7 @@ const TruckPage = () => {
           setSelected(null);
       }}
         onSave={handleExpense}
-        truckNo={truckNo as string}
+        truckNo={truckNo}
         categories={['Truck Expense', 'Trip Expense', 'Office Expense']} driverId={''}
         selected={selected} />
     </div>

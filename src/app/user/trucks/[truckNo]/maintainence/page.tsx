@@ -20,7 +20,7 @@ const TruckMaintainenceBook = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [maintainenceBook, setMaintainenceBook] = useState<IExpense[] | any[]>([]);
   const [modelOpen, setModelOpen] = useState(false);
-  const [selected, setSelected] = useState<IExpense | null>();
+  const [selected, setSelected] = useState();
   const [error, setError] = useState<string | null>(null);
 
   const AddExpenseModal = dynamic(()=>import('@/components/AddExpenseModal'),{ssr : false})
@@ -44,7 +44,7 @@ const TruckMaintainenceBook = () => {
     fetchMaintenance();
   }, [truckNo]);
 
-  const handleDelete = async (id: string, e: React.FormEvent) => {
+  const handleDelete = async (id, e) => {
     e.stopPropagation();
     try {
       const expense = await DeleteExpense(id)
@@ -55,7 +55,7 @@ const TruckMaintainenceBook = () => {
     }
   };
 
-  const handleAddCharge = async (newCharge: any, id?: string) => {
+  const handleAddCharge = async (newCharge, id) => {
     try {
       if(!selected){
         const expense = await handleAddExpense(newCharge)
@@ -64,8 +64,8 @@ const TruckMaintainenceBook = () => {
           ...prev
         ])
       }else{
-        const expense = await handleEditExpense(newCharge, selected._id as string)
-        setMaintainenceBook((prev)=>prev.map((item : any)=> item._id === selected._id ? {...item,expense} : item))
+        const expense = await handleEditExpense(newCharge, selected._id)
+        setMaintainenceBook((prev)=>prev.map((item)=> item._id === selected._id ? {...item,expense} : item))
       }
     } catch (error: any) {
       console.log(error);

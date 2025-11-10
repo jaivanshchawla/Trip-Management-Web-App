@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const headings: any = {
+const headings = {
   '/user/suppliers': 'Suppliers',
   '/user/suppliers/create': 'New Supplier'
 }
 
-const SuppliersLayout = ({ children }: { children: React.ReactNode }) => {
+const SuppliersLayout = ({ children }) => {
   const pathname = usePathname()
   return (
     <div className={`${inter.className} max-h-screen flex flex-col`}>

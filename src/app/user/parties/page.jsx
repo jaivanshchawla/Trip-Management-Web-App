@@ -22,10 +22,10 @@ const PartiesPage = () => {
 
   const {parties, isLoading, refetchParties} = useExpenseData()
 
-  // const [parties, setParties] = useState<IParty[] | null>(null);
+  // const [parties, setParties] = useState(null);
   // const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' })
+  const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
 
   useEffect(() => {
     refetchParties()
@@ -33,7 +33,7 @@ const PartiesPage = () => {
 
   const sortedParties = useMemo(() => {
     if (!parties || parties.length === 0) return []; // This line ensures that trips is not null or empty
-    let sortableTrips = [...parties as any];
+    let sortableTrips = [...parties];
     if (sortConfig.key !== null) {
       sortableTrips.sort((a, b) => {
         if (a[sortConfig.key!] < b[sortConfig.key!]) {
@@ -51,15 +51,15 @@ const PartiesPage = () => {
   
 
 
-  const requestSort = (key: any) => {
-    let direction: 'asc' | 'desc' = 'asc'
+  const requestSort = (key) => {
+    let direction = 'asc'
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc'
     }
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName: any) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />
     }
@@ -114,7 +114,7 @@ const PartiesPage = () => {
           </TableHeader>
           <TableBody>
             {sortedParties.map((party, index) => (
-              <TableRow index={index + 1} key={party.party_id as string} className="border-t w-full cursor-pointer" onClick={() => router.push(`/user/parties/${party.party_id}/trips`)}>
+              <TableRow index={index + 1} key={party.party_id} className="border-t w-full cursor-pointer" onClick={() => router.push(`/user/parties/${party.party_id}/trips`)}>
                 <TableCell>
                   <div className='flex items-center space-x-2'>
                     <GoOrganization className="text-bottomNavBarColor" />

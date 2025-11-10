@@ -2,20 +2,19 @@
 
 import React, { useEffect, useState } from 'react';
 import SupplierForm from '@/components/createSupplier';
-import { ISupplier } from '@/utils/interface';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { isValidPhone } from '@/utils/validate';
 import Loading from '../loading';
 
 
-const CreateSupplierPage: React.FC = () => {
+const CreateSupplierPage = () => {
     const [saving, setSaving] = useState(false)
     const router = useRouter();
     const params = useSearchParams()
     const nextpath = params.get('nextpath')
 
 
-    const handlePartySubmit = async (supplier: ISupplier) => {
+    const handlePartySubmit = async (supplier) => {
         setSaving(true)
 
 

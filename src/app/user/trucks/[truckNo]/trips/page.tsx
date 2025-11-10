@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { ITrip, IParty } from '@/utils/interface';
 import { statuses } from '@/utils/schema';
 import { FaCalendarAlt, FaTruck, FaRoute, FaFileInvoiceDollar, FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -18,14 +17,14 @@ const TruckTripsPage = () => {
   const router = useRouter();
   const { truckNo } = useParams();
   
-  const [error, setError] = useState<string | null>(null);
-  const [parties, setParties] = useState<IParty[]>([]);
-  const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' })
+  const [error, setError] = useState(null);
+  const [parties, setParties] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
 
   const trips = useMemo(()=>{
-    let filteredTrips: any = []
+    let filteredTrips = []
     if (!truck?.truckLedger || truck?.truckLedger?.length === 0) return []; 
-    truck.truckLedger.map((item : any)=>{
+    truck.truckLedger.map((item)=>{
       if(item.type === 'trip') filteredTrips.push(item)
     })
     return filteredTrips
@@ -33,13 +32,13 @@ const TruckTripsPage = () => {
 
   const sortedTrips = useMemo(() => {
     if (!truck?.truckLedger || truck?.truckLedger?.length === 0) return []; // This line ensures that trips is not null or empty
-    let sortableTrips = [...trips as any];
+    let sortableTrips = [...trips];
     if (sortConfig.key !== null) {
       sortableTrips.sort((a, b) => {
-        if (a[sortConfig.key!] < b[sortConfig.key!]) {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? -1 : 1;
         }
-        if (a[sortConfig.key!] > b[sortConfig.key!]) {
+        if (a[sortConfig.key] > b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? 1 : -1;
         }
         return 0;
@@ -49,15 +48,15 @@ const TruckTripsPage = () => {
   }, [trips, sortConfig]);
 
 
-  const requestSort = (key: keyof ITrip) => {
-    let direction: 'asc' | 'desc' = 'asc'
+  const requestSort = (key) => {
+    let direction = 'asc'
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc'
     }
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName: keyof ITrip) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />
     }

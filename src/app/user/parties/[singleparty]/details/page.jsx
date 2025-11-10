@@ -6,21 +6,10 @@ import Loading from '../loading';
 import Link from 'next/link';
 import { useParty } from '@/context/partyContext';
 
-interface Party {
-  address: string;
-  balance: number;
-  contactNumber: string;
-  contactPerson: string;
-  gstNumber: string;
-  name: string;
-  party_id: string;
-  user_id: string;
-}
-
 const PartyDetails = () => {
   const router = useRouter();
   const { party, setParty, loading } = useParty()
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   // const fetchPartyDetails = async (partyId: string) => {
@@ -38,13 +27,13 @@ const PartyDetails = () => {
   //   }
   // };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     if (party) {
       setParty({ ...party, [e.target.name]: e.target.value });
     }
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     if (party) {
       try {
@@ -69,7 +58,7 @@ const PartyDetails = () => {
         setIsEditing(false);
         // Optionally refetch data
 
-      } catch (err: any) {
+      } catch (err) {
         alert(err.message)
       } finally {
 
@@ -90,7 +79,7 @@ const PartyDetails = () => {
           throw new Error('Failed to delete party');
         }
         router.push('/user/parties');
-      } catch (err: any) {
+      } catch (err) {
         console.log(err)
         alert(err.message)
       }

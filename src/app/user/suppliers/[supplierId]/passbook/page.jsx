@@ -4,7 +4,6 @@ import TripRoute from '@/components/trip/TripRoute'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useSupplier } from '@/context/supplierContext'
-import { ISupplierAccount, ITrip } from '@/utils/interface'
 import { formatNumber } from '@/utils/utilArray'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
@@ -36,7 +35,7 @@ const SupplierPassbook = () => {
   //   fetchData()
   // }, [supplierId])
 
-  const handleDeleteAccount = async (paymentId: string) => {
+  const handleDeleteAccount = async (paymentId) => {
     const res = await fetch(`/api/suppliers/${supplierId}/payments/${paymentId}`, {
       method: 'DELETE',
       headers: {
@@ -49,10 +48,10 @@ const SupplierPassbook = () => {
     }
     const data = await res.json()
     console.log(data)
-    // setAccounts(accounts.filter((acc: ISupplierAccount) => acc._id !== paymentId))
-    setSupplier((prev: any) => ({
+    // setAccounts(accounts.filter((acc) => acc._id !== paymentId))
+    setSupplier((prev) => ({
       ...prev,
-      supplierTripAccounts: prev.supplierTripAccounts.filter((acc: any) => acc._id !== paymentId),
+      supplierTripAccounts: prev.supplierTripAccounts.filter((acc) => acc._id !== paymentId),
       balance : prev.balance - data.payment.amount
     }))
   }
@@ -73,7 +72,7 @@ const SupplierPassbook = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {supplier.supplierTripAccounts && supplier.supplierTripAccounts.map((acc: any, index: number) => (
+            {supplier.supplierTripAccounts && supplier.supplierTripAccounts.map((acc, index) => (
               <TableRow key={index} className="border-t hover:bg-slate-100 cursor-pointer">
                 <TableCell className="border p-2">
                   <div className="flex items-center space-x-2">

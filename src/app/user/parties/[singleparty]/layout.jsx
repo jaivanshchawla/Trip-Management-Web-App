@@ -5,11 +5,7 @@ import { useParams } from 'next/navigation';
 import PartyLayout from '@/components/layout/PartyLayout';
 import { PartyProvider } from '@/context/partyContext';
 
-interface PartyLayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
   const { singleparty } = useParams();
 
   if (!singleparty) {
@@ -17,8 +13,8 @@ const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
   }
 
   return (
-    <PartyProvider partyId={singleparty as string}>
-      <PartyLayout partyId={singleparty as string}>
+    <PartyProvider partyId={singleparty}>
+      <PartyLayout partyId={singleparty}>
         {children}
       </PartyLayout>
     </PartyProvider>

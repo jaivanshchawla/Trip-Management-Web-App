@@ -1,8 +1,7 @@
-// PartiesPage.tsx
+// PartiesPage.jsx
 'use client'
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ISupplier } from '@/utils/interface';
 import Loading from './loading';
 import { useRouter } from 'next/navigation';
 import { FaUserTie, FaPhone, FaTruck, FaWallet, FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
@@ -15,10 +14,10 @@ const SuppliersPage = () => {
 
   const router = useRouter();
   const {suppliers, isLoading, refetchSuppliers} = useExpenseData()
-  // const [suppliers, setSuppliers] = useState<ISupplier[] | any>([]);
+  // const [suppliers, setSuppliers] = useState([]);
   // const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' });
+  const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [searchQuery, setSearchQuery] = useState(''); // Track the search query
 
   useEffect(() => {
@@ -51,8 +50,8 @@ const SuppliersPage = () => {
   // }, []);
 
   // Function to request sorting
-  const requestSort = (key: any) => {
-    let direction: 'asc' | 'desc' = 'asc';
+  const requestSort = (key) => {
+    let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
@@ -60,7 +59,7 @@ const SuppliersPage = () => {
   };
 
   // Sort icon logic
-  const getSortIcon = (columnName: any) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     }
@@ -74,7 +73,7 @@ const SuppliersPage = () => {
   );
 
   // Handle search input
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e) => {
     debouncedSearch(e.target.value.toLowerCase());
   };
 
@@ -84,7 +83,7 @@ const SuppliersPage = () => {
 
     // Filter based on search query
     if (searchQuery) {
-      filteredSuppliers = suppliers.filter((supplier: any) =>
+      filteredSuppliers = suppliers.filter((supplier) =>
         supplier.name.toLowerCase().includes(searchQuery) ||
         supplier.contactNumber.toString().includes(searchQuery) ||
         supplier.tripCount.toString().includes(searchQuery) ||
@@ -94,7 +93,7 @@ const SuppliersPage = () => {
 
     // Sort the suppliers
     if (sortConfig.key !== null) {
-      filteredSuppliers.sort((a: any, b: any) => {
+      filteredSuppliers.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? -1 : 1;
         }
@@ -192,10 +191,10 @@ const SuppliersPage = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredAndSortedSuppliers?.map((supplier: any, index) => (
+            {filteredAndSortedSuppliers?.map((supplier, index) => (
               <TableRow
                 index = {index + 1}
-                key={supplier.supplier_id as string}
+                key={supplier.supplier_id}
                 onClick={() => router.push(`suppliers/${supplier.supplier_id}/trips`)}
               >
                 <TableCell >

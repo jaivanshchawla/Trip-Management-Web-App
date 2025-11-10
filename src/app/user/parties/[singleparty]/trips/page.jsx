@@ -1,7 +1,6 @@
 'use client';
 import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ITrip } from '@/utils/interface';
 import { statuses } from '@/utils/schema';
 import { FaCalendarAlt, FaTruck, FaRoute, FaFileInvoiceDollar, FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
 import Loading from '../loading';
@@ -13,8 +12,8 @@ import { renderCellContent } from '@/utils/renderTripCell';
 const SinglePartyTrips = () => {
   const { party, loading } = useParty();
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
-  const [sortConfig, setSortConfig] = useState<{ key: keyof ITrip | null; direction: 'asc' | 'desc' }>({
+  const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: 'asc',
   });
@@ -31,18 +30,18 @@ const SinglePartyTrips = () => {
   // Memoized sorted trips
   const sortedTrips = useMemo(() => {
     if (!party?.items || party?.items?.length === 0) return []; // Ensure trips is not null or empty
-    let sortableTrips: ITrip[] = [];
+    let sortableTrips = [];
 
     // Filter trips based on type
-    party.items.forEach((item: any) => {
+    party.items.forEach((item) => {
       if (item.type === 'trip') sortableTrips.push(item);
     });
 
     // Apply sorting if sortConfig key is not null
     if (sortConfig.key) {
-      sortableTrips.sort((a: ITrip, b: ITrip) => {
-        const aValue = a[sortConfig.key as keyof ITrip];
-        const bValue = b[sortConfig.key as keyof ITrip];
+      sortableTrips.sort((a, b) => {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
 
         if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
         if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
@@ -54,8 +53,8 @@ const SinglePartyTrips = () => {
   }, [party, sortConfig]);
 
   // Function to request sorting
-  const requestSort = (key: keyof ITrip) => {
-    let direction: 'asc' | 'desc' = 'asc';
+  const requestSort = (key) => {
+    let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
@@ -63,7 +62,7 @@ const SinglePartyTrips = () => {
   };
 
   // Function to get sort icon
-  const getSortIcon = (columnName: keyof ITrip) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     }
@@ -96,7 +95,7 @@ const SinglePartyTrips = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sortedTrips?.map((trip: any) => (
+          {sortedTrips?.map((trip) => (
             <TableRow
               key={trip.trip_id}
               className="border-t hover:bg-orange-100 cursor-pointer transition-colors"

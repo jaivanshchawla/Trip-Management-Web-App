@@ -1,6 +1,5 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {  ITrip } from '@/utils/interface'
 import { statuses } from '@/utils/schema'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -15,17 +14,17 @@ import { useSupplier } from '@/context/supplierContext'
 const SupplierDetailPage = () => {
 
     const {supplier, setSupplier, loading} = useSupplier()
-    const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' })
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
 
     const sortedTrips = useMemo(() => {
       if (!supplier?.supplierTripAccounts || supplier?.suppplierTripAccounts?.length === 0) return []; // This line ensures that trips is not null or empty
-      let sortableTrips = [...supplier.supplierTripAccounts as any];
+      let sortableTrips = [...supplier.supplierTripAccounts];
       if (sortConfig.key !== null) {
         sortableTrips.sort((a, b) => {
-          if (a[sortConfig.key!] < b[sortConfig.key!]) {
+          if (a[sortConfig.key] < b[sortConfig.key]) {
             return sortConfig.direction === 'asc' ? -1 : 1;
           }
-          if (a[sortConfig.key!] > b[sortConfig.key!]) {
+          if (a[sortConfig.key] > b[sortConfig.key]) {
             return sortConfig.direction === 'asc' ? 1 : -1;
           }
           return 0;
@@ -35,15 +34,15 @@ const SupplierDetailPage = () => {
     }, [supplier, sortConfig]);
   
   
-    const requestSort = (key: keyof ITrip) => {
-      let direction: 'asc' | 'desc' = 'asc'
+    const requestSort = (key) => {
+      let direction = 'asc'
       if (sortConfig.key === key && sortConfig.direction === 'asc') {
         direction = 'desc'
       }
       setSortConfig({ key, direction })
     }
   
-    const getSortIcon = (columnName: keyof ITrip) => {
+    const getSortIcon = (columnName) => {
       if (sortConfig.key === columnName) {
         return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />
       }

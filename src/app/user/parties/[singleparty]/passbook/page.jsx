@@ -12,40 +12,21 @@ import { Button } from '@/components/ui/button';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { PaymentBook } from '@/utils/interface';
-
-interface ITrip {
-  trip_id: string;
-  date: Date;
-  truck: string;
-  description: {
-    origin: string;
-    destination: string;
-  };
-  amount: number;
-}
-
-interface IAccount {
-  accountType: string;
-  amount: number;
-  date: Date;
-  trip_id: string;
-}
 
 const SinglePartyPassbook = () => {
   const { party, setParty, loading } = useParty()
   const router = useRouter();
   console.log(party)
 
-  const [error, setError] = useState<string | null>(null);
-  const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' })
-  const [selected, setSelected] = useState<PaymentBook | any>()
+  const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
+  const [selected, setSelected] = useState()
   const [isOpen, setIsOpen] = useState(false)
 
   const PaymentModal = dynamic(() => import('@/components/party/PaymentModal'))
 
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id) => {
     try {
       const res = await fetch(`/api/parties/${party.party_id}/payments/${id}`, {
         method: 'DELETE',
@@ -58,9 +39,9 @@ const SinglePartyPassbook = () => {
       }
       const data = await res.json()
       const payment = data.payment
-      setParty((prev: any) => ({
+      setParty((prev) => ({
         ...prev,
-        items: prev.items.filter((item: PaymentBook | ITrip | any) => item._id !== payment._id)
+        items: prev.items.filter((item) => item._id !== payment._id)
       }))
     } catch (error) {
       alert('Failed to delete payment')
@@ -68,7 +49,7 @@ const SinglePartyPassbook = () => {
   }
 
 
-  const handlePayment = async (payment: PaymentBook | any) => {
+  const handlePayment = async (payment) => {
     try {
       const res = await fetch(`/api/parties/${party.party_id}/payments/${selected?._id}`, {
         method: 'PUT',
@@ -82,7 +63,7 @@ const SinglePartyPassbook = () => {
       }
       const data = await res.json();
       const editedPayment = data.payment;
-      const updatedItems = party.items.map((item: any) => item._id === editedPayment._id ? { ...editedPayment, description: editedPayment.accountType, type: 'payment' } : item)
+      const updatedItems = party.items.map((item) => item._id === editedPayment._id ? { ...editedPayment, description: editedPayment.accountType, type: 'payment' } : item)
 
 
       setParty({ ...party, items: updatedItems });
@@ -109,10 +90,10 @@ const SinglePartyPassbook = () => {
           return 0;
         } else {
           // Sort by other fields (e.g., amount, revenue, etc.)
-          if (a[sortConfig.key as keyof typeof a] < b[sortConfig.key as keyof typeof b]) {
+          if (a[sortConfig.key] < b[sortConfig.key]) {
             return sortConfig.direction === 'asc' ? -1 : 1;
           }
-          if (a[sortConfig.key as keyof typeof a] > b[sortConfig.key as keyof typeof b]) {
+          if (a[sortConfig.key] > b[sortConfig.key]) {
             return sortConfig.direction === 'asc' ? 1 : -1;
           }
           return 0;
@@ -125,15 +106,15 @@ const SinglePartyPassbook = () => {
 
 
 
-  const requestSort = (key: keyof ITrip | IAccount | any) => {
-    let direction: 'asc' | 'desc' = 'asc'
+  const requestSort = (key) => {
+    let direction = 'asc'
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc'
     }
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName: keyof ITrip | IAccount | any) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />
     }
@@ -172,7 +153,7 @@ const SinglePartyPassbook = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sortedAccounts.map((acc: any, index) => (
+          {sortedAccounts.map((acc, index) => (
             <TableRow
               key={index}
               className=" cursor-none"

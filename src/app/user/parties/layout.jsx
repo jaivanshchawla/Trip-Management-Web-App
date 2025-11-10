@@ -11,9 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 // Notification Component
 
 
-const PartiesLayout = ({ children }: { children: React.ReactNode }) => {
+const PartiesLayout = ({ children }) => {
 
-  const headings: any = {
+  const headings = {
     '/user/parties': 'Customers',
     '/user/parties/create': 'New Customer',
   };

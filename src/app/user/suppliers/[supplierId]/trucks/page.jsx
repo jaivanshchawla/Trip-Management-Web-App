@@ -16,14 +16,14 @@ import Link from 'next/link';
 const SupplierTrucks = () => {
     const router = useRouter();
     const { supplier, setSupplier, loading } = useSupplier()
-    const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' });
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const [searchQuery, setSearchQuery] = useState('');
     const debouncedSearch = useMemo(
-        () => debounce((query: string) => setSearchQuery(query), 300),
+        () => debounce((query) => setSearchQuery(query), 300),
         []
     );
 
-    const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearch = useCallback((e) => {
         debouncedSearch(e.target.value.toLowerCase());
     }, [debouncedSearch]);
 
@@ -47,10 +47,10 @@ const SupplierTrucks = () => {
 
         if (sortConfig.key) {
             filteredTrucks.sort((a, b) => {
-                if (a[sortConfig.key!] < b[sortConfig.key!]) {
+                if (a[sortConfig.key] < b[sortConfig.key]) {
                     return sortConfig.direction === 'asc' ? -1 : 1;
                 }
-                if (a[sortConfig.key!] > b[sortConfig.key!]) {
+                if (a[sortConfig.key] > b[sortConfig.key]) {
                     return sortConfig.direction === 'asc' ? 1 : -1;
                 }
                 return 0;
@@ -60,14 +60,14 @@ const SupplierTrucks = () => {
         return filteredTrucks;
     }, [sortConfig, searchQuery]);
 
-    const requestSort = useCallback((key: any) => {
-        setSortConfig((prevConfig: any) => ({
+    const requestSort = useCallback((key) => {
+        setSortConfig((prevConfig) => ({
             key,
             direction: prevConfig.key === key && prevConfig.direction === 'asc' ? 'desc' : 'asc',
         }));
     }, []);
 
-    const getSortIcon = useCallback((columnName: any) => {
+    const getSortIcon = useCallback((columnName) => {
         if (sortConfig.key === columnName) {
             return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
         }

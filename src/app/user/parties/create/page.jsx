@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import PartyForm from '@/components/createParty';
-import { IParty } from '@/utils/interface';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { isValidGSTNumber } from '@/utils/validate';
 import { isValidPhone } from '@/utils/validate';
@@ -10,14 +9,14 @@ import Loading from '../loading';
 
 
 
-const CreatePartyPage: React.FC = () => {
+const CreatePartyPage = () => {
     const [saving, setSaving] = useState(false)
     const router = useRouter()
     const params = useSearchParams()
     const nextpath = params.get('nextpath')
 
 
-    const handlePartySubmit = async (party: IParty) => {
+    const handlePartySubmit = async (party) => {
         setSaving(true)
         if (party.gstNumber && !isValidGSTNumber(party.gstNumber)) {
             alert('Invalid GST number. Please enter a valid GST number.');
