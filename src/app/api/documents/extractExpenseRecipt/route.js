@@ -1,4 +1,4 @@
-async function extractReciptDetails(text: string) {
+async function extractReciptDetails(text) {
     const prompt = `
     This is extracted text from pdf extract these details from it i.e amount, date, expenseType. Give all this in JSON format. Return Empty string for field if not found.
 
@@ -6,8 +6,7 @@ async function extractReciptDetails(text: string) {
     Extracted Text:
     ${text}
   
-    Response format :
-    {
+    Response format : {
         amount : '',
         date : '',
         expenseType : '',
@@ -41,7 +40,7 @@ async function extractReciptDetails(text: string) {
 import { verifyToken } from "@/utils/auth";
 import { NextResponse } from "next/server";
 
-export async function POST(req:Request) {
+export async function POST(req) {
     try {
         const {user, error} = await verifyToken(req)
         if(!user || error){

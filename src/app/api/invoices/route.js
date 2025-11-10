@@ -6,7 +6,7 @@ import { recentActivity } from "@/helpers/recentActivity";
 
 const Invoice = models.Invoice || model("Invoice", InvoiceSchema);
 
-export async function GET(req: Request) {
+export async function GET(req) {
     try {
         const { user, error } = await verifyToken(req);
         if (!user || error) {
@@ -15,23 +15,18 @@ export async function GET(req: Request) {
 
         await connectToDatabase()
 
-        const debugPipeline = [
-            { $match: { user_id: user } },
-            {
+        const debugPipeline = [ { $match: { user_id: user } }, {
                 $lookup: {
                     from: "parties",
                     localField: "party_id",
                     foreignField: "party_id",
                     as: "partyDetails",
                 },
-            },
-            { $unwind: { path: "$partyDetails", preserveNullAndEmptyArrays: true } }, // Ensure null values are preserved for debugging
-            {
+            }, { $unwind: { path: "$partyDetails", preserveNullAndEmptyArrays: true } }, // Ensure null values are preserved for debugging {
                 $addFields: {
                     partyName: "$partyDetails.name",
                 },
-            },
-            {
+            }, {
                 $project: {
                     partyDetails: 0,
                 },
@@ -47,7 +42,7 @@ export async function GET(req: Request) {
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(req) {
     try {
         // Verify user token
         const { user, error } = await verifyToken(req);
@@ -85,9 +80,7 @@ export async function POST(req: Request) {
 
         const Trip = models.Trip || model('Trip', tripSchema)
 
-        await Trip.updateMany(
-            { trip_id: { $in: data.trips } },
-            { $set: { invoice: true, invoice_id: newInvoice._id } }
+        await Trip.updateMany({ trip_id: { $in: data.trips } }, { $set: { invoice: true, invoice_id: newInvoice._id } }
         );
 
         // Save the updated trip document

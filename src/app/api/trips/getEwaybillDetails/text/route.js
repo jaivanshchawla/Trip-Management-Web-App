@@ -2,7 +2,7 @@ import { extractEWayBillDetails } from "@/helpers/TripOperation";
 import { verifyToken } from "@/utils/auth";
 import { NextResponse } from "next/server";
 
-export async function POST(req:Request) {
+export async function POST(req) {
     try {
         const {user, error} = await verifyToken(req)
         if(!user || error){

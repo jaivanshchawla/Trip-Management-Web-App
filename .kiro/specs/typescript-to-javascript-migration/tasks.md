@@ -233,6 +233,7 @@
 
 - [ ] 20. Convert API routes (data entities)
 
+
   - Convert all route.ts files in src/app/api/drivers/ to route.js
   - Convert all route.ts files in src/app/api/parties/ to route.js
   - Convert all route.ts files in src/app/api/suppliers/ to route.js
@@ -242,7 +243,9 @@
 
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [-] 21. Convert API routes (operations and services)
+- [x] 21. Convert API routes (operations and services)
+
+
 
 
   - Convert all route.ts files in src/app/api/trips/ to route.js
@@ -273,6 +276,7 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
 - [ ] 24. Convert remaining utility files
+
   - Convert src/lib/analytics.tsx to .jsx
   - Convert src/lib/utils.ts to .js
   - Convert src/utils/DocGeneration.tsx to .jsx

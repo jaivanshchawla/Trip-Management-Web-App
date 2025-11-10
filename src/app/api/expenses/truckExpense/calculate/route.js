@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 // Define the Expense model
 const Expense = models.Expense || model('Expense', ExpenseSchema);
 
-export async function GET(req: Request) {
+export async function GET(req) {
   const { user, error } = await verifyToken(req);
   if (error) {
     return NextResponse.json({ error }, { status: 401 }); // Unauthorized
@@ -19,9 +19,7 @@ export async function GET(req: Request) {
   if (!month || !year) {
     await connectToDatabase();
     const expenses = await Expense.find({
-      user_id: user, $or: [
-        { trip_id: { $exists: false } },
-        { trip_id: { $eq: '' } }
+      user_id: user, $or: [ { trip_id: { $exists: false } }, { trip_id: { $eq: '' } }
       ]
     }).lean();
 
@@ -32,7 +30,7 @@ export async function GET(req: Request) {
   }
 
   // Map of month names to month numbers (0-indexed)
-  const monthMap: { [key: string]: number } = {
+  const monthMap = {
     January: 0,
     February: 1,
     March: 2,
@@ -63,9 +61,7 @@ export async function GET(req: Request) {
         $gte: startDate,
         $lt: endDate,
       },
-      $or: [
-        { trip_id: { $exists: false } },
-        { trip_id: { $eq: '' } }
+      $or: [ { trip_id: { $exists: false } }, { trip_id: { $eq: '' } }
       ]
     }).lean();
 
@@ -73,7 +69,7 @@ export async function GET(req: Request) {
     const totalExpense = expenses.reduce((sum, expense) => sum + (expense.amount || 0), 0);
 
     return NextResponse.json({ totalExpense, status: 200 });
-  } catch (err: any) {
+  } catch (err) {
     console.error('Error fetching expenses:', err);
     return NextResponse.json({ message: 'Internal Server Error', status: 500 });
   }

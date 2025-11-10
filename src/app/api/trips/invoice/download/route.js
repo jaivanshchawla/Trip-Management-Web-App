@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 const TripCharges = models.TripCharges || model("TripCharges", tripChargesSchema);
 const PartyPayments = models.PartyPayments || model("PartyPayments", PartyPaymentSchema);
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     const { user, error } = await verifyToken(req);
     if (!user || error) {
@@ -24,13 +24,13 @@ export async function POST(req: Request) {
       newCharges,
     } = data;
 
-    const bulkOperations: Promise<any>[] = [];
+    const bulkOperations[] = [];
 
     // Handle Edited Payments
     if (editedPayments && editedPayments.length > 0) {
-      const paymentUpdates = editedPayments.map((payment: any) => ({
+      const paymentUpdates = editedPayments.map((payment) => ({
         updateOne: {
-          filter: { _id: payment.id },
+          filter,
           update: { $set: payment },
         },
       }));
@@ -39,9 +39,9 @@ export async function POST(req: Request) {
 
     // Handle Edited Charges
     if (editedCharges && editedCharges.length > 0) {
-      const chargeUpdates = editedCharges.map((charge: any) => ({
+      const chargeUpdates = editedCharges.map((charge) => ({
         updateOne: {
-          filter: { _id: charge._id },
+          filter,
           update: { $set: charge },
         },
       }));
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
     // Handle New Payments
     if (newPayments && newPayments.length > 0) {
-      const payments = newPayments.map((payment : any)=>({
+      const payments = newPayments.map((payment )=>({
         user_id : user,
         ...payment
       }))
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
     // Handle New Charges
     if (newCharges && newCharges.length > 0) {
-      const charges = newCharges.map((charge : any)=>({
+      const charges = newCharges.map((charge )=>({
         user_id : user,
         ...charge
       }))
@@ -79,15 +79,11 @@ export async function POST(req: Request) {
     // Execute All Bulk Operations
     const results = await Promise.all(bulkOperations);
 
-    return NextResponse.json(
-      { message: "Operations successful", results },
-      { status: 200 }
+    return NextResponse.json({ message: "Operations successful", results }, { status: 200 }
     );
-  } catch (error : any) {
+  } catch (error ) {
     console.error("Error handling request:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error", details: error.message },
-      { status: 500 }
+    return NextResponse.json({ error: "Internal Server Error", details: error.message }, { status: 500 }
     );
   }
 }

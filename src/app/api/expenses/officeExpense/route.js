@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 const Expense = models.Expense || model('Expense', ExpenseSchema)
 
-export async function GET(req: Request) {
+export async function GET(req) {
   try {
     const { user, error } = await verifyToken(req);
     if (error) {
@@ -14,13 +14,13 @@ export async function GET(req: Request) {
     }
 
     const url = new URL(req.url);
-    const filter = JSON.parse(url.searchParams.get('filter') as string);
+    const filter = JSON.parse(url.searchParams.get('filter') );
 
-    let query: any = { user_id: user };
+    let query = { user_id: user };
 
     // Handle the month-year array in filter?
     if (filter && filter.monthYear && filter.monthYear.length > 0) {
-      const dateConditions = filter.monthYear.map((monYear: string) => {
+      const dateConditions = filter.monthYear.map((monYear) => {
         const [month, year] = monYear.split(' ');
         const monthNumber = monthMap[month];
         const startDate = new Date(parseInt(year), monthNumber, 1);
@@ -60,17 +60,11 @@ export async function GET(req: Request) {
 
     query.$and = query.$and || [];
     query.$and.push({
-      $and: [
-        {
-          $or: [
-            { trip_id: { $exists: false } },
-            { trip_id: { $eq: '' } }
+      $and: [ {
+          $or: [ { trip_id: { $exists: false } }, { trip_id: { $eq: '' } }
           ]
-        },
-        {
-          $or: [
-            { truck: { $exists: false } },
-            { truck: { $eq: '' } }
+        }, {
+          $or: [ { truck }, { truck }
           ]
         }
       ]
@@ -78,17 +72,14 @@ export async function GET(req: Request) {
     });
 
     await connectToDatabase();
-    const expenses = await Expense.aggregate([
-      {
+    const expenses = await Expense.aggregate([ {
         $match: query
-      },
-      {
+      }, {
         // Lookup shops details if shop_id exists
         $lookup: {
           from: 'shopkhatas',
           let: { shop_id: '$shop_id' },
-          pipeline: [
-            {
+          pipeline: [ {
               $match: {
                 $expr: {
                   $eq: ['$shop_id', '$$shop_id'] // Match only if shop_id exists
@@ -98,14 +89,12 @@ export async function GET(req: Request) {
           ],
           as: 'shops'
         }
-      },
-      {
+      }, {
         // Add fields for results and handle cases where lookups return empty arrays
         $addFields: {
-          shopName: { $ifNull: [{ $arrayElemAt: ['$shops.name', 0] }, 'N/A'] } // Provide 'N/A' if no shop
+          shopName, 'N/A'] } // Provide 'N/A' if no shop
         }
-      },
-      {
+      }, {
         $project: {
           shops: 0,
         }
@@ -113,13 +102,13 @@ export async function GET(req: Request) {
     ]).sort({date : -1});
 
     return NextResponse.json({ expenses: expenses, status: 200 });
-  } catch (err: any) {
+  } catch (err) {
     console.log(err);
     return NextResponse.json({ message: err.message, status: 500 });
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     const { user, error } = await verifyToken(req)
     if (!user || error) {
@@ -130,7 +119,7 @@ export async function POST(req: Request) {
     const expense = new Expense({ ...data, user_id: user })
     await expense.save()
     return NextResponse.json({ expense, status: 200 })
-  } catch (error: any) {
+  } catch (error) {
     console.error(error)
     return NextResponse.json({ status: 500, error })
   }

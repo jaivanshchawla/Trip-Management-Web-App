@@ -10,7 +10,7 @@ const Truck = models.Truck || model('Truck', truckSchema);
 const User = models.User || model('User', userSchema);
 const OtherDocuments = models.OtherDocuments || model('OtherDocuments', otherDocumentsSchema);
 
-export async function GET(req: Request) {
+export async function GET(req) {
     try {
         // Verify the user
         const { user, error } = await verifyToken(req);
@@ -23,38 +23,15 @@ export async function GET(req: Request) {
 
         // Use Promise.all for parallel queries
         const [tripResults, driverResults, truckResults, userResults, otherResults] = await Promise.all([
-            Trip.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: 1 } },
-                { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } },
-                { $sort: { "documents.uploadedDate": -1 } },
-                { $limit: 5 }
+            Trip.aggregate([ { $match: { user_id: user } }, { $project: { documents: 1 } }, { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } }, { $sort: { "documents.uploadedDate": -1 } }, { $limit: 5 }
             ]),
-            Driver.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: 1 } },
-                { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } },
-                { $sort: { "documents.uploadedDate": -1 } },
-                { $limit: 5 }
+            Driver.aggregate([ { $match: { user_id: user } }, { $project: { documents: 1 } }, { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } }, { $sort: { "documents.uploadedDate": -1 } }, { $limit: 5 }
             ]),
-            Truck.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: 1 } },
-                { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } },
-                { $sort: { "documents.uploadedDate": -1 } },
-                { $limit: 5 }
+            Truck.aggregate([ { $match: { user_id: user } }, { $project: { documents: 1 } }, { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } }, { $sort: { "documents.uploadedDate": -1 } }, { $limit: 5 }
             ]),
-            User.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: 1 } },
-                { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } },
-                { $sort: { "documents.uploadedDate": -1 } },
-                { $limit: 5 }
+            User.aggregate([ { $match: { user_id: user } }, { $project: { documents: 1 } }, { $unwind: { path: "$documents", preserveNullAndEmptyArrays: true } }, { $sort: { "documents.uploadedDate": -1 } }, { $limit: 5 }
             ]),
-            OtherDocuments.aggregate([
-                { $match: { user_id: user } },
-                { $sort: { uploadedDate: -1 } },
-                { $limit: 5 }
+            OtherDocuments.aggregate([ { $match: { user_id: user } }, { $sort: { uploadedDate: -1 } }, { $limit: 5 }
             ])
         ]);
 
@@ -66,33 +43,19 @@ export async function GET(req: Request) {
 
         // Count documents for each collection
         const [tripDocumentsCount, driverDocumentsCount, truckDocumentsCount, userDocumentsCount, otherDocumentsCount] = await Promise.all([
-            Trip.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: { $ifNull: ["$documents", []] } } }, // Ensure documents field exists
-                { $group: { _id: null, count: { $sum: { $size: "$documents" } } } } // Sum up the sizes of the documents array
+            Trip.aggregate([ { $match: { user_id: user } }, { $project: { documents: { $ifNull: ["$documents", []] } } }, // Ensure documents field exists { $group: { _id: null, count: { $sum: { $size: "$documents" } } } } // Sum up the sizes of the documents array
             ]).then(res => res[0]?.count || 0),
 
-            Driver.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: { $ifNull: ["$documents", []] } } },
-                { $group: { _id: null, count: { $sum: { $size: "$documents" } } } }
+            Driver.aggregate([ { $match: { user_id: user } }, { $project: { documents: { $ifNull: ["$documents", []] } } }, { $group: { _id: null, count: { $sum: { $size: "$documents" } } } }
             ]).then(res => res[0]?.count || 0),
 
-            Truck.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: { $ifNull: ["$documents", []] } } },
-                { $group: { _id: null, count: { $sum: { $size: "$documents" } } } }
+            Truck.aggregate([ { $match: { user_id: user } }, { $project: { documents: { $ifNull: ["$documents", []] } } }, { $group: { _id: null, count: { $sum: { $size: "$documents" } } } }
             ]).then(res => res[0]?.count || 0),
 
-            User.aggregate([
-                { $match: { user_id: user } },
-                { $project: { documents: { $ifNull: ["$documents", []] } } },
-                { $group: { _id: null, count: { $sum: { $size: "$documents" } } } }
+            User.aggregate([ { $match: { user_id: user } }, { $project: { documents: { $ifNull: ["$documents", []] } } }, { $group: { _id: null, count: { $sum: { $size: "$documents" } } } }
             ]).then(res => res[0]?.count || 0),
 
-            OtherDocuments.aggregate([
-                { $match: { user_id: user } },
-                { $count: "count" } // Directly count documents matching the condition
+            OtherDocuments.aggregate([ { $match: { user_id: user } }, { $count: "count" } // Directly count documents matching the condition
             ]).then(res => res[0]?.count || 0)
         ]);
 

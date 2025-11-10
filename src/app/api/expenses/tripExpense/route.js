@@ -4,7 +4,7 @@ import { model, models } from "mongoose";
 import { NextResponse } from "next/server";
 
 const Expense = models.Expense || model('Expense', ExpenseSchema);
-const monthMap: { [key: string]: number } = {
+const monthMap = {
     January: 0,
     February: 1,
     March: 2,
@@ -19,7 +19,7 @@ const monthMap: { [key: string]: number } = {
     December: 11
   };
 
-export async function GET(req: Request) {
+export async function GET(req) {
     try {
         const { user, error } = await verifyToken(req);
         if (error) {
@@ -27,13 +27,13 @@ export async function GET(req: Request) {
         }
 
         const url = new URL(req.url);
-        const filter = JSON.parse(url.searchParams.get('filter') as string);
+        const filter = JSON.parse(url.searchParams.get('filter') );
 
-        let query: any = { user_id: user };
+        let query = { user_id: user };
 
         // Handle the month-year array in filter?
         if (filter && filter.monthYear && filter.monthYear.length > 0) {
-            const dateConditions = filter.monthYear.map((monYear: string) => {
+            const dateConditions = filter.monthYear.map((monYear) => {
                 const [month, year] = monYear.split(' ');
                 const monthNumber = monthMap[month];
                 const startDate = new Date(parseInt(year), monthNumber, 1);
@@ -55,12 +55,12 @@ export async function GET(req: Request) {
         // Add additional filters (drivers, trucks, etc.) if they exist
         if (filter?.drivers && filter.drivers.length > 0) {
             query.$and = query.$and || [];
-            query.$and.push({ driver: { $in: filter.drivers } });
+            query.$and.push({ driver });
         }
 
         if (filter?.trucks && filter.trucks.length > 0) {
             query.$and = query.$and || [];
-            query.$and.push({ truck: { $in: filter.trucks } });
+            query.$and.push({ truck });
         }
 
         if (filter?.paymentModes && filter.paymentModes.length > 0) {
@@ -80,18 +80,14 @@ export async function GET(req: Request) {
 
         query.$and = query.$and || [];
         query.$and.push({
-            $and: [
-                { trip_id: { $exists: true } },
-                { trip_id: { $ne: '' } }
+            $and: [ { trip_id: { $exists: true } }, { trip_id: { $ne: '' } }
             ]
         });
 
         await connectToDatabase();
-        const tripExpense = await Expense.aggregate([
-            {
+        const tripExpense = await Expense.aggregate([ {
                 $match: query
-            },
-            {
+            }, {
                 // Lookup trips details
                 $lookup: {
                     from: 'trips',
@@ -99,14 +95,12 @@ export async function GET(req: Request) {
                     foreignField: 'trip_id',
                     as: 'trips'
                 }
-            },
-            {
+            }, {
                 // Lookup drivers details if driver_id exists
                 $lookup: {
                     from: 'drivers',
                     let: { driver_id: '$driver' },
-                    pipeline: [
-                        {
+                    pipeline: [ {
                             $match: {
                                 $expr: {
                                     $eq: ['$driver_id', '$$driver_id'] // Match only if driver_id exists
@@ -116,14 +110,12 @@ export async function GET(req: Request) {
                     ],
                     as: 'drivers'
                 }
-            },
-            {
+            }, {
                 // Lookup shops details if shop_id exists
                 $lookup: {
                     from: 'shopkhatas',
                     let: { shop_id: '$shop_id' },
-                    pipeline: [
-                        {
+                    pipeline: [ {
                             $match: {
                                 $expr: {
                                     $eq: ['$shop_id', '$$shop_id'] // Match only if shop_id exists
@@ -133,23 +125,20 @@ export async function GET(req: Request) {
                     ],
                     as: 'shops'
                 }
-            },
-            {
+            }, {
                 // Add fields for results and handle cases where lookups return empty arrays
                 $addFields: {
-                    tripRoute: { $arrayElemAt: ['$trips.route', 0] }, // Access route from trips if it exists
-                    driverName: { $ifNull: [{ $arrayElemAt: ['$drivers.name', 0] }, 'N/A'] }, // Provide 'N/A' if no driver
-                    shopName: { $ifNull: [{ $arrayElemAt: ['$shops.name', 0] }, 'N/A'] } // Provide 'N/A' if no shop
+                    tripRoute, // Access route from trips if it exists
+                    driverName, 'N/A'] }, // Provide 'N/A' if no driver
+                    shopName, 'N/A'] } // Provide 'N/A' if no shop
                 }
-            },
-            {
+            }, {
                 $project: {
                     shops: 0,
                     drivers: 0,
                     trips: 0
                 }
-            },
-            {
+            }, {
                 $sort : { date : -1}
               }
         ]);

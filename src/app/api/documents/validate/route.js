@@ -7,11 +7,11 @@ import { NextResponse } from "next/server";
 // Helper function to determine document type based on text content
 
 
-const extractLatestDate = (text: string) => {
+const extractLatestDate = (text) => {
     // Regular expression to match dates in formats: dd/MM/yyyy, dd-MM-yyyy, dd-MMM-yyyy
     const dateRegex = /\b\d{2}[\/-]\w{3,}[\/-]\d{2,4}\b|\b\d{2}[\/-]\d{2}[\/-]\d{2,4}\b/g;
 
-    let latestDate: Date | null = null;
+    let latestDate  = null;
 
     // Find all matches
     const matches = text.match(dateRegex);
@@ -46,7 +46,7 @@ const extractLatestDate = (text: string) => {
 };
 
 // Helper function to parse date according to format
-const parseDate = (dateStr: string, format: string) => {
+const parseDate = (dateStr, format) => {
     const parts = dateStr.split(/[\/-]/);
     let day, month, year;
 
@@ -75,13 +75,13 @@ const parseDate = (dateStr: string, format: string) => {
 };
 
 // Helper function to parse month from "MMM" format (e.g., "Jan", "Feb")
-const parseMonth = (monthStr: string) => {
+const parseMonth = (monthStr) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return months.indexOf(monthStr);
 };
 
 
-export async function POST(req: Request) {
+export async function POST(req) {
     const { user, error } = await verifyToken(req);
 
     if (!user || error) {
@@ -90,7 +90,7 @@ export async function POST(req: Request) {
 
     try {
         const formData = await req.formData();
-        const file = formData.get('file') as File;
+        const file = formData.get('file') ;
 
         if (!file) {
             return NextResponse.json({ error: 'No file uploaded', status: 400 });
@@ -100,7 +100,7 @@ export async function POST(req: Request) {
         const fileBuffer = await file.arrayBuffer(); // Make sure this works correctly
         const fileType = file.type;
 
-        let text: string;
+        let text;
 
         // Process the file based on the type
         if (fileType === 'application/pdf') {

@@ -1,10 +1,10 @@
 // pages/api/send-test-notification.ts
 
 import { sendNotificationToUser } from '@/services/notificationService';
-import { NextApiRequest, NextApiResponse } from 'next';
+import {,  } from 'next';
 import { NextResponse } from 'next/server';
 
-export  async function POST(req: Request) {
+export  async function POST(req) {
   if (req.method !== 'POST') {
     return NextResponse.json({ message: 'Method not allowed' });
   }
@@ -20,11 +20,7 @@ export  async function POST(req: Request) {
     const notificationPayload = {
       title: 'Hello from the Server!',
       body: `This is a test notification for user ${userId}.`,
-      data: {
-        // This data is received in your Flutter app's `_handleMessage` function
-        screen: 'details',
-        itemId: '12345',
-      },
+      data,
     };
 
     // Call the service function

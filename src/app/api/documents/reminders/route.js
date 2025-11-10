@@ -4,11 +4,10 @@ import { models, model } from 'mongoose';
 import { driverSchema, tripSchema, truckSchema } from "@/utils/schema";
 
 // Abstract common logic for reminders
-async function fetchReminders(
-    modelName: string,
-    schema: any,
-    userId: string,
-    projectionFields: Record<string, number>
+async function fetchReminders(modelName,
+    schema,
+    userId,
+    projectionFields
 ) {
     const Model = models[modelName] || model(modelName, schema);
 
@@ -17,15 +16,11 @@ async function fetchReminders(
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7); // Past one week
     oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7); // Upcoming one week
 
-    return Model.aggregate([
-        { $match: { user_id: userId } },
-        { $unwind: "$documents" },
-        {
+    return Model.aggregate([ { $match: { user_id: userId } }, { $unwind: "$documents" }, {
             $match: {
                 "documents.validityDate": { $gte: oneWeekAgo, $lte: oneWeekFromNow }, // Expired or expiring
             }
-        },
-        {
+        }, {
             $project: {
                 ...projectionFields,
                 "documents.filename": 1,
@@ -39,7 +34,7 @@ async function fetchReminders(
 }
 
 // Fetch trip reminders
-const TripReminders = (userId: string) =>
+const TripReminders = (userId) =>
     fetchReminders("Trip", tripSchema, userId, {
         trip_id: 1,
         LR: 1,
@@ -48,19 +43,19 @@ const TripReminders = (userId: string) =>
     });
 
 // Fetch truck reminders
-const TruckReminders = (userId: string) =>
+const TruckReminders = (userId) =>
     fetchReminders("Truck", truckSchema, userId, {
         truckNo: 1,
     });
 
 // Fetch driver reminders
-const DriverReminders = (userId: string) =>
+const DriverReminders = (userId) =>
     fetchReminders("Driver", driverSchema, userId, {
         name: 1,
         contactNumber: 1,
     });
 
-export async function GET(req: Request) {
+export async function GET(req) {
     try {
         const { user, error } = await verifyToken(req);
         if (!user || error) {
@@ -81,9 +76,7 @@ export async function GET(req: Request) {
         });
     } catch (error) {
         console.error("Error fetching reminders:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch reminders" },
-            { status: 500 }
+        return NextResponse.json({ error: "Failed to fetch reminders" }, { status: 500 }
         );
     }
 }

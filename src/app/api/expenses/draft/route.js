@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 
 const DraftExpense = models.DraftExpense || model('DraftExpense', draftExpenseSchema)
 
-export async function GET(req: Request) {
+export async function GET(req) {
     try {
         const { user, error } = await verifyToken(req);
         if (error) {
@@ -15,11 +15,9 @@ export async function GET(req: Request) {
         }
 
         await connectToDatabase();
-        const expenses = await DraftExpense.aggregate([
-            {
+        const expenses = await DraftExpense.aggregate([ {
                 $match: { user_id: user }
-            },
-            {
+            }, {
                 // Lookup trips details
                 $lookup: {
                     from: 'trips',
@@ -27,14 +25,12 @@ export async function GET(req: Request) {
                     foreignField: 'trip_id',
                     as: 'trips'
                 }
-            },
-            {
+            }, {
                 // Lookup drivers details if driver_id exists
                 $lookup: {
                     from: 'drivers',
                     let: { driver_id: '$driver' },
-                    pipeline: [
-                        {
+                    pipeline: [ {
                             $match: {
                                 $expr: {
                                     $eq: ['$driver_id', '$$driver_id'] // Match only if driver_id exists
@@ -44,14 +40,12 @@ export async function GET(req: Request) {
                     ],
                     as: 'drivers'
                 }
-            },
-            {
+            }, {
                 // Lookup shops details if shop_id exists
                 $lookup: {
                     from: 'shopkhatas',
                     let: { shop_id: '$shop_id' },
-                    pipeline: [
-                        {
+                    pipeline: [ {
                             $match: {
                                 $expr: {
                                     $eq: ['$shop_id', '$$shop_id'] // Match only if shop_id exists
@@ -61,23 +55,20 @@ export async function GET(req: Request) {
                     ],
                     as: 'shops'
                 }
-            },
-            {
+            }, {
                 // Add fields for results and handle cases where lookups return empty arrays
                 $addFields: {
-                    tripRoute: { $arrayElemAt: ['$trips.route', 0] }, // Access route from trips if it exists
-                    driverName: { $ifNull: [{ $arrayElemAt: ['$drivers.name', 0] }, 'N/A'] }, // Provide 'N/A' if no driver
-                    shopName: { $ifNull: [{ $arrayElemAt: ['$shops.name', 0] }, 'N/A'] } // Provide 'N/A' if no shop
+                    tripRoute, // Access route from trips if it exists
+                    driverName, 'N/A'] }, // Provide 'N/A' if no driver
+                    shopName, 'N/A'] } // Provide 'N/A' if no shop
                 }
-            },
-            {
+            }, {
                 $project: {
                     shops: 0,
                     drivers: 0,
                     trips: 0
                 }
-            },
-            {
+            }, {
                 $sort: { date: -1 }
             }
         ]);
@@ -88,7 +79,7 @@ export async function GET(req: Request) {
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(req) {
 
     try {
         const { user, error } = await verifyToken(req)
@@ -96,9 +87,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Unauthorized User", status: 401 })
         }
         const formdata = await req.formData()
-        const file = formdata.get('file') as File
+        const file = formdata.get('file') 
 
-        const expenseData = JSON.parse(formdata.get('expense') as string);
+        const expenseData = JSON.parse(formdata.get('expense') );
         await connectToDatabase()
         const newExpense = new DraftExpense({
             user_id: user,
@@ -119,7 +110,7 @@ export async function POST(req: Request) {
         await Promise.all([newExpense.save(), recentActivity('Added Draft Expense', newExpense, user)])
         return NextResponse.json({ expense: newExpense, status: 200 })
 
-    } catch (error: any) {
+    } catch (error) {
         console.log(error)
         return NextResponse.json({ error: "Internal Server Error", status: 500 })
     }

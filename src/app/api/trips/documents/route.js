@@ -7,7 +7,7 @@ const Trip = models.Trip || model('Trip', tripSchema);
 
 
 
-export async function GET(req: Request) {
+export async function GET(req) {
   try {
     // Verify user token
     const { user, error } = await verifyToken(req);
@@ -28,11 +28,9 @@ export async function GET(req: Request) {
     
 
     // Use aggregation to filter documents directly in MongoDB
-    const trips = await Trip.aggregate([
-      {
+    const trips = await Trip.aggregate([ {
         $match: { user_id: user } // Match the user_id with the user
-      },
-      {
+      }, {
         $project: {
           user_id: 1,
           trip_id: 1,
@@ -41,22 +39,18 @@ export async function GET(req: Request) {
           route : 1,
           truck : 1,
           documents: {
-            $filter: {
-              input: '$documents',
-              as: 'document',
-              cond: { $eq: ['$$document.type', documentType] }
+            $filter
             }
           }
         }
-      },
-      {
+      }, {
         $match: { 'documents.0': { $exists: true } } // Only return drivers with matching documents
       }
     ]);
 
     // Format the result to combine driver info with each document
-    const formattedDocs = trips.flatMap((trip: any) =>
-      trip.documents.map((doc: any) => ({
+    const formattedDocs = trips.flatMap((trip) =>
+      trip.documents.map((doc) => ({
         filename: doc.filename,
         type: doc.type,
         validityDate: doc.validityDate,

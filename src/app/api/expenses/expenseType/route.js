@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 const UserExpenseType = models.UserExpenseType || model("UserExpenseType", userExpenseTypesSchema)
 
-export async function GET(req : Request){
+export async function GET(req ){
     try {
         const {user, error} = await verifyToken(req)
         if (!user|| error){
@@ -19,7 +19,7 @@ export async function GET(req : Request){
     }
 }
 
-export async function POST(req : Request){
+export async function POST(req ){
     try {
         const {user, error} = await verifyToken(req)
         if (!user|| error){

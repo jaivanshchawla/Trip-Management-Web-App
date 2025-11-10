@@ -18,14 +18,12 @@ import { verifyToken } from "@/utils/auth";
  *   "expiresIn": 172800
  * }
  */
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   try {
     // Verify authentication
     const user = await verifyToken(req);
     if (!user) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
+      return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 }
       );
     }
 
@@ -35,12 +33,10 @@ export async function POST(req: NextRequest) {
 
     // Validate input
     if (!fileUrl || typeof fileUrl !== 'string') {
-      return NextResponse.json(
-        { 
+      return NextResponse.json({ 
           success: false, 
-          message: "Invalid request: fileUrl is required" 
-        },
-        { status: 400 }
+          message: "Invalid requestUrl is required" 
+        }, { status: 400 }
       );
     }
 
@@ -55,26 +51,22 @@ export async function POST(req: NextRequest) {
       message: "Share link generated successfully"
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error generating share link:", error);
     
     // Handle specific error cases
     if (error.message === "File not found") {
-      return NextResponse.json(
-        { 
+      return NextResponse.json({ 
           success: false, 
           message: "File unavailable or deleted" 
-        },
-        { status: 404 }
+        }, { status: 404 }
       );
     }
     
-    return NextResponse.json(
-      { 
+    return NextResponse.json({ 
         success: false, 
         message: error.message || "Failed to generate share link" 
-      },
-      { status: 500 }
+      }, { status: 500 }
     );
   }
 }

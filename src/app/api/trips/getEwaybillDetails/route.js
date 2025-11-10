@@ -17,7 +17,7 @@ const s3Client = new S3Client({
 const Trip = models.Trip || model('Trip', tripSchema);
 
 
-function extractTripDetails(text: string) {
+function extractTripDetails(text) {
     const originRegex = /From\s+.*Pincode:-\s*(\d{6})/;
     const destinationRegex = /To\s+.*Pincode:-\s*(\d{6})/;
     const startDateRegex = /Generated Date:(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}\s+\w{2})/;
@@ -45,11 +45,11 @@ function extractTripDetails(text: string) {
     };
 }
 
-async function uploadFileToS3(fileBuffer: Buffer, fileName: string, contentType: string): Promise<string> {
+async function uploadFileToS3(fileBuffer: Buffer, fileName, contentType) {
     const params = {
         Bucket: process.env.AWS_S3_BUCKET_NAME!,
         Key: fileName,
-        Body: fileBuffer,
+        BodyBuffer,
         ContentType: contentType,
     };
 
@@ -58,15 +58,14 @@ async function uploadFileToS3(fileBuffer: Buffer, fileName: string, contentType:
     return fileName;
 }
 
-async function extractValidityDate(text: string) {
+async function extractValidityDate(text) {
     const prompt = `
                 This is extracted text from pdf extract these details from it i.e origin, destination, freight amount (total invoice amount), start date(the generation date of the document), truckNo, validity date. Give all this in JSON format
     
                 Extracted Text:
                 ${text}
 
-                Response Object format :
-                {
+                Response Object format : {
                     startDate : '',
                     origin : '',
                     destination : '',
@@ -102,7 +101,7 @@ async function extractValidityDate(text: string) {
 }
 
 // Function to extract text from a PDF using pdf-parse
-async function extractTextFromPdf(buffer: Buffer): Promise<string> {
+async function extractTextFromPdf(buffer: Buffer) {
     try {
         const data = await pdf(buffer);
         console.log(extractTripDetails(data.text))
@@ -113,7 +112,7 @@ async function extractTextFromPdf(buffer: Buffer): Promise<string> {
     }
 }
 
-async function preprocessImage(buffer: Buffer): Promise<Buffer> {
+async function preprocessImage(buffer: Buffer) {
     const preprocessedBuffer = await sharp(buffer)
         .resize({ width: 1500 })  // Resize for better OCR accuracy
         .grayscale()  // Convert to grayscale
@@ -135,7 +134,7 @@ async function preprocessImage(buffer: Buffer): Promise<Buffer> {
 }
 
 // Function to extract text from an image using node-tesseract-ocr
-async function extractTextFromImage(buffer: Buffer): Promise<string> {
+async function extractTextFromImage(buffer: Buffer) {
     const preprocessedBuffer = await preprocessImage(buffer);
     const text = await tesseract.recognize(preprocessedBuffer, {
         lang: "eng",
@@ -146,12 +145,12 @@ async function extractTextFromImage(buffer: Buffer): Promise<string> {
     return text;
 }
 
-export async function POST(request: Request) {
+export async function POST(request) {
     try {
         const formData = await request.formData();
-        const file = formData.get("file") as File;
-        // const tripId = formData.get("tripId") as string;
-        let ewbValidityDate = formData.get('ewbValidityDate') ? new Date(formData.get('ewbValidityDate') as string) : null;
+        const file = formData.get("file") ;
+        // const tripId = formData.get("tripId") ;
+        let ewbValidityDate = formData.get('ewbValidityDate') ? new Date(formData.get('ewbValidityDate') ) : null;
 
         // if (!file || !tripId) {
         //     return NextResponse.json({ error: "File and tripId are required." }, { status: 400 });
@@ -187,10 +186,9 @@ export async function POST(request: Request) {
         // const fileUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${s3FileName}${contentType === 'application/pdf' ? '.pdf' : ''}`;
 
         // Update the Trip document with the E-Way Bill URL and validity date
-        // const trip = await Trip.findOneAndUpdate(
-        //     { trip_id: tripId },
-        //     { ewayBill: fileUrl, ewbValidityDate },
-        //     { new: true }
+        // const trip = await Trip.findOneAndUpdate(// { trip_id: tripId },
+        // { ewayBill: fileUrl, ewbValidityDate },
+        // { new: true }
         // );
 
         return NextResponse.json({ success: true, ewbValidityDate });

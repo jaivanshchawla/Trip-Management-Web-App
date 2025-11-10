@@ -8,7 +8,7 @@ import { v4 as uuidV4 } from 'uuid'
 const OtherDocuments = models.OtherDocuments || model('OtherDocuments', otherDocumentsSchema);
 
 
-export async function GET(req: Request) {
+export async function GET(req) {
   try {
     // Verify user token
     const { user, error } = await verifyToken(req);
@@ -24,7 +24,7 @@ export async function GET(req: Request) {
       status: 200,
       documents,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching documents:', error);
 
     // Handle unauthorized user
@@ -47,7 +47,7 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     // Verify user token
     const { user, error } = await verifyToken(req);
@@ -59,12 +59,12 @@ export async function POST(req: Request) {
 
     // Parse form data
     const formData = await req.formData();
-    const filesData = JSON.parse(formData.get('filesData') as string);
+    const filesData = JSON.parse(formData.get('filesData') );
 
     const uploadedDocuments = [];
 
     for (const fileData of filesData) {
-      const file = formData.get(`file-${fileData.id}`) as File;
+      const file = formData.get(`file-${fileData.id}`) ;
 
       if (!file) {
         throw new Error(`File not found for id: ${fileData.id}`);
@@ -82,10 +82,10 @@ export async function POST(req: Request) {
       // Create a new document record
       const newDocument = new OtherDocuments({
         user_id: user,
-        filename: fileData.filename || file.name, // Use custom filename if provided
-        url: fileUrl,
+        filenameData.filename || file.name, // Use custom filename if provided
+        urlUrl,
         uploadedDate: new Date(Date.now()),
-        validityDate: fileData.validityDate || null,
+        validityDate: fileData.validityDate |,
       });
 
       await newDocument.save();
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
       message: `${uploadedDocuments.length} document(s) uploaded successfully`,
       documents: uploadedDocuments
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error uploading document(s):', error);
 
     // Handle unauthorized user

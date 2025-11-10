@@ -8,7 +8,7 @@ import { model, models } from "mongoose";
 fcmTokenSchema.set('timestamps', true);
 const FcmToken = models.fcmToken || model('fcmToken', fcmTokenSchema);
 
-export async function POST(req: Request) {
+export async function POST(req) {
   const { user, error } = await verifyToken(req);
   if (error) {
     console.log(error);
@@ -24,10 +24,7 @@ export async function POST(req: Request) {
     }
 
     // Use findOneAndUpdate with upsert:true
-    const updatedToken = await FcmToken.findOneAndUpdate(
-      { user_id: user, fcm_token: fcm_token }, // Query: Find a doc with this user AND this token
-      { $set: { user_id: user, fcm_token: fcm_token } }, // Data to set (ensures user_id is correct)
-      { upsert: true, new: true } // Options: create if not found, and return the new/updated doc
+    const updatedToken = await FcmToken.findOneAndUpdate({ user_id: user, fcm_token: fcm_token }, // Query: Find a doc with this user AND this token { $set: { user_id: user, fcm_token: fcm_token } }, // Data to set (ensures user_id is correct) { upsert: true, new: true } // Options: create if not found, and return the new/updated doc
     );
 
     return NextResponse.json({

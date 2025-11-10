@@ -34,65 +34,45 @@ export async function GET(req) {
     }
 
     // Use an aggregation pipeline to fetch the required data, calculate balance, and join with Party collection
-    const trips = await Trip.aggregate([
-      { $match: query },  // Filter trips based on user_id and optional statuses
-      {
+    const trips = await Trip.aggregate([ { $match: query },  // Filter trips based on user_id and optional statuses {
         $lookup: {
           from: 'parties',  // Join with the Party collection
           localField: 'party',
           foreignField: 'party_id',
           as: 'partyDetails'
         }
-      },
-      { $unwind: '$partyDetails' },  // Unwind partyDetails array
-      {
+      }, { $unwind: '$partyDetails' },  // Unwind partyDetails array {
         $lookup: {
           from: 'drivers',  // Join with the Party collection
           localField: 'driver',
           foreignField: 'driver_id',
           as: 'driverDetails'
         }
-      },
-      { $unwind: '$partyDetails' },  // Unwind partyDetails array
-      {
+      }, { $unwind: '$partyDetails' },  // Unwind partyDetails array {
         $lookup: {
           from: 'tripcharges',  // Join with the TripExpense collection
           localField: 'trip_id',
           foreignField: 'trip_id',
           as: 'tripExpenses'
         }
-      },
-      {
+      }, {
         $lookup: {
           from: 'partypayments',
           localField: 'trip_id',
           foreignField: 'trip_id',
           as: 'tripAccounts'
         }
-      },
-      {
+      }, {
         $addFields: {
           // Calculate the final balance based on the fetchBalance logic
-          balance: {
-            $let: {
-              vars: {
-                accountBalance: {
-                  $sum: {
-                    $map: {
-                      input: '$tripAccounts',
-                      as: 'account',
-                      in: '$$account.amount'
-                    }
+          balance
                   }
                 },
                 chargeToBill: {
                   $sum: {
                     $map: {
                       input: {
-                        $filter: {
-                          input: '$tripExpenses',
-                          as: 'expense',
-                          cond: { $eq: ['$$expense.partyBill', true] }
+                        $filter
                         }
                       },
                       as: 'filteredExpense',
@@ -104,10 +84,7 @@ export async function GET(req) {
                   $sum: {
                     $map: {
                       input: {
-                        $filter: {
-                          input: '$tripExpenses',
-                          as: 'expense',
-                          cond: { $eq: ['$$expense.partyBill', false] }
+                        $filter
                         }
                       },
                       as: 'filteredExpense',
@@ -117,9 +94,7 @@ export async function GET(req) {
                 }
               },
               in: {
-                $subtract: [
-                  { $add: ['$amount', '$$chargeToBill'] },  // Add trip amount and chargeToBill
-                  { $add: ['$$accountBalance', '$$chargeNotToBill'] }  // Subtract accountBalance and chargeNotToBill
+                $subtract: [ { $add: ['$amount', '$$chargeToBill'] },  // Add trip amount and chargeToBill { $add: ['$$accountBalance', '$$chargeNotToBill'] }  // Subtract accountBalance and chargeNotToBill
                 ]
               }
             }
@@ -129,8 +104,7 @@ export async function GET(req) {
           driverName: '$driverDetails.name'
         }
       }, // Sort by startDate in descending order
-      // Exclude unnecessary fields including accountBalance, chargeToBill, and chargeNotToBill
-      { $project: { partyDetails: 0, tripExpenses: 0, accounts: 0, chargeToBill: 0, chargeNotToBill: 0, accountBalance: 0, user_id: 0 } }
+      // Exclude unnecessary fields including accountBalance, chargeToBill, and chargeNotToBill { $project: { partyDetails: 0, tripExpenses: 0, accounts: 0, chargeToBill: 0, chargeNotToBill: 0, accountBalance: 0, user_id: 0 } }
     ]);
 
     return NextResponse.json({ trips });
@@ -187,19 +161,19 @@ const newTrip = new Trip({
     destination: formData.get("destination"),
   },
   billingType: formData.get("billingType"),
-  amount: Number(formData.get("amount")) || 0,
-  balance: Number(formData.get("amount")) || 0,
+  amount(formData.get("amount")) || 0,
+  balance(formData.get("amount")) || 0,
 
   // Fix: set startDate & dates array both to user-selected date
   startDate: startDate,
-  dates: [startDate, null, null, null, null],
+  dates,
 
-  truckHireCost: Number(formData.get("truckHireCost")) || 0,
+  truckHireCost(formData.get("truckHireCost")) || 0,
   fmNo: formData.get("fmNo"),
   LR: formData.get("LR"),
   status: 0,
-  material: JSON.parse(formData.get("material") as string) || [],
-  loadingSlipDetails: JSON.parse(formData.get("loadingSlipDetails") as string),
+  material: JSON.parse(formData.get("material") ) || [],
+  loadingSlipDetails: JSON.parse(formData.get("loadingSlipDetails") ),
   notes: formData.get("notes") || "",
   accounts: [],
   documents: [],
@@ -212,11 +186,11 @@ const newTrip = new Trip({
     if (validity) {
       newTrip.ewbValidityDate = new Date(validity);
       newTrip.documents.push({
-        filename: file?.name || "",
+        filename?.name || "",
         type: "E-Way Bill",
         validityDate: new Date(validity),
         uploadedDate: new Date(),
-        url: fileUrl || "",
+        urlUrl || "",
       });
     }
 
@@ -225,9 +199,7 @@ const newTrip = new Trip({
       const units = formData.get("units");
       const rate = formData.get("rate");
       if (!units || !rate) {
-        return NextResponse.json(
-          { message: "Units and Rate must be specified", status: 400 },
-          { status: 400 }
+        return NextResponse.json({ message: "Units and Rate must be specified", status: 400 }, { status: 400 }
         );
       }
       newTrip.units = Number(units);
@@ -252,7 +224,7 @@ const newTrip = new Trip({
     console.error("Error saving trip:", error);
 
     const errorMapping = {
-      ValidationError: { message: "Validation Error", status: 400 },
+      ValidationError,
       MongoError: error.code === 11000 ? { message: "Duplicate Key Error", status: 409 } : { message: 'Mongo Error', status: 409 },
     };
 

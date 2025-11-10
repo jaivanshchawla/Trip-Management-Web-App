@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 const TripCharges = models.TripCharges || model('TripCharges', tripChargesSchema);
 const Expense = models.Expense || model('Expense', ExpenseSchema);
 
-export async function GET(req: Request) {
+export async function GET(req) {
     const { user, error } = await verifyToken(req);
     if (error) {
         return NextResponse.json({ error }, { status: 401 }); // Unauthorized
@@ -25,7 +25,7 @@ export async function GET(req: Request) {
         return NextResponse.json({ tripExpense, totalExpense, status: 200 });
     }
 
-    const monthMap: { [key: string]: number } = {
+    const monthMap = {
         January: 0,
         February: 1,
         March: 2,
@@ -73,7 +73,7 @@ export async function GET(req: Request) {
         const totalExpense = combinedExpenses.reduce((sum, expense) => sum + (expense.amount || 0), 0);
 
         return NextResponse.json({ totalExpense, status: 200 });
-    } catch (err: any) {
+    } catch (err) {
         console.error('Error fetching expenses:', err);
         return NextResponse.json({ message: 'Internal Server Error', status: 500 });
     }
