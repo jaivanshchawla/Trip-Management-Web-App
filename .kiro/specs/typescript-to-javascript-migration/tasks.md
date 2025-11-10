@@ -130,7 +130,10 @@
   - Remove type annotations and interface definitions
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [ ] 12. Convert root-level shared components
+- [-] 12. Convert root-level shared components
+
+
+
   - Convert all remaining .tsx files in src/components/ root directory to .jsx
   - This includes files like Navigation.tsx, Footer.tsx, HeroSection.tsx, etc.
   - Remove prop type definitions and React.FC annotations
