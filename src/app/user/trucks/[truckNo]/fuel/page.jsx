@@ -7,23 +7,18 @@ import DriverName from '@/components/driver/DriverName';
 import TripRoute from '@/components/trip/TripRoute';
 import { Button } from '@/components/ui/button';
 import Loading from '../loading';
-import { IExpense } from '@/utils/interface';
 import { formatNumber } from '@/utils/utilArray';
 import dynamic from 'next/dynamic';
 import { DeleteExpense, handleAddExpense, handleEditExpense } from '@/helpers/ExpenseOperation';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-interface TripDetails {
-  [key: string]: string;
-}
-
-const TruckFuelBook: React.FC = () => {
+const TruckFuelBook = () => {
   const { truckNo } = useParams();
-  const [fuelBook, setFuelBook] = useState<IExpense[] | any[]>([]);
+  const [fuelBook, setFuelBook] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [tripDetails, setTripDetails] = useState<TripDetails>({});
+  const [tripDetails, setTripDetails] = useState({});
   const [modelOpen, setModelOpen] = useState(false);
-  const [selected, setSelected] = useState<IExpense | null>(null);
+  const [selected, setSelected] = useState(null);
 
   const AddExpenseModal = dynamic(() => import('@/components/AddExpenseModal'), { ssr: false })
 
@@ -34,7 +29,7 @@ const TruckFuelBook: React.FC = () => {
       if (!res.ok) throw new Error('Failed to fetch fuel book');
       const data = await res.json();
       setFuelBook(data.expenses);
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
       alert(error.message);
     } finally {
@@ -46,7 +41,7 @@ const TruckFuelBook: React.FC = () => {
     fetchFuel();
   }, [fetchFuel]);
 
-  const handleDelete = async (id: string, e: React.FormEvent) => {
+  const handleDelete = async (id, e) => {
     e.stopPropagation();
     try {
       const expense = await DeleteExpense(id)
@@ -57,7 +52,7 @@ const TruckFuelBook: React.FC = () => {
     }
   };
 
-  const handleAddCharge = async (newCharge: any, id?: string) => {
+  const handleAddCharge = async (newCharge, id) => {
     try {
       if (!selected) {
         const expense = await handleAddExpense(newCharge)
@@ -66,10 +61,10 @@ const TruckFuelBook: React.FC = () => {
           ...prev
         ])
       } else {
-        const expense = await handleEditExpense(newCharge, selected._id as string)
-        setFuelBook((prev) => prev.map((item: any) => item._id === selected._id ? { ...item, expense } : item))
+        const expense = await handleEditExpense(newCharge, selected._id)
+        setFuelBook((prev) => prev.map((item) => item._id === selected._id ? { ...item, expense } : item))
       }
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
       alert(`Failed to ${selected ? 'edit' : 'add'} expense`)
     }

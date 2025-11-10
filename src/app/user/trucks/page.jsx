@@ -14,21 +14,15 @@ import { Button } from '@/components/ui/button';
 import TripCard from '@/components/TripCard';
 import { Input } from '@/components/ui/input';
 
-import type { TruckModel as ITruck } from '@/utils/interface';
 import { useExpenseData } from '@/components/hooks/useExpenseData';
 import { BsFiletypeXlsx } from 'react-icons/bs';
 import { handleExportToExcel } from '@/utils/excelOperation';
-
-type SortConfig = {
-  key: keyof ITruck | any;
-  direction: 'asc' | 'desc';
-};
 
 export default function TrucksPage() {
 
   const router = useRouter();
   const { trucks, isLoading, refetchTrucks } = useExpenseData();
-  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: null, direction: 'asc' });
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [searchQuery, setSearchQuery] = useState('');
 
 
@@ -37,11 +31,11 @@ export default function TrucksPage() {
   }, [refetchTrucks])
 
   const debouncedSearch = useMemo(
-    () => debounce((query: string) => setSearchQuery(query), 300),
+    () => debounce((query) => setSearchQuery(query), 300),
     []
   );
 
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e) => {
     debouncedSearch(e.target.value.toLowerCase());
   }, [debouncedSearch]);
 
@@ -65,10 +59,10 @@ export default function TrucksPage() {
 
     if (sortConfig.key) {
       filteredTrucks.sort((a, b) => {
-        if (a[sortConfig.key!] < b[sortConfig.key!]) {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? -1 : 1;
         }
-        if (a[sortConfig.key!] > b[sortConfig.key!]) {
+        if (a[sortConfig.key] > b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? 1 : -1;
         }
         return 0;
@@ -78,21 +72,21 @@ export default function TrucksPage() {
     return filteredTrucks;
   }, [trucks, sortConfig, searchQuery]);
 
-  const requestSort = useCallback((key: any) => {
+  const requestSort = useCallback((key) => {
     setSortConfig((prevConfig) => ({
       key,
       direction: prevConfig.key === key && prevConfig.direction === 'asc' ? 'desc' : 'asc',
     }));
   }, []);
 
-  const getSortIcon = useCallback((columnName: any) => {
+  const getSortIcon = useCallback((columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     }
     return <FaSort />;
   }, [sortConfig]);
 
-  const truncateText = (text: string, maxLength: number) => {
+  const truncateText = (text, maxLength) => {
     return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
@@ -199,7 +193,7 @@ export default function TrucksPage() {
                         href={`/user/suppliers/${truck.supplier}/trips`}
                         onClick={(e) => e.stopPropagation()}
                       >
-                        {truncateText(truck.supplierName as string, 20)}
+                        {truncateText(truck.supplierName, 20)}
                       </Link>
                     </Button>
                   ) : (

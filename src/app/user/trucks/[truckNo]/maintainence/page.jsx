@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Loading from '../loading';
-import { IExpense } from '@/utils/interface';
 import TripRoute from '@/components/trip/TripRoute';
 import { Button } from '@/components/ui/button';
 import { MdDelete, MdEdit, MdPayment } from 'react-icons/md';
@@ -17,11 +16,11 @@ import { Item } from '@radix-ui/react-select';
 
 const TruckMaintainenceBook = () => {
   const { truckNo } = useParams();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [maintainenceBook, setMaintainenceBook] = useState<IExpense[] | any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [maintainenceBook, setMaintainenceBook] = useState([]);
   const [modelOpen, setModelOpen] = useState(false);
   const [selected, setSelected] = useState();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   const AddExpenseModal = dynamic(()=>import('@/components/AddExpenseModal'),{ssr : false})
 
@@ -35,7 +34,7 @@ const TruckMaintainenceBook = () => {
         }
         const data = await res.json();
         setMaintainenceBook(data.expenses);
-      } catch (error: any) {
+      } catch (error) {
         setError(error.message);
       } finally {
         setLoading(false);
@@ -67,7 +66,7 @@ const TruckMaintainenceBook = () => {
         const expense = await handleEditExpense(newCharge, selected._id)
         setMaintainenceBook((prev)=>prev.map((item)=> item._id === selected._id ? {...item,expense} : item))
       }
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
       alert(`Failed to ${selected ? 'edit' : 'add'} expense`)
     }

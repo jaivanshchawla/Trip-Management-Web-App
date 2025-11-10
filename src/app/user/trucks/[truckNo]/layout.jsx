@@ -6,11 +6,7 @@ import Loading from '../loading';
 import TruckLayout from '@/components/layout/TruckLayout';
 import { TruckProvider } from '@/context/truckContext';
 
-interface PartyLayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
   const {truckNo} = useParams();
 
   useEffect(() => {
@@ -23,7 +19,7 @@ const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
           throw new Error('Failed to fetch party name');
         }
         const data = await res.json();
-      } catch (err: any) {
+      } catch (err) {
         console.error(err);
       }
     };
@@ -36,7 +32,7 @@ const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
   }
 
   return (
-    <TruckProvider truckNo={truckNo as string}>
+    <TruckProvider truckNo={truckNo}>
     <TruckLayout>
       {children}
     </TruckLayout>

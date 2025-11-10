@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import Loading from '../loading';
 import { Button } from '@/components/ui/button';
-import { IExpense } from '@/utils/interface';
 import { useParams } from 'next/navigation';
 import { MdDelete, MdEdit, MdLocalGasStation, MdPayment } from 'react-icons/md';
 import { DeleteExpense, handleAddCharge, handleAddExpense, handleDelete, handleEditExpense } from '@/helpers/ExpenseOperation';
@@ -20,11 +19,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 
 const OtherExpense = () => {
   const { truckNo } = useParams();
-  const [error, setError] = useState<any>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [otherExpenses, setOtherExpenses] = useState<IExpense[] | any[]>([]);
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
+  const [otherExpenses, setOtherExpenses] = useState([]);
   const [modelOpen, setModelOpen] = useState(false);
-  const [selected, setSelected] = useState<IExpense | null>(null);
+  const [selected, setSelected] = useState(null);
 
   const AddExpenseModal = dynamic(() => import('@/components/AddExpenseModal'), {
     loading: () => <Loading />,
@@ -39,7 +38,7 @@ const OtherExpense = () => {
       }
       const data = await res.json();
       setOtherExpenses(data.expenses);
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
       alert(error.message);
     } finally {
@@ -51,18 +50,18 @@ const OtherExpense = () => {
     fetchOther();
   }, [truckNo]);
 
-  const handleDelete = async (id: string, e: React.FormEvent) => {
+  const handleDelete = async (id, e) => {
     e.stopPropagation();
     try {
       const expense = await DeleteExpense(id)
       setOtherExpenses(otherExpenses.filter((item) => item._id !== id));
-    } catch (error: any) {
+    } catch (error) {
       alert('Failed to delete expense')
       console.log(error)
     }
   };
 
-  const handleAddCharge = async (newCharge: any, id?: string) => {
+  const handleAddCharge = async (newCharge, id) => {
     try {
       if (!selected) {
         const expense = await handleAddExpense(newCharge)
@@ -71,10 +70,10 @@ const OtherExpense = () => {
           ...prev
         ])
       } else {
-        const expense = await handleEditExpense(newCharge, selected._id as string)
-        setOtherExpenses((prev) => prev.map((item: any) => item._id === selected._id ? { ...item, ...expense } : item))
+        const expense = await handleEditExpense(newCharge, selected._id)
+        setOtherExpenses((prev) => prev.map((item) => item._id === selected._id ? { ...item, ...expense } : item))
       }
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
       alert(`Failed to ${selected ? 'edit' : 'add'} expense`)
     }

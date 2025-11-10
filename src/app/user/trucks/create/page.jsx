@@ -1,4 +1,4 @@
-// CreateTruck.tsx
+// CreateTruck.jsx
 'use client'
 
 import React, { useState, useEffect } from 'react';
@@ -15,24 +15,12 @@ import DriverSelect from '@/components/trip/DriverSelect';
 import { mutate } from 'swr';
 import { useExpenseData } from '@/components/hooks/useExpenseData';
 
-// Define the types
-type FormData = {
-    truckNo: string;
-    truckType: string;
-    model: string;
-    capacity: string;
-    bodyLength: number | null;
-    ownership: string;
-    supplier: string;
-    driver: string;
-}
-
 // Main CreateTruck component
-const CreateTruck: React.FC = () => {
+const CreateTruck = () => {
     const router = useRouter();
     const [saving, setSaving] = useState(false)
 
-    const [formdata, setFormdata] = useState<FormData>({
+    const [formdata, setFormdata] = useState({
         truckNo: '',
         truckType: '',
         model: '',
@@ -43,8 +31,8 @@ const CreateTruck: React.FC = () => {
         driver: ''
     });
 
-    const [showDetails, setShowDetails] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [showDetails, setShowDetails] = useState(false);
+    const [error, setError] = useState(null);
     const params = useSearchParams()
     const nextpath = params.get('nextpath')
     const {drivers, suppliers, refetchDrivers, refetchSuppliers, isLoading} = useExpenseData()
@@ -54,7 +42,7 @@ const CreateTruck: React.FC = () => {
         refetchSuppliers();
     }, [refetchDrivers, refetchSuppliers])
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
         const updatedFormdata = {
             ...formdata,
@@ -64,7 +52,7 @@ const CreateTruck: React.FC = () => {
         localStorage.setItem('tripData', JSON.stringify(updatedFormdata));
     }
 
-    const handleSelectChange = (name: string, value: string) => {
+    const handleSelectChange = (name, value) => {
         const updatedFormdata = {
             ...formdata,
             [name]: value
@@ -73,7 +61,7 @@ const CreateTruck: React.FC = () => {
         localStorage.setItem('tripData', JSON.stringify(updatedFormdata));
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Basic form validation
@@ -154,7 +142,7 @@ const CreateTruck: React.FC = () => {
             }
             mutate('/api/trucks');
             router.push(nextpath ? nextpath : '/user/trucks');
-        } catch (error: any) {
+        } catch (error) {
             // Only alert for genuinely unexpected errors
             console.error('Error creating lorry:', error);
             alert(error?.message || 'Failed to add lorry. Please try again later.');
