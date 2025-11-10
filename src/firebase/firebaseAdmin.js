@@ -1,4 +1,4 @@
-// utils/firebaseAdmin.ts
+// utils/firebaseAdmin.js
 import * as admin from 'firebase-admin';
 
 // Check if the environment variable exists

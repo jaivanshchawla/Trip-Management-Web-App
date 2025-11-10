@@ -37,7 +37,9 @@
   - _Requirements: 1.1, 1.2, 1.5, 4.2, 4.5_
 -
 
-- [-] 4. Convert service files
+- [x] 4. Convert service files
+
+
 
 
   - Convert src/services/expiryCheckService.ts to .js
@@ -45,13 +47,21 @@
   - Remove type annotations while preserving all service logic
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 5. Convert Firebase configuration files
+- [x] 5. Convert Firebase configuration files
+
+
+
+
+
   - Convert src/firebase/firbaseConfig.ts to .js
   - Convert src/firebase/firebaseAdmin.ts to .js
   - Remove type imports and annotations
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 6. Convert UI component library
+- [-] 6. Convert UI component library
+
+
+
   - Convert all files in src/components/ui/ directory from .tsx to .jsx
   - Remove React.FC type annotations and prop interface definitions
   - Keep all component logic and styling intact
