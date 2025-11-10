@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const PartyContext = createContext<any>(null);
+const PartyContext = createContext(null);
 
 export const useParty = () => useContext(PartyContext);
 
-export const PartyProvider: React.FC<{ partyId: string; children: React.ReactNode }> = ({ partyId, children }) => {
-  const [party, setParty] = useState<any>(null);
+export const PartyProvider = ({ partyId, children }) => {
+  const [party, setParty] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

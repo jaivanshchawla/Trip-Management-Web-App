@@ -1,22 +1,19 @@
-// services/notificationService.ts
+// services/notificationService.js
 
 import { messaging } from '@/firebase/firebaseAdmin';
 import { connectToDatabase, fcmTokenSchema } from '@/utils/schema'; // Your Mongoose model
 import { model, models } from 'mongoose';
 const FcmToken = models.fcmToken || model('fcmToken', fcmTokenSchema);
 
-interface NotificationPayload {
-  title: string;
-  body: string;
-  data?: { [key: string]: string }; // Optional data payload
-}
-
 /**
  * Sends a push notification to all devices of a specific user.
- * @param userId - The ID of the user to send the notification to.
- * @param payload - The notification title, body, and optional data.
+ * @param {string} userId - The ID of the user to send the notification to.
+ * @param {Object} payload - The notification title, body, and optional data.
+ * @param {string} payload.title - The notification title.
+ * @param {string} payload.body - The notification body.
+ * @param {Object} [payload.data] - Optional data payload.
  */
-export async function sendNotificationToUser(userId: string, payload: NotificationPayload) {
+export async function sendNotificationToUser(userId, payload) {
   await connectToDatabase();
 
   // 1. Find all FCM tokens for the given user
@@ -46,7 +43,7 @@ export async function sendNotificationToUser(userId: string, payload: Notificati
     const batchResponse = await messaging.sendEachForMulticast(message);
 console.log(batchResponse)
     // 4. Handle responses and clean up invalid tokens
-    const tokensToDelete: string[] = [];
+    const tokensToDelete = [];
     batchResponse.responses.forEach((response, idx) => {
       const token = tokens[idx];
       if (!response.success) {

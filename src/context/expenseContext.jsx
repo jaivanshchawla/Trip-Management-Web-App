@@ -1,17 +1,16 @@
 'use client';
-import { IExpense } from '@/utils/interface';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const ExpenseContext = createContext<any>(null);
+const ExpenseContext = createContext(null);
 
 export const useExpense = () => useContext(ExpenseContext);
 
-export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [sum, setSum] = useState<any>(null);
-  const [allExpense, setAllExpense] = useState<IExpense[]>([]);
-  const [truckExpense, setTruckExpense] = useState<IExpense[]>([]);
-  const [tripExpense, setTripExpense] = useState<IExpense[]>([]);
-  const [officeExpense, setOfficeExpense] = useState<IExpense[]>([]);
+export const ExpenseProvider = ({ children }) => {
+  const [sum, setSum] = useState(null);
+  const [allExpense, setAllExpense] = useState([]);
+  const [truckExpense, setTruckExpense] = useState([]);
+  const [tripExpense, setTripExpense] = useState([]);
+  const [officeExpense, setOfficeExpense] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

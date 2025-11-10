@@ -2,18 +2,7 @@ import { createContext, useContext } from "react";
 import useSWR from "swr";
 
 // Define the RecentDocsCtx context
-const RecentDocsCtx = createContext<{
-    documents: any[],
-    counts: {
-        tripDocuments: number,
-        driverDocuments: number,
-        truckDocuments: number,
-        companyDocuments: 0,
-        otherDocuments: 0,
-    },
-    error: any,
-    docsLoading: boolean
-}>({
+const RecentDocsCtx = createContext({
     documents: [],
     counts: {
         tripDocuments: 0,
@@ -30,15 +19,10 @@ const RecentDocsCtx = createContext<{
 export const useRecentDocsCtx = () => useContext(RecentDocsCtx);
 
 // Fetcher function for SWR
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-// Type definition for props
-type Props = {
-    children: React.ReactNode;
-};
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 // RecentDocumentsProvider component to provide the context
-export const RecentDocumentsProvider = ({ children }: Props) => {
+export const RecentDocumentsProvider = ({ children }) => {
     const { data, error, isLoading } = useSWR("/api/documents/recent", fetcher);
 
     // Handle case where data is still loading or unavailable

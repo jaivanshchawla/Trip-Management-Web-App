@@ -25,7 +25,9 @@
   - _Requirements: 1.1, 1.2, 1.3, 4.2, 4.5_
 -
 
-- [-] 3. Convert context providers
+- [x] 3. Convert context providers
+
+
 
 
   - Convert all files in src/context/ directory from .tsx to .jsx
@@ -33,8 +35,11 @@
   - Remove generic type parameters from createContext calls
   - Keep all state management and provider logic intact
   - _Requirements: 1.1, 1.2, 1.5, 4.2, 4.5_
+-
 
-- [ ] 4. Convert service files
+- [-] 4. Convert service files
+
+
   - Convert src/services/expiryCheckService.ts to .js
   - Convert src/services/notificationService.ts to .js
   - Remove type annotations while preserving all service logic

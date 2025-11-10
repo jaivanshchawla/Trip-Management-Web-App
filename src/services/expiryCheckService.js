@@ -1,28 +1,28 @@
-// services/expiryCheckService.ts
+// services/expiryCheckService.js
 
-import { models, model, Mongoose } from 'mongoose';
+import { models, model } from 'mongoose';
 import { connectToDatabase, driverSchema, tripSchema, truckSchema } from "@/utils/schema";
 import { sendNotificationToUser } from '@/services/notificationService'; // Your existing service
 
 /**
 * Finds all documents from a specific collection that are expiring on a specific day in the future.
 * This is an internal helper function for this service.
-* @param modelName - The name of the Mongoose model.
-* @param schema - The Mongoose schema for the model.
-* @param projectionFields - The fields to include from the parent document.
-* @param entityType - A string identifier for the entity type (e.g., "Truck").
-* @param daysUntilExpiry - The number of days from now that the document is expiring.
+* @param {string} modelName - The name of the Mongoose model.
+* @param {any} schema - The Mongoose schema for the model.
+* @param {Object} projectionFields - The fields to include from the parent document.
+* @param {string} entityType - A string identifier for the entity type (e.g., "Truck").
+* @param {number} daysUntilExpiry - The number of days from now that the document is expiring.
 */
-// services/expiryCheckService.ts
+// services/expiryCheckService.js
 
-// services/expiryCheckService.ts
+// services/expiryCheckService.js
 
 async function findExpiringDocuments(
-  modelName: string,
-  schema: any,
-  projectionFields: Record<string, number>,
-  entityType: string,
-  daysUntilExpiry: number
+  modelName,
+  schema,
+  projectionFields,
+  entityType,
+  daysUntilExpiry
 ) {
   const Model = models[modelName] || model(modelName, schema);
 
@@ -96,9 +96,10 @@ async function findExpiringDocuments(
 
 /**
 * Creates a user-friendly time phrase based on the number of days
-* @param days - The number of days until expiry.
+* @param {number} days - The number of days until expiry.
+* @returns {string}
 */
-function getTimePhrase(days: number): string {
+function getTimePhrase(days) {
   switch (days) {
     case 1:
       return "tomorrow";
@@ -148,7 +149,7 @@ export async function handleDailyExpiryCheck() {
   const data = { screen: "reminders" };
   let successCount = 0;
   let failureCount = 0;
-  const userNotificationCounts = new Map<string, number>();
+  const userNotificationCounts = new Map();
 
   for (const reminder of allReminders) {
     const userId = reminder.user_id.toString();

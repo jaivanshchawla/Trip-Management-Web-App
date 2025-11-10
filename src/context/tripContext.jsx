@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const TripContext = createContext<any>(null);
+const TripContext = createContext(null);
 
 export const useTrip = () => useContext(TripContext);
 
-export const TripProvider: React.FC<{ tripId: string; children: React.ReactNode }> = ({ tripId, children }) => {
-  const [trip, setTrip] = useState<any>(null);
+export const TripProvider = ({ tripId, children }) => {
+  const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

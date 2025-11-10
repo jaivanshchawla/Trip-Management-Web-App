@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const TruckContext = createContext<any>(null);
+const TruckContext = createContext(null);
 
 export const useTruck = () => useContext(TruckContext);
 
-export const TruckProvider: React.FC<{ truckNo: string; children: React.ReactNode }> = ({ truckNo, children }) => {
-  const [truck, setTruck] = useState<any>(null);
+export const TruckProvider = ({ truckNo, children }) => {
+  const [truck, setTruck] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

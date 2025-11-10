@@ -3,18 +3,18 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-const ReminderContext = createContext<any>(null);
+const ReminderContext = createContext(null);
 
 export const useReminder = () => useContext(ReminderContext);
 
-export const ReminderProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [reminders, setReminders] = useState<any>(null);
+export const ReminderProvider = ({ children }) => {
+  const [reminders, setReminders] = useState(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const router = useRouter()
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
+    let intervalId;
 
     // Function to fetch reminders
     async function fetchReminders() {

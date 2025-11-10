@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const SupplierContext = createContext<any>(null);
+const SupplierContext = createContext(null);
 
 export const useSupplier = () => useContext(SupplierContext);
 
-export const SupplierProvider: React.FC<{ supplierId: string; children: React.ReactNode }> = ({ supplierId, children }) => {
-  const [supplier, setSupplier] = useState<any>(null);
+export const SupplierProvider = ({ supplierId, children }) => {
+  const [supplier, setSupplier] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
