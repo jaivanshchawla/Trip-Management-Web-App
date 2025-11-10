@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import TripForm from '@/components/trip/TripForm';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Loading from '../loading'; // Ensure the Loading component shows a GIF
+import Loading from '../loading';
 import { useToast } from '@/components/hooks/use-toast';
 import { useExpenseData } from '@/components/hooks/useExpenseData';
 
-const CreateTripPage: React.FC = () => {
+const CreateTripPage = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false); // New state for saving overlay
-  const [error, setError] = useState<string | null>(null);
-  const [latestLR, setLatestLR] = useState<string>(''); // State to hold the latest LR
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
+  const [latestLR, setLatestLR] = useState('');
   const data = useSearchParams()
   const duplicate = data.get('trip')
   const { toast } = useToast()
@@ -65,7 +65,7 @@ const CreateTripPage: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleTripSubmit = async (trip: any) => {
+  const handleTripSubmit = async (trip) => {
     setSaving(true); // Show loading overlay
 
     try {
@@ -138,7 +138,7 @@ const CreateTripPage: React.FC = () => {
       setTimeout(() => {
         router.push('/user/trips');
       }, 500);
-    } catch (error: any) {
+    } catch (error) {
       toast({
         description: error.message,
         variant: 'destructive'

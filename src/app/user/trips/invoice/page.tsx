@@ -1,7 +1,6 @@
 'use client'
 
 import { useToast } from '@/components/hooks/use-toast'
-import { ITrip } from '@/utils/interface'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../loading'
@@ -11,7 +10,6 @@ import { Button } from '@/components/ui/button'
 import { Download } from 'lucide-react'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
-import { InvoiceFormData as FormData } from '@/utils/interface'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -21,7 +19,7 @@ import { loadingIndicator } from '@/components/ui/LoadingIndicator'
 import { saveInvoice } from '@/utils/saveTripDocs'
 import { useExpenseData } from '@/components/hooks/useExpenseData'
 
-const InvoiceGenerationPage: React.FC = () => {
+const InvoiceGenerationPage = () => {
   const params = useSearchParams()
   const paramtrips = JSON.parse(params.get('trips') as string)
   const party = params.get('party') as string
@@ -38,14 +36,14 @@ const InvoiceGenerationPage: React.FC = () => {
 
   const { invoices } = useExpenseData()
 
-  const [trips, setTrips] = useState<ITrip[] | any[]>([])
+  const [trips, setTrips] = useState([])
   const [loading, setLoading] = useState(true)
-  const invoiceRef = useRef<HTMLDivElement | null>(null)
-  const [deletedPaymentIds, setDeletedPaymentIds] = useState<string[]>([])
-  const [deletedChargeIds, setDeletedChargeIds] = useState<string[]>([])
+  const invoiceRef = useRef(null)
+  const [deletedPaymentIds, setDeletedPaymentIds] = useState([])
+  const [deletedChargeIds, setDeletedChargeIds] = useState([])
   const [downloading, setDownloading] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     logoUrl: '',
     color : '#d1d5db',
     partygst : "",
@@ -95,7 +93,7 @@ const InvoiceGenerationPage: React.FC = () => {
         party: data.trips[0]?.partyName || '',
         partygst : data.trips[0].partyDetails.gstNumber || "",
         partyAddress : data.trips[0].partyDetails.address || "",
-        freightCharges: data.trips?.map((trip: ITrip) => ({
+        freightCharges: data.trips?.map((trip) => ({
           lrNo: trip.LR,
           truckNo: trip.truck,
           material: trip?.material ? trip.material?.map(item=>item.name) : [],
@@ -105,8 +103,8 @@ const InvoiceGenerationPage: React.FC = () => {
           rate: trip.rate || 'Fixed',
           amount: trip.amount
         })),
-        additionalCharges: data.trips?.flatMap((trip: any) =>
-          trip.tripCharges?.map((charge: any, index: number) => ({
+        additionalCharges: data.trips?.flatMap((trip) =>
+          trip.tripCharges?.map((charge, index) => ({
             id: charge._id,
             sNo: index + 1,
             date: charge.date ? new Date(charge.date).toISOString().split('T')[0] : '',
@@ -125,8 +123,8 @@ const InvoiceGenerationPage: React.FC = () => {
           bankName: '',
           bankBranch: ''
         },
-        paymentDetails: data.trips?.flatMap((trip: any) =>
-          trip.tripAccounts?.map((charge: any, index: number) => ({
+        paymentDetails: data.trips?.flatMap((trip) =>
+          trip.tripAccounts?.map((charge, index) => ({
             id: charge._id,
             sNo: index + 1,
             date: charge.date ? new Date(charge.date).toISOString().split('T')[0] : '',
@@ -165,10 +163,9 @@ const InvoiceGenerationPage: React.FC = () => {
     // 2️⃣ Wait for base64 images to be ready inside FreightInvoice
     //    We poll until all 3 base64 image strings are non-empty, or timeout after 5s
     await new Promise<void>((resolve) => {
-      const maxWaitTime = 5000; // ms
+      const maxWaitTime = 5000;
       let waited = 0;
       const interval = setInterval(() => {
-        // @ts-ignore - You can pass refs or use a parent state to check readiness
         const invoiceEl = invoiceRef.current;
         const imgs = invoiceEl?.querySelectorAll("img") || [];
         const allHaveSrc = Array.from(imgs).every(img => img.getAttribute("src"));
