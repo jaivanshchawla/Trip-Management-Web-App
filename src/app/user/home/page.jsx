@@ -26,7 +26,6 @@ import { GoOrganization } from 'react-icons/go';
 import { useRouter } from 'next/navigation';
 import { loadingIndicator } from '@/components/ui/LoadingIndicator';
 import { handleAddExpense } from '@/helpers/ExpenseOperation';
-import { IExpense } from '@/utils/interface';
 import Image from 'next/image';
 import biltyImg from '@/assets/bilty-home-icon.png'
 import fmImg from '@/assets/fm-home-icon.png'
@@ -37,7 +36,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { statuses } from '@/utils/schema';
 import { formatNumber } from '@/utils/utilArray';
 
-const piechartConfig: ChartConfig = {
+const piechartConfig = {
   totalAmount: {
     label: "Expenses",
     color: "#EA3A88",
@@ -56,7 +55,7 @@ const piechartConfig: ChartConfig = {
   },
 }
 
-const chartConfig: ChartConfig = {
+const chartConfig = {
   count: {
     label: "Number of Trips :",
     color: "#3190F5",
@@ -100,7 +99,7 @@ const AddExpenseModal = dynamic(() => import('@/components/AddExpenseModal'), {
 })
 
 
-const TripSelect = ({ tripId, setTripId, trips }: { tripId: string, setTripId: React.Dispatch<React.SetStateAction<string>>, trips: any[] }) => {
+const TripSelect = ({ tripId, setTripId, trips }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTrips = useMemo(() => {
@@ -157,7 +156,7 @@ const TripSelect = ({ tripId, setTripId, trips }: { tripId: string, setTripId: R
                   {/* Status and Progress Bar */}
                   <div className="flex flex-col space-y-1">
                     <span className="text-sm text-gray-600">
-                      Status: {statuses[trip.status as number]}
+                      Status: {statuses[trip.status]}
                     </span>
                     <div className="relative w-full h-1 bg-gray-200 rounded">
                       <div
@@ -171,7 +170,7 @@ const TripSelect = ({ tripId, setTripId, trips }: { tripId: string, setTripId: R
                                 ? 'bg-green-500'
                                 : 'bg-green-800'
                           }`}
-                        style={{ width: `${(trip.status as number / 4) * 100}%` }}
+                        style={{ width: `${(trip.status / 4) * 100}%` }}
                       />
                     </div>
                   </div>
@@ -215,7 +214,7 @@ const Page = () => {
   const { toast } = useToast()
   const { dashboardData: data, trips, isLoading, refetchDashboard } = useExpenseData()
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
-  const notificationIconRef = useRef<HTMLDivElement>(null);
+  const notificationIconRef = useRef(null);
   const { reminders } = useReminder()
   const [open, setOpen] = useState(false)
   const [tripOpen, setTripOpen] = useState(false);
@@ -225,7 +224,7 @@ const Page = () => {
   const [otherOpen, setOtherOpen] = useState(false);
   const [InvoiceOpen, setInvoiceOpen] = useState(false);
   const [expenseOpen, setExpenseOpen] = useState(false)
-  const [tripId, setTripId] = useState<string>('')
+  const [tripId, setTripId] = useState('')
 
   const totalCost = useMemo(() => {
     return data?.expenses?.reduce((acc, curr) => acc + curr.totalAmount, 0) || 0
@@ -245,7 +244,7 @@ const Page = () => {
   const animatedProfit = useAnimatedNumber(data?.profit || 0);
 
 
-  const openModal = (title: string) => {
+  const openModal = (title) => {
     setOpen(false)
     switch (title) {
       case 'Trip Documents':
@@ -268,7 +267,7 @@ const Page = () => {
     }
   }
 
-  const handleExpense = async (expense: IExpense | any, id?: string, file?: File | null) => {
+  const handleExpense = async (expense, id, file) => {
     try {
       const data = await handleAddExpense(expense, file, toast)
 
@@ -413,7 +412,7 @@ const Page = () => {
                             <Cell
                               key={`cell-${index}`}
                               fill={
-                                piechartConfig[entry._id as keyof typeof piechartConfig]?.color ||
+                                piechartConfig[entry._id]?.color ||
                                 piechartConfig.totalAmount.color
                               }
                             />
@@ -639,4 +638,3 @@ const Page = () => {
 };
 
 export default Page;
-

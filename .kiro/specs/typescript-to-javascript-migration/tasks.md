@@ -169,7 +169,9 @@
   - Convert src/app/trip-management/page.tsx to .jsx
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [-] 15. Convert login and admin layout pages
+- [x] 15. Convert login and admin layout pages
+
+
 
 
 
@@ -178,8 +180,11 @@
   - Convert src/app/(admin)/admin-login/page.tsx to .jsx (if exists)
   - Convert src/app/(admin)/admin-page/page.tsx to .jsx (if exists)
   - _Requirements: 1.1, 1.2, 1.5_
+-
 
-- [ ] 16. Convert user dashboard pages (main sections)
+- [-] 16. Convert user dashboard pages (main sections)
+
+
   - Convert src/app/user/layout.tsx, loading.tsx, and page.tsx to .jsx
   - Convert src/app/user/home/page.tsx to .jsx (and any nested files)
   - Convert src/app/user/profile/page.tsx to .jsx (and any nested files)

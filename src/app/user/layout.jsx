@@ -17,11 +17,7 @@ const roboto = Roboto({
 const MainLayout = dynamic(() => import('@/components/layout/MainLayout'), { ssr: false });
 
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {

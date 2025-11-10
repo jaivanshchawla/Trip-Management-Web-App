@@ -5,11 +5,7 @@ import { useParams } from 'next/navigation';
 import PartyLayout from '@/components/layout/PartyLayout';
 import ProfileLayout from '@/components/layout/ProfileLayout';
 
-interface PartyLayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
 
 
   return (
