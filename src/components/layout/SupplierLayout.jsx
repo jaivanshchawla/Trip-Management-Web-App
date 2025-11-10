@@ -22,28 +22,7 @@ import { Frown } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 import { useSWRConfig } from 'swr';
 
-interface TruckLayoutProps {
-    children: React.ReactNode;
-}
-
-export interface ISupplier {
-    supplier_id: string;
-    name: string;
-    contactNumber: string;
-    balance: number;
-}
-
-export interface ISupplierAccount {
-    user_id: string;
-    supplier_id: string;
-    amount: number;
-    paymentMode: string;
-    date: string;
-    notes: string;
-    refNo: string;
-}
-
-const SupplierLayout = ({ children }: TruckLayoutProps) => {
+const SupplierLayout = ({ children }) => {
 
     const { supplier, setSupplier, loading } = useSupplier()
 
@@ -63,28 +42,6 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
         { logo: <FaBook />, name: 'Passbook', path: `/user/suppliers/${supplierId}/passbook` },
         { logo: <FaTruck />, name: 'Trucks', path: `/user/suppliers/${supplierId}/trucks` },
     ];
-
-    // useEffect(() => {
-    //     tabs.forEach(tab => {
-    //         router.prefetch(tab.path);
-    //     });
-
-    //     // Fetch supplier details
-    //     const fetchSupplierDetails = async () => {
-    //         try {
-    //             const response = await fetch(`/api/suppliers/${supplierId}`);
-    //             if (!response.ok) {
-    //                 throw new Error('Failed to fetch supplier details');
-    //             }
-    //             const data = await response.json();
-    //             setSupplier(data.supplier);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-
-    //     fetchSupplierDetails();
-    // }, [supplierId]);
 
     const handleEditSupplier = () => {
         setIsEditModalOpen(true);
@@ -117,7 +74,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
             
             // Redirect to supplier list page
             router.push('/user/suppliers');
-        } catch (error: any) {
+        } catch (error) {
             console.error('Failed to delete supplier:', error);
             toast({
                 description: error.message || 'An error occurred while deleting the supplier',
@@ -132,7 +89,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
         setIsAddPaymentModalOpen(true);
     };
 
-    const handleSaveSupplier = async (updatedSupplier: ISupplier) => {
+    const handleSaveSupplier = async (updatedSupplier) => {
         try {
             const response = await fetch(`/api/suppliers/${supplierId}`, {
                 method: 'PUT',
@@ -144,7 +101,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
             if (!response.ok) {
                 throw new Error('Failed to update supplier');
             }
-            setSupplier((prev: any) => ({
+            setSupplier((prev) => ({
                 ...prev,
                 ...updatedSupplier
             }));
@@ -156,7 +113,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
         }
     };
 
-    const handleSavePayment = async (payments: any) => {
+    const handleSavePayment = async (payments) => {
         try {
             const response = await fetch(`/api/suppliers/${supplierId}/payments`, {
                 method: 'POST',
@@ -173,7 +130,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
 
             const data = await response.json();
             let savedBal = 0
-            const saved = data.payments.map((item: any) => {
+            const saved = data.payments.map((item) => {
                 savedBal += item.amount
                 return {
                     ...item,
@@ -183,7 +140,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
 
             setIsAddPaymentModalOpen(false);
             // Update supplier's `supplierTripAccounts` by concatenating the new payments
-            setSupplier((prev: any) => ({
+            setSupplier((prev) => ({
                 ...prev,
                 supplierTripAccounts: [...saved, ...prev.supplierTripAccounts], // Concatenate the new payments with existing data
                 balance: prev.balance + savedBal
@@ -194,7 +151,7 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
             })
 
             // You might want to fetch the updated supplier details here if needed
-        } catch (error: any) {
+        } catch (error) {
             alert(error.message);
             console.error('Failed to add payment:', error);
         }
@@ -254,13 +211,13 @@ const SupplierLayout = ({ children }: TruckLayoutProps) => {
             {supplier && (
                 <>
                     <EditSupplierModal
-                        supplier={supplier as any}
+                        supplier={supplier}
                         isOpen={isEditModalOpen}
                         onClose={() => setIsEditModalOpen(false)}
                         onSave={handleSaveSupplier}
                     />
                     <AddPaymentModal
-                        supplierId={supplierId as string}
+                        supplierId={supplierId}
                         isOpen={isAddPaymentModalOpen}
                         onClose={() => setIsAddPaymentModalOpen(false)}
                         onSave={handleSavePayment}

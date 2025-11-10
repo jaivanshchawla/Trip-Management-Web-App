@@ -1,4 +1,4 @@
-// components/parties/PartyLayout.tsx
+// components/parties/PartyLayout.jsx
 'use client'
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -8,15 +8,9 @@ import { useParty } from '@/context/partyContext';
 import Loading from '@/app/user/parties/loading';
 import { Button } from '../ui/button';
 import dynamic from 'next/dynamic';
-import { PaymentBook } from '@/utils/interface';
 import { Frown } from 'lucide-react';
 
-interface PartyLayoutProps {
-  children: React.ReactNode;
-  partyId: string;
-}
-
-const PartyLayout = ({ children, partyId }: PartyLayoutProps) => {
+const PartyLayout = ({ children, partyId }) => {
   const pathname = usePathname();
   const {party, setParty, loading} = useParty()
   const [isOpen , setIsOpen] = useState(false)
@@ -32,7 +26,7 @@ const PartyLayout = ({ children, partyId }: PartyLayoutProps) => {
     { name: 'Party Details', path: `/user/parties/${partyId}/details` },
   ];
 
-  const handlePayment = async(payment : PaymentBook | any)=>{
+  const handlePayment = async(payment)=>{
     try {
       const res = await fetch(`/api/parties/${party.party_id}/payments`,{
         method: 'POST',
@@ -46,7 +40,7 @@ const PartyLayout = ({ children, partyId }: PartyLayoutProps) => {
       }
       const data = await res.json()
       const newpayment = {  ...data.payment, type : 'payment', description : data.payment.accountType,}
-      setParty((prev : any)=>({
+      setParty((prev)=>({
         ...prev,
         items : [newpayment, ...party.items]
       }))

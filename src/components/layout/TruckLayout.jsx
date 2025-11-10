@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter, usePathname, useParams } from 'next/navigation';
-import { IDriver, ITrip, TruckModel } from '@/utils/interface';
 import Link from 'next/link';
 import { BsFillFuelPumpFill } from "react-icons/bs";
 import { FaTruckMoving } from "react-icons/fa6";
@@ -21,11 +20,7 @@ import { useTruck } from '@/context/truckContext';
 import { Frown } from 'lucide-react';
 import { useExpenseData } from '../hooks/useExpenseData';
 
-interface TruckLayoutProps {
-    children: React.ReactNode;
-}
-
-const TruckLayout = ({ children }: TruckLayoutProps) => {
+const TruckLayout = ({ children }) => {
     const { truck, setTruck, loading } = useTruck()
     const {suppliers} = useExpenseData()
     const router = useRouter();
@@ -40,11 +35,11 @@ const TruckLayout = ({ children }: TruckLayoutProps) => {
     ];
 
 
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [openOptions, setOpenOptions] = useState(false);
-    const dropdownRef = useRef<any>(null);
-    const [edit, setEdit] = useState<boolean>(false);
+    const dropdownRef = useRef(null);
+    const [edit, setEdit] = useState(false);
 
     const [showDetails, setShowDetails] = useState(false);
     const [saving, setSaving] = useState(false)
@@ -52,7 +47,7 @@ const TruckLayout = ({ children }: TruckLayoutProps) => {
     const toggleDetails = () => setShowDetails(!showDetails);
 
     useEffect(() => {
-        const handleClickOutside = (event: any) => {
+        const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setOpenOptions(false);
             }
@@ -76,7 +71,7 @@ const TruckLayout = ({ children }: TruckLayoutProps) => {
     }, [tabs, router]);
 
 
-    const handleEdit = async (formData: any) => {
+    const handleEdit = async (formData) => {
         // console.log(formData)
         setSaving(true)
         try {   
@@ -92,7 +87,7 @@ const TruckLayout = ({ children }: TruckLayoutProps) => {
                 throw new Error('Failed to update truck');  
             }
             const data = await response.json();
-            setTruck((prev : TruckModel | any)=>({
+            setTruck((prev)=>({
                 ...prev,
                 ...data.truck,
                 supplierName : suppliers.find(supplier=>supplier.supplier_id === data.truck.supplier)?.name || ''
@@ -282,9 +277,9 @@ const TruckLayout = ({ children }: TruckLayoutProps) => {
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
                 onSave={handleAddExpense}
-                truckNo={truckNo as string} driverId={''} categories={['Truck Expense', 'Trip Expense', 'Office Expense']} />
+                truckNo={truckNo} driverId={''} categories={['Truck Expense', 'Trip Expense', 'Office Expense']} />
             <EditTruckModal
-                truck={truck as TruckModel}
+                truck={truck}
                 isOpen={edit}
                 onClose={() => setEdit(false)}
                 onSave={handleEdit}
@@ -294,5 +289,3 @@ const TruckLayout = ({ children }: TruckLayoutProps) => {
 };
 
 export default TruckLayout;
-
-

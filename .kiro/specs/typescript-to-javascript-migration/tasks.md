@@ -82,7 +82,9 @@
   - Remove type annotations and return type definitions
   - _Requirements: 1.1, 1.2, 1.3, 4.2_
 
-- [-] 8. Convert shared layout components
+- [x] 8. Convert shared layout components
+
+
 
 
 
