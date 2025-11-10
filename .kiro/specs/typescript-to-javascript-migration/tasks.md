@@ -248,6 +248,7 @@
 
 
 
+
   - Convert all route.ts files in src/app/api/trips/ to route.js
   - Convert all route.ts files in src/app/api/expenses/ to route.js
   - Convert all route.ts files in src/app/api/invoices/ to route.js
@@ -256,8 +257,10 @@
   - Convert all route.ts files in src/app/api/files/ to route.js
   - Convert all route.ts files in src/app/api/notifications/ to route.js
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
+-
 
-- [ ] 22. Convert API routes (utilities and external)
+- [-] 22. Convert API routes (utilities and external)
+
 
   - Convert all route.ts files in src/app/api/s3Upload/ to route.js
   - Convert all route.ts files in src/app/api/generateReport/ to route.js
