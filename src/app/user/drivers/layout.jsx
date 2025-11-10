@@ -1,23 +1,18 @@
-// DriversLayout.tsx
+// DriversLayout.jsx
 'use client'
 import { Button } from "@/components/ui/button";
 import { Inter } from "next/font/google";
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const headings: any = {
+const headings = {
   '/user/drivers': 'Drivers',
   '/user/drivers/create': 'New Driver'
 }
 
-interface DriversLayoutProps {
-  children: ReactNode;
-}
-
-const DriversLayout = ({ children }: DriversLayoutProps) => {
+const DriversLayout = ({ children }) => {
   const pathname = usePathname()
   return (
     <div className={`${inter.className} max-h-screen flex flex-col`}>

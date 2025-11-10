@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { MdDelete, MdEdit } from "react-icons/md";
-import { IDriver, IDriverAccount, IExpense, PaymentBook } from '@/utils/interface';
 import Loading from '../loading';
 import { DeleteExpense, ExpenseforDriver, handleEditExpense } from '@/helpers/ExpenseOperation';
 import { handleDelete as DeleteForExpense } from '@/helpers/ExpenseOperation';
@@ -19,16 +18,16 @@ import dynamic from 'next/dynamic';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useDriver } from '@/context/driverContext';
 
-const Driver: React.FC = () => {
+const Driver = () => {
   const { driverId } = useParams();
 
   const { driver, loading, setDriver } = useDriver()
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [expenseEdit, setExpenseEdit] = useState(false);
   const [paymentEdit, setPaymentEdit] = useState(false);
   const [accountEdit, setAccountEdit] = useState(false);
-  const [selected, setSelected] = useState<any>([]);
-  const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' })
+  const [selected, setSelected] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
 
 
   const AddExpenseModal = dynamic(() => import('@/components/AddExpenseModal'), { ssr: false })
@@ -50,7 +49,7 @@ const Driver: React.FC = () => {
       return account.got || (account.type !== 'truck' ? account.amount : 0); // Use 'got' or fallback to 'amount' for non-truck types
     };
 
-    let sortableAccounts = [...driver?.driverExpAccounts as any];
+    let sortableAccounts = [...driver?.driverExpAccounts];
 
     if (sortConfig.key !== null) {
       sortableAccounts.sort((a, b) => {
@@ -87,15 +86,15 @@ const Driver: React.FC = () => {
   }, [driver, sortConfig]);
 
 
-  const requestSort = (key: any) => {
-    let direction: 'asc' | 'desc' = 'asc'
+  const requestSort = (key) => {
+    let direction = 'asc'
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc'
     }
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName: any) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />
     }
@@ -104,31 +103,31 @@ const Driver: React.FC = () => {
 
   // const Modal = dynamic(() => import('@/components/trip/tripDetail/Modal'), { ssr: false })
 
-  const handleDelete = async (account: any) => {
+  const handleDelete = async (account) => {
     let balance = driver.balance
     try {
-      let deletedAccount: any;
+      let deletedAccount;
 
       if (account.expenseType) {
         deletedAccount = await DeleteExpense(account._id);
-        setDriver((prev : IDriver | any)=>({
+        setDriver((prev)=>({
           ...prev,
-          driverExpAccounts : prev.driverExpAccounts.filter((acc : any) => acc._id !== deletedAccount._id),
+          driverExpAccounts : prev.driverExpAccounts.filter((acc) => acc._id !== deletedAccount._id),
           balance : prev.balance + deletedAccount.amount
         }))
       } else if (account.accountType) {
         deletedAccount = await DeleteAccount(account._id, account.trip_id, account.party_id);
-        setDriver((prev : IDriver | any)=>({
+        setDriver((prev)=>({
           ...prev,
-          driverExpAccounts : prev.driverExpAccounts.filter((acc : any) => acc.paymentBook_id !== deletedAccount.paymentBook_id),
+          driverExpAccounts : prev.driverExpAccounts.filter((acc) => acc.paymentBook_id !== deletedAccount.paymentBook_id),
           balance : prev.balance + deletedAccount.amount
         }))
       } else {
-        const data = await deleteDriverAccount(driverId as string, account.account_id);
+        const data = await deleteDriverAccount(driverId, account.account_id);
         deletedAccount = data.driver;
-        setDriver((prev : IDriver | any)=>({
+        setDriver((prev)=>({
           ...prev,
-          driverExpAccounts : prev.driverExpAccounts.filter((acc : any) => acc.account_id !== account.account_id),
+          driverExpAccounts : prev.driverExpAccounts.filter((acc) => acc.account_id !== account.account_id),
           balance : prev.balance - account.got + account.gave
         }))
       }
@@ -220,12 +219,12 @@ const Driver: React.FC = () => {
   //   setLoading(false);
   // };
 
-  const handleEditAccounts = async (account: any) => {
+  const handleEditAccounts = async (account) => {
     try {
       // Create a variable to store the updated accounts
-      let updatedAccounts: any[] = [...driver?.driverExpAccounts];
-      let updatedAccount: any;
-      let balance : number = driver.balance
+      let updatedAccounts = [...driver?.driverExpAccounts];
+      let updatedAccount;
+      let balance = driver.balance
 
       if (account.expenseType) {
         // Handle expense edit logic
@@ -256,7 +255,7 @@ const Driver: React.FC = () => {
 
       } else {
         // Handle driver account edit logic
-        const data = await EditDriverAccount(driverId as string, account, selected.account_id);
+        const data = await EditDriverAccount(driverId, account, selected.account_id);
         updatedAccount = data;
         balance = balance - (selected.got - updatedAccount.got + updatedAccount.gave - selected.gave)
         updatedAccounts = updatedAccounts.map(acc =>
@@ -265,7 +264,7 @@ const Driver: React.FC = () => {
       }
 
       // Now update the accounts and driverExpAccounts using updatedAccounts
-      setDriver((prev: any) => ({
+      setDriver((prev) => ({
         ...prev,
         balance : balance,
         driverExpAccounts: updatedAccounts.map(acc => ({ ...acc })), // Ensure driverExpAccounts is synced
@@ -328,7 +327,7 @@ const Driver: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedAccounts.map((account, index: number) => (
+              {sortedAccounts.map((account, index) => (
                 <TableRow key={account._id}>
                   <TableCell>
                     <div className='flex items-center space-x-2'>
@@ -388,7 +387,7 @@ const Driver: React.FC = () => {
         isOpen={expenseEdit}
         onClose={() => setExpenseEdit(false)}
         onSave={handleEditAccounts}
-        driverId={driverId as string}
+        driverId={driverId}
         selected={selected} categories={['Truck Expense', 'Trip Expense']} />
 
       {/* {selected != null && <Modal

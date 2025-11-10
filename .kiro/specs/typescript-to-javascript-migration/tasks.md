@@ -182,15 +182,20 @@
   - _Requirements: 1.1, 1.2, 1.5_
 -
 
-- [-] 16. Convert user dashboard pages (main sections)
+- [x] 16. Convert user dashboard pages (main sections)
+
+
 
 
   - Convert src/app/user/layout.tsx, loading.tsx, and page.tsx to .jsx
   - Convert src/app/user/home/page.tsx to .jsx (and any nested files)
   - Convert src/app/user/profile/page.tsx to .jsx (and any nested files)
   - _Requirements: 1.1, 1.2, 1.5_
+-
 
-- [ ] 17. Convert user dashboard pages (data management)
+- [-] 17. Convert user dashboard pages (data management)
+
+
   - Convert all page files in src/app/user/drivers/ to .jsx
   - Convert all page files in src/app/user/parties/ to .jsx
   - Convert all page files in src/app/user/suppliers/ to .jsx

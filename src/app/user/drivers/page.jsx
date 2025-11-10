@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import debounce from 'lodash.debounce';
 import { FaUser, FaPhone, FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
 
-import { IDriver } from '@/utils/interface';
 import { formatNumber } from '@/utils/utilArray';
 import Loading from './loading';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -15,16 +14,11 @@ import { handleExportToExcel } from '@/utils/excelOperation';
 import { BsFiletypeXlsx } from 'react-icons/bs';
 import { Button } from '@/components/ui/button';
 
-type SortConfig = {
-  key: keyof IDriver | null;
-  direction: 'asc' | 'desc';
-};
-
 export default function DriversPage() {
 
   const router = useRouter();
   const { drivers, isLoading , refetchDrivers} = useExpenseData();
-  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: null, direction: 'asc' });
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [searchQuery, setSearchQuery] = useState('');
 
 
@@ -33,11 +27,11 @@ export default function DriversPage() {
   }, [refetchDrivers])
 
   const debouncedSearch = useMemo(
-    () => debounce((query: string) => setSearchQuery(query), 300),
+    () => debounce((query) => setSearchQuery(query), 300),
     []
   );
 
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e) => {
     debouncedSearch(e.target.value.toLowerCase());
   }, [debouncedSearch]);
 
@@ -70,14 +64,14 @@ export default function DriversPage() {
     return sortableDrivers;
   }, [drivers, sortConfig, searchQuery]);
 
-  const requestSort = useCallback((key: keyof IDriver) => {
+  const requestSort = useCallback((key) => {
     setSortConfig((prevConfig) => ({
       key,
       direction: prevConfig.key === key && prevConfig.direction === 'asc' ? 'desc' : 'asc',
     }));
   }, []);
 
-  const getSortIcon = useCallback((columnName: keyof IDriver) => {
+  const getSortIcon = useCallback((columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     }

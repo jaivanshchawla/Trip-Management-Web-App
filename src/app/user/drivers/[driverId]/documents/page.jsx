@@ -12,14 +12,7 @@ import { CloudUpload } from 'lucide-react'
 
 // Define allowed document types
 const allowedDocuments = ["License", "Aadhar", "PAN", "PoliceVerification"];
-type Document = {
-  _id: string,
-  filename: string,
-  docType: string,
-  uploadedDate: string,
-  validityDate: string,
-  url: string
-}
+
 const DriverDocuments = () => {
   const { driver, setDriver, loading } = useDriver()
   const [isModalOpen, setIsModalOpen] = useState(false)

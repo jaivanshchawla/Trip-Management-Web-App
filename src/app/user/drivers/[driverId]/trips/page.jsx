@@ -1,7 +1,6 @@
 'use client';
 import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ITrip } from '@/utils/interface';
 import { statuses } from '@/utils/schema';
 import { FaCalendarAlt, FaTruck, FaRoute, FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
 import { GoOrganization } from 'react-icons/go';
@@ -11,10 +10,10 @@ import PartyName from '@/components/party/PartyName';
 import { useDriver } from '@/context/driverContext';
 import { renderCellContent } from '@/utils/renderTripCell';
 
-const DriverTrips: React.FC = () => {
+const DriverTrips = () => {
   const { driver, loading } = useDriver();
   const router = useRouter();
-  const [sortConfig, setSortConfig] = useState<{ key: keyof ITrip | null; direction: 'asc' | 'desc' }>({
+  const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: 'asc',
   });
@@ -42,15 +41,15 @@ const DriverTrips: React.FC = () => {
     return sortableTrips;
   }, [trips, sortConfig]);
 
-  const requestSort = (key: keyof ITrip) => {
-    let direction: 'asc' | 'desc' = 'asc';
+  const requestSort = (key) => {
+    let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
     setSortConfig({ key, direction });
   };
 
-  const getSortIcon = (columnName: keyof ITrip) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     }

@@ -2,24 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import DriverForm from '@/components/createDriver';
-import { IDriver } from '@/utils/interface';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Loading from '../loading';
 import { mutate } from 'swr';
 
 
-const isValidPhone = (phone: string): boolean => {
+const isValidPhone = (phone) => {
     return /^[6789]\d{9}$/.test(phone); // Phone number validation logic for India
 };
 
-const CreateDriverPage: React.FC = () => {
+const CreateDriverPage = () => {
     const [saving, setSaving] = useState(false)
     const router = useRouter();
     const params = useSearchParams()
     const nextpath = params.get('nextpath')
 
 
-    const handleDriverSubmit = async (driver: IDriver) => {
+    const handleDriverSubmit = async (driver) => {
         setSaving(true);
 
         if (driver.contactNumber && !isValidPhone(driver.contactNumber)) {
