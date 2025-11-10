@@ -14,14 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Copy } from "lucide-react";
 import { useToast } from "@/components/hooks/use-toast";
 
-interface ShareFallbackDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  documentUrl: string;
-  filename: string;
-}
-
-const ShareFallbackDialog: React.FC<ShareFallbackDialogProps> = ({
+const ShareFallbackDialog = ({
   isOpen,
   onClose,
   documentUrl,

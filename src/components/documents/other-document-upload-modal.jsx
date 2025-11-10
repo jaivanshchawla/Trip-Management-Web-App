@@ -5,11 +5,7 @@ import { Button } from '@/components/ui/button';
 import OtherDocumentUpload from './OtherDocumentUpload';
 import { CloudUpload } from 'lucide-react';
 
-type Props = {
-  setDocs: React.Dispatch<React.SetStateAction<any>>;
-};
-
-const OtherDocumentUploadModal: React.FC<Props> = ({ setDocs }) => {
+const OtherDocumentUploadModal = ({ setDocs }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -25,4 +21,3 @@ const OtherDocumentUploadModal: React.FC<Props> = ({ setDocs }) => {
 };
 
 export default OtherDocumentUploadModal;
-

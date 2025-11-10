@@ -9,19 +9,8 @@ import { useToast } from '../hooks/use-toast';
 import FileUploader from '../FileUploader';
 import { useSWRConfig } from 'swr';
 
-interface DocumentForm {
-    files: File[];
-    filenames: string[];
-}
-
-type Props = {
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    setDocs?: any
-};
-
-const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
-    const [formData, setFormData] = useState<DocumentForm>({
+const CompanyDocumentUpload = ({ open, setOpen, setDocs }) => {
+    const [formData, setFormData] = useState({
         files: [],
         filenames: [],
     });
@@ -32,14 +21,14 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
     const { toast } = useToast()
 
     // Handle input changes for filenames
-    const handleFilenameChange = (index: number, value: string) => {
+    const handleFilenameChange = (index, value) => {
         setFormData(prevData => ({
             ...prevData,
             filenames: prevData.filenames.map((filename, i) => i === index ? value : filename),
         }));
     };
 
-    const extractTextFromImage = async (file: File): Promise<string> => {
+    const extractTextFromImage = async (file) => {
         const worker = await createWorker('eng');
         const { data: { text } } = await worker.recognize(file);
         await worker.terminate();
@@ -47,7 +36,7 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
     };
 
     // Handle file change
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e) => {
         e.preventDefault();
 
         if (e.target.files) {
@@ -59,7 +48,7 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
         }
     };
 
-    const handleFilesChange = (files: File[]) => {
+    const handleFilesChange = (files) => {
         setFormData(prevData => ({
             files: [...prevData.files, ...files],
             filenames: [...prevData.filenames, ...files.map(file => file.name)],
@@ -67,7 +56,7 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
     };
 
     // Remove file
-    const removeFile = (index: number) => {
+    const removeFile = (index) => {
         setFormData(prevData => ({
             files: prevData.files.filter((_, i) => i !== index),
             filenames: prevData.filenames.filter((_, i) => i !== index),
@@ -75,7 +64,7 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
     };
 
     // Handle form submission
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e) => {
         setLoading(true)
         e.preventDefault();
 
@@ -117,7 +106,7 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
             if (setDocs)
                 setDocs(responseData.user.documents);
             mutate('/api/documents/recent')
-        } catch (err: any) {
+        } catch (err) {
             setError(err.message);
             toast({
                 description: err.message,
@@ -197,4 +186,3 @@ const CompanyDocumentUpload: React.FC<Props> = ({ open, setOpen, setDocs }) => {
 };
 
 export default CompanyDocumentUpload;
-

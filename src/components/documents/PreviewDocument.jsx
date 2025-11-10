@@ -6,21 +6,14 @@ import { useToast } from '@/components/hooks/use-toast';
 import { copyDocumentToClipboard, shareDocument } from '@/utils/documentActions';
 import ShareFallbackDialog from './ShareFallbackDialog';
 
-type props = {
-    isOpen : boolean
-    documentUrl : string
-    documentName? : string
-    onClose : any
-}
-
-const isPdf = (fileName: string) => {
+const isPdf = (fileName) => {
     return fileName?.toLowerCase().endsWith('.pdf');
 };
 
-const PreviewDocument: React.FC<props> = ({isOpen, documentUrl, documentName, onClose}) => {
+const PreviewDocument = ({isOpen, documentUrl, documentName, onClose}) => {
     const { toast } = useToast();
     const [isShareDialogOpen, setShareDialogOpen] = useState(false);
-    const [shareableUrl, setShareableUrl] = useState<string>('');
+    const [shareableUrl, setShareableUrl] = useState('');
 
     // Extract filename from documentUrl if documentName is not provided
     const filename = documentName || documentUrl.split('/').pop() || 'document';

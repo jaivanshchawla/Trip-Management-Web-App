@@ -5,11 +5,7 @@ import { Button } from '@/components/ui/button';
 import CompanyDocumentUpload from '@/components/documents/CompanyDocumentUpload';
 import { CloudUpload } from 'lucide-react';
 
-type Props = {
-  setDocs: React.Dispatch<React.SetStateAction<any>>;
-};
-
-const CompanyDocumentUploadModal: React.FC<Props> = ({ setDocs }) => {
+const CompanyDocumentUploadModal = ({ setDocs }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -24,4 +20,3 @@ const CompanyDocumentUploadModal: React.FC<Props> = ({ setDocs }) => {
 };
 
 export default CompanyDocumentUploadModal;
-
