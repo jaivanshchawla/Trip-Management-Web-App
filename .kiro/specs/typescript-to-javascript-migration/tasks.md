@@ -58,7 +58,9 @@
   - Remove type imports and annotations
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [-] 6. Convert UI component library
+- [x] 6. Convert UI component library
+
+
 
 
 
@@ -68,7 +70,9 @@
   - Update imports between UI components
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [ ] 7. Convert custom hooks
+- [-] 7. Convert custom hooks
+
+
   - Convert src/components/hooks/use-toast.ts to .js
   - Convert src/components/hooks/useAnimatedNumber.ts to .js
   - Convert src/components/hooks/useExpenseData.ts to .js

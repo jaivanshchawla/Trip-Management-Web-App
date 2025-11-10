@@ -10,16 +10,13 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 import { BellRing } from "lucide-react"
-import { ReactElement } from "react"
 import { HiThumbUp } from "react-icons/hi"
 import { IoWarning } from "react-icons/io5"
 import { MdError } from "react-icons/md"
 
-
-
 export function Toaster() {
   const { toasts } = useToast()
-  const variantIcons: Record<string, ReactElement> = {
+  const variantIcons = {
     warning: <IoWarning size={20}/>,
     destructive: <MdError size={20}/>,
     default: <HiThumbUp size={20}/>,
