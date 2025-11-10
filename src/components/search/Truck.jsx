@@ -1,14 +1,9 @@
-import { TruckModel } from '@/utils/interface';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { truckTypesIcons } from '@/utils/utilArray';
 
-interface props {
-    trucks: TruckModel[];
-}
-
-const Truck: React.FC<props> = ({ trucks }) => {
+const Truck = ({ trucks }) => {
     const router = useRouter();
 
     return (

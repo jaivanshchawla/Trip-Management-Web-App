@@ -1,31 +1,25 @@
 'use client'
 
 import React, { useState } from 'react';
-import { IParty } from '@/utils/interface';
-import { v4 as uuidv4 } from 'uuid';
 import { Button } from '../ui/button';
 
-interface Props {
-  onSubmit: (shop : any) => void;
-}
-
-const ShopKhataForm: React.FC<Props> = ({ onSubmit }) => {
+const ShopKhataForm = ({ onSubmit }) => {
   // State to hold form data
-  const [formData, setFormData] = useState<Partial<any>>({
+  const [formData, setFormData] = useState({
     name: '',
     contactNumber: '',
     address: '',
     gstNumber: '',
   });
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (e) => {
     if (e.target.value === '0') {
-      handleChange({ target: { name: e.target.name, value: '' } } as React.ChangeEvent<HTMLInputElement>);
+      handleChange({ target: { name: e.target.name, value: '' } });
     }
   };
 
   // Handle input changes and update the state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -34,7 +28,7 @@ const ShopKhataForm: React.FC<Props> = ({ onSubmit }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // Generate a unique party ID
     // Create a new party object

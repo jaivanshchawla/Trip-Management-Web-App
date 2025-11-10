@@ -1,12 +1,8 @@
 import { formatNumber } from '@/utils/utilArray';
 import React, { useEffect, useState } from 'react';
 
-type Props = {
-  shopId: string;
-};
-
-const ShopBalance: React.FC<Props> = ({ shopId }) => {
-  const [balance, setBalance] = useState<number>(0);
+const ShopBalance = ({ shopId }) => {
+  const [balance, setBalance] = useState(0);
 
   const fetchBalance = async () => {
     try {

@@ -3,12 +3,7 @@ import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { Button } from '../ui/button';
 import { motion } from 'framer-motion';
 
-interface DropdownMenuProps {
-  onEditClick: () => void;
-  onDeleteClick: () => void;
-}
-
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ onEditClick, onDeleteClick }) => {
+const DropdownMenu = ({ onEditClick, onDeleteClick }) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   return (

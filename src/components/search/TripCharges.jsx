@@ -1,15 +1,11 @@
 import React from 'react'
 
-interface props {
-    charges: any[]
-}
-
-const TripCharges: React.FC<props> = ({ charges }) => {
+const TripCharges = ({ charges }) => {
     return (
         <div className='flex flex-col space-y-4 w-full'>
             <h1 className='text-bottomNavBarColor text-2xl font-semibold'>Trip Charges</h1>
             <div className="bg-white shadow-lg rounded-lg divide-y divide-gray-200">
-                {charges.map((charge: any, index: number) => (
+                {charges.map((charge, index) => (
                     <div
                         key={index}
                         className="flex flex-col px-4 py-4 w-1/2 bg-lightOrangeButtonColor transition duration-300 ease-out transform hover:scale-105 rounded-lg cursor-pointer"

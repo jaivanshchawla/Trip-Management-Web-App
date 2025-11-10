@@ -1,23 +1,14 @@
 // components/EditDriverModal.tsx
 import React, { useState } from 'react';
-import { IDriver } from '@/utils/interface';
 import { isValidPhone } from '@/utils/validate';
 import { Button } from '../ui/button';
 
-interface EditDriverModalProps {
-  name: string;
-  shopId: string;
-  handleEdit: (driverName: string, mobileNumber: string) => void;
-  onCancel : () =>void;
-  contactNumber : string
-}
+const EditShopModal = ({ name, shopId, handleEdit, onCancel, contactNumber }) => {
+  const [driverName, setDriverName] = useState(name);
+  const [mobileNumber, setMobileNumber] = useState(contactNumber);
 
-const EditShopModal: React.FC<EditDriverModalProps> = ({ name, shopId, handleEdit, onCancel, contactNumber }) => {
-  const [driverName, setDriverName] = useState<string>(name);
-  const [mobileNumber, setMobileNumber] = useState<string>(contactNumber); // Initialize mobileNumber with an empty string
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!isValidPhone(mobileNumber)) {
       alert('Enter a Valid Phone')
       return
@@ -52,7 +43,7 @@ const EditShopModal: React.FC<EditDriverModalProps> = ({ name, shopId, handleEdi
               variant={'outline'}
               onClick={() => {setDriverName(name)
                 onCancel()
-              }} // Reset name field to original value on cancel
+              }}
             >
               Cancel
             </Button>

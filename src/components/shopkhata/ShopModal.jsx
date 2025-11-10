@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { driverGave, driverGot } from '@/utils/utilArray';
 import { Button } from '../ui/button';
 
-interface DriverModalProps {
-  open: boolean;
-  onClose: () => void;
-  type: 'payment' | 'credit' | null;
-  onConfirm: any
-  selected?: any;
-}
-
-const ShopModal: React.FC<DriverModalProps> = ({ open, onClose, type, onConfirm, selected }) => {
-  const [amount, setAmount] = useState<number>(0);
-  const [reason, setReason] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [otherReason, setOtherReason] = useState<string>('');
+const ShopModal = ({ open, onClose, type, onConfirm, selected }) => {
+  const [amount, setAmount] = useState(0);
+  const [reason, setReason] = useState('');
+  const [date, setDate] = useState('');
+  const [otherReason, setOtherReason] = useState('');
 
   useEffect(() => {
     if (selected) {
@@ -84,7 +75,7 @@ const ShopModal: React.FC<DriverModalProps> = ({ open, onClose, type, onConfirm,
                 <label className="block text-sm font-medium text-gray-700">Date</label>
                 <input
                   type="date"
-                  onClick={(e) => (e.target as HTMLInputElement).showPicker()}
+                  onClick={(e) => e.target.showPicker()}
                   className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}

@@ -11,26 +11,18 @@ import { FaStore, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoDocuments } from 'react-icons/io5';
 import ShopBalance from './ShopBalance';
 
-interface ShopLayoutProps {
-  name: string;
-  shopId: string;
-  onShopUpdate: (shop: any) => void;
-  contactNumber: string;
-  children: React.ReactNode;
-}
-
-const ShopLayout: React.FC<ShopLayoutProps> = ({ name, shopId, onShopUpdate, contactNumber, children }) => {
+const ShopLayout = ({ name, shopId, onShopUpdate, contactNumber, children }) => {
   const router = useRouter();
   const pathname = usePathname();
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<'credit' | 'payment' | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [edit, setEdit] = useState<boolean>(false);
-  const [showContact, setShowContact] = useState<boolean>(false);
+  const [modalType, setModalType] = useState(null);
+  const [error, setError] = useState(null);
+  const [edit, setEdit] = useState(false);
+  const [showContact, setShowContact] = useState(false);
 
 
-  const openModal = (type: 'credit' | 'payment') => {
+  const openModal = (type) => {
     setModalType(type);
     setModalOpen(true);
   };
@@ -41,7 +33,7 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ name, shopId, onShopUpdate, con
     setError(null);
   };
 
-  const handleConfirm = async (amount: number, reason: string, date: string) => {
+  const handleConfirm = async (amount, reason, date) => {
     try {
       const response = await fetch(`/api/shopkhata/${shopId}/accounts`, {
         method: 'POST',
@@ -64,12 +56,12 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ name, shopId, onShopUpdate, con
       onShopUpdate(data.shop);
 
       closeModal();
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
     }
   };
 
-  const handleEditShop = async (shopName: string, mobileNumber: string) => {
+  const handleEditShop = async (shopName, mobileNumber) => {
     try {
       const response = await fetch(`/api/shopkhata/${shopId}`, {
         method: 'PATCH',
@@ -90,7 +82,7 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ name, shopId, onShopUpdate, con
       onShopUpdate(data.shop);
       setEdit(false);
       router.push('/user/shops');
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
     }
   };
@@ -110,7 +102,7 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ name, shopId, onShopUpdate, con
 
       alert('Shop Removed Successfully');
       router.push('/user/shops');
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
     }
   };

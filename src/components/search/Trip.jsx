@@ -1,18 +1,13 @@
-import { ITrip } from '@/utils/interface';
 import { statuses } from '@/utils/schema';
 import React from 'react';
-import { FaCalendarAlt, FaTruck, FaRoute, FaFileInvoiceDollar } from 'react-icons/fa';
+import { FaCalendarAlt, FaTruck, FaRoute } from 'react-icons/fa';
 import { GoOrganization } from 'react-icons/go';
 import PartyName from '../party/PartyName';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaNoteSticky } from 'react-icons/fa6';
 
-interface tripProps {
-    trips: ITrip[];
-}
-
-const Trip: React.FC<tripProps> = ({ trips }) => {
+const Trip = ({ trips }) => {
     const router = useRouter();
 
     return (
@@ -52,9 +47,9 @@ const Trip: React.FC<tripProps> = ({ trips }) => {
                             <div className='mb-2'>
                                 <span className='font-medium'>Status: </span>
                                 <div className='relative w-full bg-gray-200 h-1 rounded'>
-                                    <div className={`absolute top-0 left-0 h-1 rounded transition-width duration-500 ${trip.status === 0 ? 'bg-red-500' : trip.status === 1 ? 'bg-yellow-500' : trip.status === 2 ? 'bg-blue-500' : trip.status === 3 ? 'bg-green-500' : 'bg-green-800'}`} style={{ width: `${(trip.status as number / 4) * 100}%` }}></div>
+                                    <div className={`absolute top-0 left-0 h-1 rounded transition-width duration-500 ${trip.status === 0 ? 'bg-red-500' : trip.status === 1 ? 'bg-yellow-500' : trip.status === 2 ? 'bg-blue-500' : trip.status === 3 ? 'bg-green-500' : 'bg-green-800'}`} style={{ width: `${(trip.status / 4) * 100}%` }}></div>
                                 </div>
-                                <span className='text-sm ml-2'>{statuses[trip.status as number]}</span>
+                                <span className='text-sm ml-2'>{statuses[trip.status]}</span>
                             </div>
                             <div className='flex items-center space-x-2'>
                                 <FaNoteSticky className="text-bottomNavBarColor" />

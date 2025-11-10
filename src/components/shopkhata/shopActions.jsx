@@ -1,12 +1,7 @@
 import React from 'react';
 import { Button } from '../ui/button';
 
-interface ShopActionsProps {
-  onCreditClick: () => void;
-  onPaymentClick: () => void;
-}
-
-const ShopActions: React.FC<ShopActionsProps> = ({ onCreditClick, onPaymentClick }) => {
+const ShopActions = ({ onCreditClick, onPaymentClick }) => {
   return (
     <div className="mr-4 flex items-center gap-2">
       <Button

@@ -8,28 +8,16 @@ import {
 } from "@/components/ui/select";
 import { loadingIndicator } from '../ui/LoadingIndicator';
 
-interface IShop {
-  shop_id: string;
-  name: string;
-}
+const ShopSelect = ({ shops, formData, handleChange }) => {
+  const [searchTerm, setSearchTerm] = useState('');
 
-type Props = {
-  shops: IShop[];
-  formData: any;
-  setFormData: any;
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
-
-const ShopSelect: React.FC<Props> = ({ shops, formData, handleChange }) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-
-  const handleOptionSelect = (value: string) => {
+  const handleOptionSelect = (value) => {
     const event = {
       target: {
         name: 'shop_id',
         value: value,
       },
-    } as React.ChangeEvent<HTMLSelectElement>;
+    };
     handleChange(event);
   };
 
