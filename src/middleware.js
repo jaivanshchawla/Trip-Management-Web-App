@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
-import { NextRequest, userAgent } from 'next/server'
+import { userAgent } from 'next/server'
 import jwt from 'jsonwebtoken'
 
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
+export async function middleware(request) {
   const token = request.cookies.get('auth_token')?.value
   const roleToken = request.cookies.get('role_token')?.value
 
@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
   const loggedInUserNotAccessPaths = request.nextUrl.pathname === '/login' || request.nextUrl.pathname == '/'
 
   if (roleToken) {
-    const decodedToken: any = jwt.decode(roleToken as string)
+    const decodedToken = jwt.decode(roleToken)
     if (decodedToken?.role.name == 'driver' && !request.nextUrl.pathname.includes(`/user/drivers/${decodedToken.role.driver_id}`)) {
       return NextResponse.redirect(new URL(`/user/drivers/${decodedToken.role.driver_id}`, request.url))
     }

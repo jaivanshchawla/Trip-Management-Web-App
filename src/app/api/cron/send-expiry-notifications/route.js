@@ -1,9 +1,9 @@
-// app/api/cron/send-expiry-notifications/route.ts
+// app/api/cron/send-expiry-notifications/route.js
 
 import { NextResponse } from 'next/server';
 import { handleDailyExpiryCheck } from '@/services/expiryCheckService';
 
-export async function GET(req: Request) {
+export async function GET(req) {
     // 1. Authenticate the request
     // This ensures that only Vercel's scheduler (or someone with the secret) can run this job.
     const { searchParams } = new URL(req.url);

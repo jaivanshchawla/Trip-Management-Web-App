@@ -7,7 +7,7 @@ import { recentActivity } from '@/helpers/recentActivity';
 
 const ShopKhata = models.ShopKhata || model('ShopKhata', ShopKhataSchema)
 
-export async function GET(req: Request) {
+export async function GET(req) {
     try {
         const { user, error } = await verifyToken(req)
         if (!user || error) {
@@ -80,7 +80,7 @@ export async function GET(req: Request) {
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(req) {
     try {
         const { user, error } = await verifyToken(req)
         if (!user || error) {

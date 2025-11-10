@@ -259,7 +259,9 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 -
 
-- [-] 22. Convert API routes (utilities and external)
+- [x] 22. Convert API routes (utilities and external)
+
+
 
 
   - Convert all route.ts files in src/app/api/s3Upload/ to route.js
@@ -271,14 +273,19 @@
   - Convert all route.ts files in src/app/api/cron/ to route.js
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 23. Convert middleware
+- [x] 23. Convert middleware
+
+
+
 
   - Convert src/middleware.ts to .js
   - Remove NextRequest and NextResponse type annotations
   - Keep all authentication and routing logic intact
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 24. Convert remaining utility files
+
+- [-] 24. Convert remaining utility files
+
 
   - Convert src/lib/analytics.tsx to .jsx
   - Convert src/lib/utils.ts to .js
