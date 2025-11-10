@@ -2,13 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import notfound from '../assets/not-found.webp';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error, reset }) {
   
 
   return (

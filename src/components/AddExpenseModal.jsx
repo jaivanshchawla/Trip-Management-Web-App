@@ -494,7 +494,7 @@ const AddExpenseModal = ({ categories, isOpen, onClose, onSave, driverId, select
                                 name="date"
                                 value={new Date(formData.date).toISOString().split('T')[0]}
                                 onChange={handleChange}
-                                onClick={(e) => (e.target as HTMLInputElement).showPicker()}
+                                onClick={(e) => e.target.showPicker()}
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
