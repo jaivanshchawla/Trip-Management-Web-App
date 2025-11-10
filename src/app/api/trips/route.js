@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import mongoose, { model, models } from 'mongoose';
 import { driverSchema, tripChargesSchema, tripSchema, truckSchema } from '@/utils/schema';
 import { connectToDatabase } from '@/utils/schema';
-import { ITrip } from '@/utils/interface';
+
 import { v4 as uuidv4 } from 'uuid'
 import { partySchema } from '@/utils/schema';
 import { verifyToken } from '@/utils/auth';
@@ -15,7 +15,7 @@ const Truck = models.Truck || model('Truck', truckSchema)
 const TripCharges = models.TripCharges || model('TripCharges', tripChargesSchema)
 // Assuming you have this schema defined
 
-export async function GET(req: Request) {
+export async function GET(req) {
   const { user, error } = await verifyToken(req);
   if (error) {
     return NextResponse.json({ error });
@@ -28,7 +28,7 @@ export async function GET(req: Request) {
     const status = url.searchParams.get('status')
 
     // Prepare query with user_id and optional statuses filter
-    const query: any = { user_id: user };
+    const query = { user_id: user };
     if (status !== null) {
       query.status = parseInt(status)
     }
@@ -141,7 +141,7 @@ export async function GET(req: Request) {
 }
 
 
-export async function POST(req: Request) {
+export async function POST(req) {
   const { user, error } = await verifyToken(req);
   if (error) return NextResponse.json({ error }, { status: 401 });
 
@@ -152,7 +152,7 @@ export async function POST(req: Request) {
     const tripId = `trip${uuidv4()}`;
 
     // Handle file upload
-    const file = formData.get("file") as File | null;
+    const file = formData.get("file");
     let fileUrl = "";
     if (file) {
       const fileBuffer = Buffer.from(await file.arrayBuffer());
@@ -163,8 +163,8 @@ export async function POST(req: Request) {
 
     // Handle pre-dated trip start date safely
     // Handle pre-dated trip start date safely for both `startDate` and `dates`
-const rawDate = formData.get("startDate") as string;
-let startDate: Date;
+const rawDate = formData.get("startDate");
+let startDate;
 
 if (rawDate) {
   // Parse user date string (YYYY-MM-DD) accurately as local date
@@ -210,11 +210,11 @@ const newTrip = new Trip({
     // Handle E-Way Bill upload
     const validity = formData.get("ewbValidity");
     if (validity) {
-      newTrip.ewbValidityDate = new Date(validity as string);
+      newTrip.ewbValidityDate = new Date(validity);
       newTrip.documents.push({
         filename: file?.name || "",
         type: "E-Way Bill",
-        validityDate: new Date(validity as string),
+        validityDate: new Date(validity),
         uploadedDate: new Date(),
         url: fileUrl || "",
       });
@@ -248,10 +248,10 @@ const newTrip = new Trip({
 
     return NextResponse.json({ message: "Saved Successfully", data: savedTrip }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error saving trip:", error);
 
-    const errorMapping: Record<string, { message: string; status: number }> = {
+    const errorMapping = {
       ValidationError: { message: "Validation Error", status: 400 },
       MongoError: error.code === 11000 ? { message: "Duplicate Key Error", status: 409 } : { message: 'Mongo Error', status: 409 },
     };
