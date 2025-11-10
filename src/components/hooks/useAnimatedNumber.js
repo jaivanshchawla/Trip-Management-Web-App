@@ -1,19 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 
 // Improved easing function for a smoother ease-in-out effect
-const easeInOutQuint = (t: number): number =>
+const easeInOutQuint = (t) =>
   t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
 
-export function useAnimatedNumber(endValue: number, duration: number = 2000) {
+export function useAnimatedNumber(endValue, duration = 2000) {
   const [displayValue, setDisplayValue] = useState(0);
   const currentValueRef = useRef(0); // Current value during the animation
-  const startTimeRef = useRef<number | null>(null);
+  const startTimeRef = useRef(null);
 
   useEffect(() => {
     startTimeRef.current = null;
     currentValueRef.current = displayValue; // Initialize from current value
 
-    const updateValue = (timestamp: number) => {
+    const updateValue = (timestamp) => {
       if (startTimeRef.current === null) {
         startTimeRef.current = timestamp;
       }

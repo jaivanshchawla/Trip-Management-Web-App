@@ -70,7 +70,10 @@
   - Update imports between UI components
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [-] 7. Convert custom hooks
+- [x] 7. Convert custom hooks
+
+
+
 
 
   - Convert src/components/hooks/use-toast.ts to .js
@@ -79,7 +82,10 @@
   - Remove type annotations and return type definitions
   - _Requirements: 1.1, 1.2, 1.3, 4.2_
 
-- [ ] 8. Convert shared layout components
+- [-] 8. Convert shared layout components
+
+
+
   - Convert all files in src/components/layout/ from .tsx to .jsx
   - Remove prop type definitions
   - Keep layout logic and structure intact
