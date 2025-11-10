@@ -1,10 +1,9 @@
-// components/CreateTruck.tsx
+// components/CreateTruck.jsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { minitruck, openBody, closedContainer, trailer, truckTypes, truckTypesIcons } from '@/utils/utilArray';
 import { validateTruckNo } from '@/utils/validate';
-import { IDriver, ISupplier, TruckModel } from '@/utils/interface';
 import SupplierSelect from '@/components/truck/SupplierSelect';
 import AdditionalDetails from '@/components/truck/AdditionalDetails';
 import Loading from '@/app/user/trucks/loading';
@@ -15,40 +14,22 @@ import { useExpenseCtx } from '@/context/context';
 import { useExpenseData } from '../hooks/useExpenseData';
 import { Loader2 } from 'lucide-react';
 
-type FormData = {
-    truckNo: string;
-    truckType: string;
-    model: string;
-    capacity: string;
-    bodyLength: number | null;
-    ownership: string;
-    supplier: string;
-    driver_id: string
-}
-
-interface EditTruckModalProps {
-    truck: TruckModel;
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (data: any) => void;
-}
-
-const EditTruckModal: React.FC<EditTruckModalProps> = ({ truck, isOpen, onClose, onSave }) => {
+const EditTruckModal = ({ truck, isOpen, onClose, onSave }) => {
     const {drivers, suppliers} = useExpenseData()
     const [saving, setSaving] = useState(false);
-    const [formdata, setFormdata] = useState<FormData>({
+    const [formdata, setFormdata] = useState({
         truckNo: truck?.truckNo || '',
         truckType: truck?.truckType || '',
         model: truck?.model || '',
         capacity: truck?.capacity || '',
-        bodyLength: truck?.bodyLength as any || '',
+        bodyLength: truck?.bodyLength || '',
         ownership: truck?.ownership || '',
         supplier: truck?.supplier || '',
         driver_id: truck?.driver_id || ''
     });
 
-    const [showDetails, setShowDetails] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [showDetails, setShowDetails] = useState(false);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // useEffect(() => {
@@ -64,7 +45,7 @@ const EditTruckModal: React.FC<EditTruckModalProps> = ({ truck, isOpen, onClose,
     //             const [supplierData] = await Promise.all([supplierRes.json()]);
     //             setSuppliers(supplierData.suppliers);
     //         } catch (err) {
-    //             setError((err as Error).message);
+    //             setError((err).message);
     //         } finally {
     //             setLoading(false);
     //         }
@@ -74,7 +55,7 @@ const EditTruckModal: React.FC<EditTruckModalProps> = ({ truck, isOpen, onClose,
     // }, []);
 
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormdata({
             ...formdata,
@@ -82,14 +63,14 @@ const EditTruckModal: React.FC<EditTruckModalProps> = ({ truck, isOpen, onClose,
         });
     }
 
-    const handleSelectChange = (name: string, value: string) => {
+    const handleSelectChange = (name, value) => {
         setFormdata({
             ...formdata,
             [name]: value
         });
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!formdata.truckNo) {

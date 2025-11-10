@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface FuelModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (data: { liters: number; rate: number; total: number }) => void;
-  }
-  
- export  const FuelModal: React.FC<FuelModalProps> = ({ isOpen, onClose, onSave }) => {
+export const FuelModal = ({ isOpen, onClose, onSave }) => {
     const [fuelData, setFuelData] = useState({
       liters: 0,
       rate: 0,
@@ -20,7 +14,7 @@ interface FuelModalProps {
       }));
     }, [fuelData.liters, fuelData.rate]);
   
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e) => {
       const { name, value } = e.target;
       setFuelData({ ...fuelData, [name]: parseFloat(value) });
     };

@@ -1,4 +1,4 @@
-// AdditionalDetails.tsx
+// AdditionalDetails.jsx
 
 import React from 'react';
 import {
@@ -10,22 +10,11 @@ import {
     SelectValue
 } from '@/components/ui/select'; // Adjust the import path as necessary
 
-type Props = {
-    formdata: {
-        truckType: string;
-        model: string;
-        bodyLength: number | null;
-        capacity: string;
-    };
-    renderModelOptions: () => string[];
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-};
-
-const AdditionalDetails: React.FC<Props> = ({ formdata, renderModelOptions, handleInputChange }) => (
+const AdditionalDetails = ({ formdata, renderModelOptions, handleInputChange }) => (
     <>
         <div>
             <label>Model</label>
-            <Select defaultValue={formdata.model} onValueChange={(value) => handleInputChange({ target: { name: 'model', value } } as React.ChangeEvent<HTMLSelectElement>)}>
+            <Select defaultValue={formdata.model} onValueChange={(value) => handleInputChange({ target: { name: 'model', value } })}>
                 <SelectTrigger >
                     <SelectValue placeholder="Select Model" />
                 </SelectTrigger>

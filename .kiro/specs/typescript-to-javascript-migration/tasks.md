@@ -93,7 +93,9 @@
   - Keep layout logic and structure intact
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [-] 9. Convert feature-specific components (driver, party, supplier)
+- [x] 9. Convert feature-specific components (driver, party, supplier)
+
+
 
 
 
@@ -104,7 +106,10 @@
   - Update imports between related components
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [ ] 10. Convert feature-specific components (trip, truck, documents)
+- [-] 10. Convert feature-specific components (trip, truck, documents)
+
+
+
   - Convert all files in src/components/trip/ and subdirectories from .tsx to .jsx
   - Convert all files in src/components/truck/ from .tsx to .jsx
   - Convert all files in src/components/documents/ from .tsx to .jsx

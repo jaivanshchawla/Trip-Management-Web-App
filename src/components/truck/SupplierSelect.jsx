@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import { ISupplier } from '@/utils/interface';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Input } from '../ui/input'; // Assuming you have an Input component for the search field
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { PiPlusBold } from 'react-icons/pi';
 
-type Props = {
-    suppliers: ISupplier[];
-    value: string;
-    onChange: (key: string, value: string) => void;
-};
-
-const SupplierSelect: React.FC<Props> = ({ suppliers, value, onChange }) => {
+const SupplierSelect = ({ suppliers, value, onChange }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const router = useRouter();
 

@@ -9,14 +9,9 @@ import { FaChevronRight } from 'react-icons/fa6';
 import { CloudUpload, Loader2 } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
+const TruckDocuments = ({ truckNo }) => {
 
-interface TruckDocumentProps {
-    truckNo: string;
-}
-
-const TruckDocuments: React.FC<TruckDocumentProps> = ({ truckNo }) => {
-
-    const [documents, setDocuments] = useState<any>([]);
+    const [documents, setDocuments] = useState([]);
     const [modalOpen, setModalOpen] = useState(false)
     const [loading, setLoading] = useState(true)
     const { toast } = useToast()
