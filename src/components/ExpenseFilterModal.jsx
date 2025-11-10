@@ -11,19 +11,11 @@ import { fuelAndDriverChargeTypes, maintenanceChargeTypes, officeExpenseTypes } 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useToast } from './hooks/use-toast'
 
-type Props = {
-    monthYearOptions: string[]
-    paymentModes: string[]
-    onClose: () => void
-    isOpen: boolean
-    handleFilter: (filter: any) => void
-}
-
-const ExpenseFilterModal: React.FC<Props> = ({ onClose, isOpen, monthYearOptions, paymentModes, handleFilter }) => {
+const ExpenseFilterModal = ({ onClose, isOpen, monthYearOptions, paymentModes, handleFilter }) => {
     const { trips, drivers, shops, trucks } = useExpenseCtx()
     const pathname = usePathname()
-    const modalRef = useRef<HTMLDivElement | null>(null)
-    const [userExpenseTypes, setUserExpenseTypes] = useState<string[]>([])
+    const modalRef = useRef(null)
+    const [userExpenseTypes, setUserExpenseTypes] = useState([])
     const {toast} = useToast()
 
         const fetchUserExpenseTypes = async () => {
@@ -45,8 +37,8 @@ const ExpenseFilterModal: React.FC<Props> = ({ onClose, isOpen, monthYearOptions
         }, [])
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
                 onClose(); // Close modal if clicked outside
             }
         };
@@ -96,30 +88,30 @@ const ExpenseFilterModal: React.FC<Props> = ({ onClose, isOpen, monthYearOptions
         }
     }, [pathname])
 
-    const handleCheckboxChange = useCallback((category: string, value: string) => {
+    const handleCheckboxChange = useCallback((category, value) => {
         setSelectedFilters(prev => ({
             ...prev,
-            [category]: prev[category as keyof typeof selectedFilters].includes(value)
-                ? prev[category as keyof typeof selectedFilters].filter(item => item !== value)
-                : [...prev[category as keyof typeof selectedFilters], value]
+            [category]: prev[category].includes(value)
+                ? prev[category].filter(item => item !== value)
+                : [...prev[category], value]
         }))
     }, [])
 
-    const filterItems = useCallback((items: any[], key: string) => {
+    const filterItems = useCallback((items, key) => {
         return items.filter(item =>
             item[key].toLowerCase().includes(searchQuery.toLowerCase())
         )
     }, [searchQuery])
 
-    const handleSelectAll = useCallback((category: string, items: string[]) => {
+    const handleSelectAll = useCallback((category, items) => {
         setSelectedFilters(prev => ({
             ...prev,
-            [category]: prev[category as keyof typeof selectedFilters].length === items.length ? [] : items
+            [category]: prev[category].length === items.length ? [] : items
         }))
     }, [])
 
-    const isAllSelected = useCallback((category: string, items: string[]) => {
-        return selectedFilters[category as keyof typeof selectedFilters].length === items.length
+    const isAllSelected = useCallback((category, items) => {
+        return selectedFilters[category].length === items.length
     }, [selectedFilters])
 
     if (!isOpen) return null

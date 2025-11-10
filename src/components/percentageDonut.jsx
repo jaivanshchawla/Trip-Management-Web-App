@@ -1,14 +1,6 @@
-import type React from "react"
+import React from "react"
 
-interface SlimPercentageDonutProps {
-  percentage: number
-  size?: number
-  strokeWidth?: number
-  backgroundColor?: string
-  foregroundColor?: string
-}
-
-export const PercentageDonut: React.FC<SlimPercentageDonutProps> = ({
+export const PercentageDonut = ({
   percentage,
   size = 100,
   strokeWidth = 4,

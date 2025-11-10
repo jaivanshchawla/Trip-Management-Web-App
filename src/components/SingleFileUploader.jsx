@@ -4,14 +4,10 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { File } from 'lucide-react'
 
-interface SingleFileUploaderProps {
-  onFileChange: (file: File) => Promise<void>
-}
+const SingleFileUploader = ({ onFileChange }) => {
+  const [selectedFile, setSelectedFile] = useState(null)
 
-const SingleFileUploader: React.FC<SingleFileUploaderProps> = ({ onFileChange }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0]
       setSelectedFile(file)

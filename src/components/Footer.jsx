@@ -6,12 +6,7 @@ import linkedinIcon from '@/assets/linkedin-icon.png';
 import instagramIcon from '@/assets/insta-icon.png';
 import playstore from '@/assets/playstore.png'
 
-interface FooterLinkProps {
-  href: string;
-  children: React.ReactNode;
-}
-
-function FooterLink({ href, children }: FooterLinkProps) {
+function FooterLink({ href, children }) {
   return (
     <li>
       <Link href={href} className="hover:text-white transition">

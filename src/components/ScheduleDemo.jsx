@@ -10,19 +10,12 @@ import {
 import { Toaster } from './ui/toaster'
 import { useToast } from './hooks/use-toast'
 import { loadingIndicator } from './ui/LoadingIndicator'
-interface FormData {
-  name: string
-  phone: string
-  email: string
-  company: string
-  notes: string
-}
 
 export default function ScheduleDemo() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
@@ -30,14 +23,12 @@ export default function ScheduleDemo() {
     notes: ''
   })
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!formData.name || !formData.name) {
       toast({

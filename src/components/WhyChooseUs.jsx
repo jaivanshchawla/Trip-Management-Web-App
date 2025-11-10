@@ -1,13 +1,7 @@
 import Image from 'next/image'
 import mainIllustrationImg from '@/assets/Group 427320428.png'
 
-interface ReasonProps {
-  title: string
-  description: string
-  className?: string
-}
-
-function Reason({ title, description, className = '' }: ReasonProps) {
+function Reason({ title, description, className = '' }) {
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       <h3 className="text-xl sm:text-2xl font-semibold">{title}</h3>

@@ -2,37 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { X } from 'lucide-react';
 
-interface Document {
-  type: string;
-  validityDate: string;
-  uploadedDate: string;
-}
-
-interface Reminder {
-  _id: string;
-  trip_id?: string;
-  truck?: string;
-  truckNo?: string;
-  startDate?: string;
-  LR?: string;
-  name?: string;
-  contactNumber?: string;
-  documents: Document;
-}
-
-interface NotificationProps {
-  tripReminders: Reminder[];
-  truckReminders: Reminder[];
-  driverReminders: Reminder[];
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const Notification: React.FC<NotificationProps> = ({ tripReminders, truckReminders, driverReminders, isOpen, onClose }) => {
-  const notificationRef = useRef<HTMLDivElement>(null);
+const Notification = ({ tripReminders, truckReminders, driverReminders, isOpen, onClose }) => {
+  const notificationRef = useRef(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event) => {
       if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
         onClose();
       }
@@ -47,7 +21,7 @@ const Notification: React.FC<NotificationProps> = ({ tripReminders, truckReminde
     };
   }, [isOpen, onClose]);
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -55,7 +29,7 @@ const Notification: React.FC<NotificationProps> = ({ tripReminders, truckReminde
     });
   };
 
-  const renderReminders = (reminders: Reminder[], type: string) => {
+  const renderReminders = (reminders, type) => {
     return reminders.map((reminder) => (
       <div key={reminder._id} className="mb-4 last:mb-0">
         <h4 className="font-semibold">{type} Reminder</h4>

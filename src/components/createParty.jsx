@@ -1,17 +1,12 @@
 'use client'
 
 import React, { useState } from 'react';
-import { IParty } from '@/utils/interface';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from './ui/button';
 
-interface Props {
-  onSubmit: (party: IParty) => void;
-}
-
-const PartyForm: React.FC<Props> = ({ onSubmit }) => {
+const PartyForm = ({ onSubmit }) => {
   // State to hold form data
-  const [formData, setFormData] = useState<Partial<IParty>>({
+  const [formData, setFormData] = useState({
     name: '',
     contactPerson: '',
     contactNumber: '',
@@ -22,14 +17,14 @@ const PartyForm: React.FC<Props> = ({ onSubmit }) => {
     email : ''
   });
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (e) => {
     if (e.target.value === '0') {
-      handleChange({ target: { name: e.target.name, value: '' } } as React.ChangeEvent<HTMLInputElement>);
+      handleChange({ target: { name: e.target.name, value: '' } });
     }
   };
 
   // Handle input changes and update the state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -38,7 +33,7 @@ const PartyForm: React.FC<Props> = ({ onSubmit }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if(!formData.name || !formData.contactNumber){
       alert('!Fill in the required feilds')
@@ -48,12 +43,12 @@ const PartyForm: React.FC<Props> = ({ onSubmit }) => {
     const partyId = 'party' + uuidv4();
 
     // Create a new party object
-    const newParty: IParty = {
+    const newParty = {
       ...formData,
       party_id: partyId,
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as IParty; // Type assertion to ensure newParty matches IParty
+    };
     // Call onSubmit with the new party object
     onSubmit(newParty);
   };

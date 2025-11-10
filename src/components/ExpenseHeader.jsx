@@ -11,17 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { TbFilterSearch, TbPlus } from "react-icons/tb"
 
-interface ExpenseHeaderProps {
-  visibleColumns: Record<string, boolean>
-  handleSelectAll: (checked: boolean) => void
-  handleToggleColumn: (column: string | any) => void
-  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
-  sortedExpense: any[]
-  setSelected: (value: any) => void
-  setModalOpen: (value: boolean) => void
-  setFilterModalOpen: (value: boolean) => void
-}
-
 export function ExpenseHeader({
   visibleColumns,
   handleSelectAll,
@@ -31,7 +20,7 @@ export function ExpenseHeader({
   setSelected,
   setModalOpen,
   setFilterModalOpen
-}: ExpenseHeaderProps) {
+}) {
   const totalAmount = sortedExpense.reduce((acc, exp) => acc + exp.amount, 0)
   return (
     <div className="flex items-center justify-between gap-4 bg-transparent p-4">
@@ -53,7 +42,7 @@ export function ExpenseHeader({
             <DropdownMenuCheckboxItem
               key={column}
               checked={isVisible}
-              onCheckedChange={() => handleToggleColumn(column as any)}
+              onCheckedChange={() => handleToggleColumn(column)}
             >
               {column.charAt(0).toUpperCase() + column.slice(1)}
             </DropdownMenuCheckboxItem>

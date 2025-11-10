@@ -3,8 +3,8 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-const FileUploader = ({ onFilesChange }: { onFilesChange: (files: File[]) => void }) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+const FileUploader = ({ onFilesChange }) => {
+  const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       onFilesChange(acceptedFiles)
     }

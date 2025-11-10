@@ -3,20 +3,8 @@ import Link from 'next/link';
 import { FaRoute } from 'react-icons/fa';
 import { GoOrganization } from 'react-icons/go';
 
-interface TripCardProps {
-    tripId: string;
-    route: {
-        origin: string;
-        destination: string;
-    };
-    partyName: string;
-    status: number;
-    statuses: string[];
-    startDate?: Date
-}
-
-const TripCard: React.FC<TripCardProps> = ({ tripId, route, partyName, status, statuses, startDate }) => {
-    const calculateStatusWidth = (status: number) => {
+const TripCard = ({ tripId, route, partyName, status, statuses, startDate }) => {
+    const calculateStatusWidth = (status) => {
         // Define the width for each status level in percentage
         const widths = [20, 40, 60, 80, 100]; // Each step increases by 20%
         return `${widths[status]}%`; // Based on the current status, return the corresponding width

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useEffect, useRef, useState, useTransition } from "react";
+import React, { useEffect, useRef, useState, useTransition } from "react";
 import {
   InputOTP,
   InputOTPGroup,
@@ -26,17 +26,17 @@ function OtpLogin() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
   const [resendCountdown, setResendCountdown] = useState(0);
-  const [session, setSession] = useState<string | null>(null);
+  const [session, setSession] = useState(null);
   const [isPending, startTransition] = useTransition();
-  const otpRef = useRef<HTMLDivElement | null>(null)
+  const otpRef = useRef(null)
 
   const router = useRouter();
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer;
     if (resendCountdown > 0) {
       timer = setTimeout(() => setResendCountdown(resendCountdown - 1), 1000);
     }
@@ -82,7 +82,7 @@ function OtpLogin() {
       verifyOtp();
     }
   }, [otp]);
-  const requestOtp = async (e?: FormEvent<HTMLFormElement>) => {
+  const requestOtp = async (e) => {
     e?.preventDefault();
     setResendCountdown(60);
     if(!isValidPhone(phoneNumber)){

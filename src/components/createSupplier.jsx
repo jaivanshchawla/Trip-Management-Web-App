@@ -1,23 +1,18 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ISupplier } from '@/utils/interface';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from './ui/button';
 
-interface Props {
-  onSubmit: (supplier: ISupplier) => void;
-}
-
-const SupplierForm: React.FC<Props> = ({ onSubmit }) => {
+const SupplierForm = ({ onSubmit }) => {
   // State to hold form data
-  const [formData, setFormData] = useState<Partial<ISupplier>>({
+  const [formData, setFormData] = useState({
     name: '',
     contactNumber: '',
   });
 
   // Handle input changes and update the state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -26,17 +21,17 @@ const SupplierForm: React.FC<Props> = ({ onSubmit }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // Generate a unique party ID
     const partyId = 'party' + uuidv4();
     // Create a new party object
-    const newSupplier: ISupplier = {
+    const newSupplier = {
       ...formData,
       party_id: partyId,
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as ISupplier; // Type assertion to ensure newParty matches IParty
+    };
     // Call onSubmit with the new party object
     onSubmit(newSupplier);
     // Optionally, clear the form after submission

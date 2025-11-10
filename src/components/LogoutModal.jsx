@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 
 const LogoutModal = () => {
-    const [reason, setReason] = useState<string>("");
+    const [reason, setReason] = useState("");
     const { toast } = useToast()
     const router = useRouter()
 

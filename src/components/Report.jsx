@@ -7,17 +7,9 @@ import 'jspdf/dist/polyfills.es.js';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-type props = {
-    reportContent: string,
-    setModalOpen: (isOpen: boolean) => void,
-    reportRef : any,
-    month : string,
-    year : string
-}
-
-const Report: React.FC<props> = ({reportContent, setModalOpen, reportRef, month, year}) => {
+const Report = ({reportContent, setModalOpen, reportRef, month, year}) => {
     
-  const [pdfDownloading, setPDFDownloading] = useState<boolean>(false);
+  const [pdfDownloading, setPDFDownloading] = useState(false);
     const handleDownloadPDF = async () => {
         try {
           const pdf = new jsPDF({

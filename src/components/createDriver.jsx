@@ -1,17 +1,12 @@
 'use client'
 
 import React, { useState } from 'react';
-import { IDriver } from '@/utils/interface';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from './ui/button';
 
-interface Props {
-  onSubmit: (driver: IDriver) => void;
-}
-
-const DriverForm: React.FC<Props> = ({ onSubmit }) => {
+const DriverForm = ({ onSubmit }) => {
   // State to hold form data
-  const [formData, setFormData] = useState<Partial<IDriver>>({
+  const [formData, setFormData] = useState({
     name: '',
     contactNumber: '',
     licenseNo: '',
@@ -19,14 +14,14 @@ const DriverForm: React.FC<Props> = ({ onSubmit }) => {
     lastJoiningDate: new Date(Date.now())
   });
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (e) => {
     if (e.target.value === '0') {
-      handleChange({ target: { name: e.target.name, value: '' } } as React.ChangeEvent<HTMLInputElement>);
+      handleChange({ target: { name: e.target.name, value: '' } });
     }
   };
 
   // Handle input changes and update the state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -34,18 +29,18 @@ const DriverForm: React.FC<Props> = ({ onSubmit }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // Generate a unique driver ID
     const driverId = 'driver' + uuidv4();
     // Create a new driver object
-    const newDriver: IDriver = {
+    const newDriver = {
       ...formData,
       status: 'Available',
       driver_id: driverId,
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as IDriver; // Type assertion to ensure newDriver matches IDriver
+    };
     // Call onSubmit with the new driver object
     onSubmit(newDriver);
     // Optionally, clear the form after submission

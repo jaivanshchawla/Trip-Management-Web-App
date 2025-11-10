@@ -1,27 +1,13 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
-import { IconKey } from '@/utils/icons';
 import { formatNumber } from '@/utils/utilArray';
 import { icons } from '@/utils/icons';
 import { Button } from '@/components/ui/button';
 import { FaCalendarAlt, FaTruck } from 'react-icons/fa';
 import { MdEdit, MdDelete } from 'react-icons/md';
-import { IExpense } from '@/utils/interface';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type props = {
-  expenses?: IExpense[] | any[],
-  visibleColumns: { [key: string]: boolean },
-  requestSort: (key: string) => void,
-  getSortIcon: (key: string) => React.ReactNode,
-  sortedExpense: IExpense[] | any[],
-  setSelected: any
-  setTruckExpenseBook: any
-  setModalOpen: any
-  handleDelete: any
-}
-
-const ExpenseTable: React.FC<props> = ({ expenses, visibleColumns, requestSort, getSortIcon, sortedExpense, setSelected, setModalOpen, setTruckExpenseBook, handleDelete }) => {
+const ExpenseTable = ({ expenses, visibleColumns, requestSort, getSortIcon, sortedExpense, setSelected, setModalOpen, setTruckExpenseBook, handleDelete }) => {
   return (
 
     <Table className="">
@@ -89,7 +75,7 @@ const ExpenseTable: React.FC<props> = ({ expenses, visibleColumns, requestSort, 
               {visibleColumns.expenseType && (
                 <TableCell>
                   <div className="flex items-center space-x-2">
-                    {icons[expense.expenseType as IconKey]}
+                    {icons[expense.expenseType]}
                     <span>{expense.expenseType}</span>
                   </div>
                 </TableCell>
@@ -127,8 +113,8 @@ const ExpenseTable: React.FC<props> = ({ expenses, visibleColumns, requestSort, 
                       <Button
                         variant="destructive"
                         onClick={async () => {
-                          await handleDelete(expense._id as string);
-                          setTruckExpenseBook((prev: IExpense[] | any[]) => prev.filter((item) => item._id !== expense._id));
+                          await handleDelete(expense._id);
+                          setTruckExpenseBook((prev) => prev.filter((item) => item._id !== expense._id));
                         }}
                         size="sm"
                       >

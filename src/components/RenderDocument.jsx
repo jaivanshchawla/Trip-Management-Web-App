@@ -5,16 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from './ui/button';
 
-type props = {
-    documentUrl : string
-}
-
-const isPdf = (fileName: string) => {
+const isPdf = (fileName) => {
     return fileName?.toLowerCase().endsWith('.pdf');
 };
 
 
-const RenderDocument: React.FC<props> = ({documentUrl}) => {
+const RenderDocument = ({documentUrl}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleDownload = async () => {

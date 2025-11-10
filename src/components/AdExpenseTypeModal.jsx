@@ -4,17 +4,11 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { useToast } from './hooks/use-toast'
 
-type Props = {
-    open: boolean
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
-    setExpenses: React.Dispatch<React.SetStateAction<string[]>>
-}
-
-const AdExpenseTypeModal: React.FC<Props> = ({ open, setOpen, setExpenses }) => {
+const AdExpenseTypeModal = ({ open, setOpen, setExpenses }) => {
     const [expense, setExpense] = useState('')
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
         try {

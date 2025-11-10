@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { RxActivityLog } from 'react-icons/rx'; // Ensure this is the correct import for your icons
 import { recentIcons } from '@/utils/icons';
 
-const RecentActivities = ({ data }: { data: any}) => {
+const RecentActivities = ({ data }) => {
   // Animation variants for list items
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },

@@ -6,14 +6,7 @@ import aiIcon from '@/assets/ai icon.png'
 import routeIcon from '@/assets/route management icon.png'
 import commingSoon from '@/assets/comming-soon.png'
 
-interface FeatureProps {
-  icon: string | any
-  title: string
-  description: string
-  comingSoon?: boolean
-}
-
-function Feature({ icon, title, description, comingSoon = false }: FeatureProps) {
+function Feature({ icon, title, description, comingSoon = false }) {
   return (
     <div className="flex items-center gap-2 w-full sm:w-auto">
       <Image src={icon} alt={`${title} icon`} width={48} height={48} />
