@@ -106,7 +106,9 @@
   - Update imports between related components
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [-] 10. Convert feature-specific components (trip, truck, documents)
+- [x] 10. Convert feature-specific components (trip, truck, documents)
+
+
 
 
 
@@ -116,7 +118,10 @@
   - Remove type annotations and interface definitions
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [ ] 11. Convert feature-specific components (search, shopkhata, admin)
+- [-] 11. Convert feature-specific components (search, shopkhata, admin)
+
+
+
   - Convert all files in src/components/search/ from .tsx to .jsx
   - Convert all files in src/components/shopkhata/ from .tsx to .jsx
   - Convert all files in src/components/admin/ from .tsx to .jsx

@@ -1,29 +1,23 @@
 import { formatNumber } from "@/utils/utilArray";
 import React, { useEffect } from "react";
 
-interface BillingInfoProps {
-  formData: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  setFormData: React.Dispatch<React.SetStateAction<any>>;
-}
-
-export const BillingInfo: React.FC<BillingInfoProps> = ({ formData, handleChange, setFormData }) => {
+export const BillingInfo = ({ formData, handleChange, setFormData }) => {
   useEffect(() => {
     // If billing type is not Fixed, calculate the new amount
     if (formData.billingType !== "Fixed") {
       const newAmount = (parseFloat(formData.perUnit) || 0) * (parseFloat(formData.totalUnits) || 0);
-      setFormData((prevFormData: any) => ({
+      setFormData((prevFormData) => ({
         ...prevFormData,
         amount: newAmount,
       }));
     }
   }, [formData.billingType, formData.perUnit, formData.totalUnits, setFormData]);
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (e) => {
     if (e.target.value === "0") {
       handleChange({
         target: { name: e.target.name, value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
+      });
     }
   };
 
@@ -43,7 +37,7 @@ export const BillingInfo: React.FC<BillingInfoProps> = ({ formData, handleChange
             onClick={() =>
               handleChange({
                 target: { name: "billingType", value: type },
-              } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)
+              })
             }
           >
             {type}

@@ -1,11 +1,6 @@
 import React from "react";
 
-export const DateInputs: React.FC<{
-  formData: any;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
-}> = ({ formData, handleChange }) => (
+export const DateInputs = ({ formData, handleChange }) => (
   <div>
     <label className="block text-xs font-medium text-gray-700 mb-1">
       Start Date*
@@ -13,7 +8,7 @@ export const DateInputs: React.FC<{
     <input
       type="date"
       name="startDate"
-      onClick={(e) => (e.target as HTMLInputElement).showPicker()}
+      onClick={(e) => e.target.showPicker()}
       // keep the date as string, no timezone conversion
       value={
         formData.startDate
@@ -28,7 +23,7 @@ export const DateInputs: React.FC<{
             name: "startDate",
             value: e.target.value, // preserve as plain 'YYYY-MM-DD' string
           },
-        } as any)
+        })
       }
       required
       className="w-full border border-gray-300 rounded-md p-2"

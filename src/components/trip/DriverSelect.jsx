@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { IDriver } from '@/utils/interface';
 import {
   Select,
   SelectContent,
@@ -12,24 +11,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PiPlusBold } from 'react-icons/pi';
 
-type Props = {
-  drivers: IDriver[];
-  formData: any; // Adjust type as per your formData structure
-  setFormData : any
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
-
-const DriverSelect: React.FC<Props> = ({ drivers, formData, handleChange }) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+const DriverSelect = ({ drivers, formData, handleChange }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const pathname = usePathname()
 
-  const handleOptionSelect = (value: string) => {
+  const handleOptionSelect = (value) => {
     const event = {
       target: {
         name: 'driver',
         value: value,
       },
-    } as React.ChangeEvent<HTMLSelectElement>;
+    };
     handleChange(event);
   };
 
