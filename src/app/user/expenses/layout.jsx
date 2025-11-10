@@ -1,11 +1,7 @@
 
 import ExpenseLayout from '@/components/layout/ExpenseLayout';
 
-interface PartyLayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<PartyLayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
 
   return (
       <ExpenseLayout >

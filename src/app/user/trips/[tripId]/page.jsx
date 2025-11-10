@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { ITrip } from '@/utils/interface';
 import { useParams, useRouter } from 'next/navigation';
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
@@ -12,13 +11,12 @@ import { Frown, Loader2, X } from 'lucide-react';
 import TripDetails from '@/components/trip/tripDetail/TripDetail';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Dynamically import components
 const EditTripForm = dynamic(() => import('@/components/trip/EditTripForm'), {
   ssr: false,
 });
 
 
-const TripPage: React.FC = () => {
+const TripPage = () => {
   const { trip, setTrip, loading } = useTrip();
   const router = useRouter();
   const { tripId } = useParams();
@@ -30,7 +28,7 @@ const TripPage: React.FC = () => {
 
   const TripDocumentUpload = dynamic(() => import('@/components/documents/TripDocumentUpload'), { ssr: false })
 
-  const handleEdit = useCallback(async (data: Partial<ITrip>) => {
+  const handleEdit = useCallback(async (data) => {
     setIsSubmitting(true);
     try {
       const res = await fetch(`/api/trips/${tripId}`, {
@@ -48,7 +46,7 @@ const TripPage: React.FC = () => {
         setIsSubmitting(false);
         return;
       }
-      setTrip((prev: ITrip | any) => ({
+      setTrip((prev) => ({
         ...prev,
         ...newData.trip,
         balance: newData.trip.amount - (prev.amount - prev.balance)
@@ -133,7 +131,7 @@ const TripPage: React.FC = () => {
       <EditTripForm
         isOpen={isEditing}
         onClose={handleCancelEdit}
-        trip={trip as ITrip}
+        trip={trip}
         onSubmit={handleEdit}
       />
       <TripDetails />

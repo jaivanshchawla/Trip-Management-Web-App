@@ -204,7 +204,9 @@
   - Convert all page files in src/app/user/trucks/ to .jsx
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [-] 18. Convert user dashboard pages (operations)
+- [ ] 18. Convert user dashboard pages (operations)
+
+
 
 
 
@@ -216,13 +218,17 @@
   - Convert all page files in src/app/user/shopkhata/ to .jsx
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [ ] 19. Convert API routes (admin, auth, dashboard)
+
+
+- [-] 19. Convert API routes (admin, auth, dashboard)
+
 
   - Convert all route.ts files in src/app/api/admin/ to route.js
   - Convert all route.ts files in src/app/api/login/ to route.js
   - Convert all route.ts files in src/app/api/logout/ to route.js
   - Convert all route.ts files in src/app/api/dashboard/ to route.js
   - Remove NextRequest and NextResponse type annotations
+
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
 - [ ] 20. Convert API routes (data entities)
@@ -233,9 +239,11 @@
   - Convert all route.ts files in src/app/api/trucks/ to route.js
   - Convert all route.ts files in src/app/api/users/ to route.js
   - Remove type annotations from request handlers
+
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 21. Convert API routes (operations and services)
+- [-] 21. Convert API routes (operations and services)
+
 
   - Convert all route.ts files in src/app/api/trips/ to route.js
   - Convert all route.ts files in src/app/api/expenses/ to route.js

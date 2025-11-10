@@ -18,13 +18,13 @@ import { useToast } from '@/components/hooks/use-toast';
 const AddExpenseModal = dynamic(() => import('@/components/AddExpenseModal'), { ssr: false, loading: () => <div>{loadingIndicator}</div> })
 const ExpenseFilterModal = dynamic(() => import('@/components/ExpenseFilterModal'), { ssr: false, loading: () => <div>{loadingIndicator}</div> })
 
-const TripExpense: React.FC = () => {
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [truckExpenseBook, setTruckExpenseBook] = useState<IExpense[] | any[]>([]);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState<IExpense | null>(null);
-  const [sortConfig, setSortConfig] = useState<any>({ key: null, direction: 'asc' })
+const TripExpense = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [truckExpenseBook, setTruckExpenseBook] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
   const [searchQuery, setSearchQuery] = useState('')
   const [filterModalOpen, setFilterModalOpen] = useState(false)
   const { toast } = useToast()
@@ -46,7 +46,7 @@ const TripExpense: React.FC = () => {
   });
 
 
-  const handleFilter = async (filter: { drivers: string[], trips: string[], trucks: string[], paymentModes: string[], monYear: string[], shops: string[], expenseTypes: string[] }) => {
+  const handleFilter = async (filter) => {
     console.log(filter)
     try {
       const res = await fetch(`/api/expenses/tripExpense?filter=${encodeURIComponent(JSON.stringify(filter))}`)
@@ -61,12 +61,12 @@ const TripExpense: React.FC = () => {
   }
 
   const sortedExpense = useMemo(() => {
-    if (!truckExpenseBook || truckExpenseBook.length === 0) return [];  // This line ensures that truckExpenseBook is not null or empty
+    if (!truckExpenseBook || truckExpenseBook.length === 0) return [];
     let filteredexpenses = [...truckExpenseBook]
 
     if (searchQuery) {
       const lowercaseQuery = searchQuery.toLowerCase()
-      filteredexpenses = truckExpenseBook.filter((expense: any) =>
+      filteredexpenses = truckExpenseBook.filter((expense) =>
         expense.expenseType?.toLowerCase().includes(lowercaseQuery) ||
         expense.paymentMode?.toLowerCase().includes(lowercaseQuery) ||
         new Date(expense.date)?.toLocaleDateString().includes(lowercaseQuery) ||
@@ -77,7 +77,7 @@ const TripExpense: React.FC = () => {
       )
     }
     if (sortConfig.key !== null) {
-      filteredexpenses.sort((a: any, b: any) => {
+      filteredexpenses.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? -1 : 1;
         }
@@ -91,7 +91,7 @@ const TripExpense: React.FC = () => {
   }, [truckExpenseBook, sortConfig, searchQuery]);
 
 
-  const requestSort = (key: any) => {
+  const requestSort = (key) => {
     let direction: 'asc' | 'desc' = 'asc'
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc'
@@ -99,7 +99,7 @@ const TripExpense: React.FC = () => {
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName: any) => {
+  const getSortIcon = (columnName) => {
     if (sortConfig.key === columnName) {
       return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />
     }
@@ -112,8 +112,7 @@ const TripExpense: React.FC = () => {
     []
   );
 
-  // Handle search input
-  const handleSearch: any = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e) => {
     debouncedSearch(e.target.value);
   };
 
@@ -150,7 +149,7 @@ const TripExpense: React.FC = () => {
     }
   }
 
-  const handleExpense = async (expense: IExpense | any, id?: string, file?: File | null) => {
+  const handleExpense = async (expense, id, file) => {
     console.log(file)
     try {
       const data = selected ? await handleEditExpense(expense, selected._id as string, file, toast) : await handleAddExpense(expense, file, toast)
@@ -245,7 +244,7 @@ const TripExpense: React.FC = () => {
   );
 };
 
-const TruckExpenseWrapper: React.FC = () => {
+const TruckExpenseWrapper = () => {
   return (
     <Suspense fallback={<Loading />}>
       <TripExpense />

@@ -9,7 +9,7 @@ interface props {
     children: React.ReactNode
 }
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }) => {
     const { tripId } = useParams()
     const pathname = usePathname()
     const tabs = [
