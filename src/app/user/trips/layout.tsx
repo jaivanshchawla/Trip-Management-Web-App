@@ -8,12 +8,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 
-const TripsLayout = ({ children }: { children: React.ReactNode }) => {
+const TripsLayout = ({ children }) => {
   const {tripId} = useParams()
   const pathname = usePathname()
  
 
-  const headings: any = {
+  const headings = {
     '/user/trips': 'Trips',
     '/user/trips/create': 'Create New Trip',
     [`/user/trips/${tripId}`] : 'Trip Details',

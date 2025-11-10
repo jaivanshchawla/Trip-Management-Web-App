@@ -204,7 +204,10 @@
   - Convert all page files in src/app/user/trucks/ to .jsx
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [ ] 18. Convert user dashboard pages (operations)
+- [-] 18. Convert user dashboard pages (operations)
+
+
+
   - Convert all page files in src/app/user/trips/ to .jsx
   - Convert all page files in src/app/user/expenses/ to .jsx
   - Convert all page files in src/app/user/invoice/ to .jsx
@@ -214,6 +217,7 @@
   - _Requirements: 1.1, 1.2, 1.5_
 
 - [ ] 19. Convert API routes (admin, auth, dashboard)
+
   - Convert all route.ts files in src/app/api/admin/ to route.js
   - Convert all route.ts files in src/app/api/login/ to route.js
   - Convert all route.ts files in src/app/api/logout/ to route.js
@@ -222,6 +226,7 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
 - [ ] 20. Convert API routes (data entities)
+
   - Convert all route.ts files in src/app/api/drivers/ to route.js
   - Convert all route.ts files in src/app/api/parties/ to route.js
   - Convert all route.ts files in src/app/api/suppliers/ to route.js
@@ -231,6 +236,7 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
 - [ ] 21. Convert API routes (operations and services)
+
   - Convert all route.ts files in src/app/api/trips/ to route.js
   - Convert all route.ts files in src/app/api/expenses/ to route.js
   - Convert all route.ts files in src/app/api/invoices/ to route.js
@@ -241,6 +247,7 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
 - [ ] 22. Convert API routes (utilities and external)
+
   - Convert all route.ts files in src/app/api/s3Upload/ to route.js
   - Convert all route.ts files in src/app/api/generateReport/ to route.js
   - Convert all route.ts files in src/app/api/search/ to route.js
@@ -251,6 +258,7 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
 - [ ] 23. Convert middleware
+
   - Convert src/middleware.ts to .js
   - Remove NextRequest and NextResponse type annotations
   - Keep all authentication and routing logic intact
