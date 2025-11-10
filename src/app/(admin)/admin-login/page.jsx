@@ -12,7 +12,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (!phone || !(JSON.parse(process.env.NEXT_PUBLIC_ADMIN_LOGIN_PHONE as string) as [string]).includes(phone)) {
+    if (!phone || !(JSON.parse(process.env.NEXT_PUBLIC_ADMIN_LOGIN_PHONE)).includes(phone)) {
       router.push('/user/home');
     }
     if (localStorage.getItem('adminToken')) {
@@ -20,11 +20,11 @@ const AdminLogin = () => {
     }
   }, [phone, router]);
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -94,4 +94,5 @@ export default function Page() {
       </Suspense>
     );
   }
+
 

@@ -1,5 +1,4 @@
 
-import type { Metadata } from "next";
 import { Roboto as FontSans } from "next/font/google"
 import '@/app/globals.css'
 
@@ -9,16 +8,14 @@ const fontSans = FontSans({
   variable: "--font-roboto", 
 })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Awajahi Login Page",
   description: "Login to Awajahji",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}) {
 
   return (
       <div>
@@ -29,6 +26,7 @@ export default function RootLayout({
         
   );
 }
+
 
 
 

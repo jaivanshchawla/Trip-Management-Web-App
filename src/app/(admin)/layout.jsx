@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import '@/app/globals.css';
 import { cn } from "@/lib/utils";
 import { Roboto as FontSans } from "next/font/google";
@@ -10,7 +9,7 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Awajahi Admin - Management of Users",
   description: "Awajahi is transforming transportation in India, one mile at a time. Discover our services and how we are moving India efficiently and reliably.",
   keywords: ["Awajahi", "Transport", "Logistics", "India", "Moving Services", "Web Application", "Fleet Management", "awajahi"],
@@ -41,9 +40,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -62,3 +59,4 @@ export default function RootLayout({
     </html>
   );
 }
+

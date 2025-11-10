@@ -8,20 +8,9 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { formatNumber } from "@/utils/utilArray"
 
-interface User {
-  phone: string
-  name: string
-  role: { name: string }
-  companyName: string
-  address: string
-  deviceType: string
-  lastLogin: string
-  createdAt: string
-}
-
 const AdminPage = () => {
   const router = useRouter()
-  const [users, setUsers] = useState<User[]>([])
+  const [users, setUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [activeTab, setActiveTab] = useState("Dashboard")
 
@@ -136,4 +125,5 @@ const AdminPage = () => {
 }
 
 export default AdminPage
+
 

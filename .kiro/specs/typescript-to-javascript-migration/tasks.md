@@ -154,7 +154,9 @@
   - Convert src/app/sitemap.ts to .js
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [-] 14. Convert public-facing page routes
+- [x] 14. Convert public-facing page routes
+
+
 
 
 
@@ -167,7 +169,10 @@
   - Convert src/app/trip-management/page.tsx to .jsx
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [ ] 15. Convert login and admin layout pages
+- [-] 15. Convert login and admin layout pages
+
+
+
   - Convert src/app/login/layout.tsx and page.tsx to .jsx
   - Convert src/app/(admin)/layout.tsx to .jsx
   - Convert src/app/(admin)/admin-login/page.tsx to .jsx (if exists)
