@@ -3,7 +3,6 @@ import React, { Dispatch, useEffect, useMemo, useRef, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { fuelAndDriverChargeTypes, maintenanceChargeTypes, officeExpenseTypes } from '@/utils/utilArray';
-import { IDriver, IExpense, ITrip } from '@/utils/interface';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { statuses } from '@/utils/schema';
@@ -18,40 +17,11 @@ import { useExpenseData } from './hooks/useExpenseData';
 import TruckExpenseWrapper from '@/app/user/expenses/page';
 import AdExpenseTypeModal from './AdExpenseTypeModal';
 
-interface ChargeModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: any;
-    driverId: string;
-    selected?: any;
-    categories: string[]
-    tripId?: string
-    truckNo?: string
-    setDrafts?: any
-}
-
-interface TripExpense {
-    id?: string;
-    trip_id: string;
-    partyBill: boolean;
-    amount: number;
-    date: Date;
-    expenseType: string;
-    notes?: string;
-    partyAmount: number;
-    paymentMode: string;
-    transactionId: string;
-    driver: string;
-    truck?: string
-    shop_id?: string
-    url?: string
-}
-
-const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClose, onSave, driverId, selected, tripId, truckNo, setDrafts }) => {
+const AddExpenseModal = ({ categories, isOpen, onClose, onSave, driverId, selected, tripId, truckNo, setDrafts }) => {
 
     const { trips: ctxTrips, drivers, shops, trucks, isLoading, error } = useExpenseData();
 
-    const [formData, setFormData] = useState<TripExpense>({
+    const [formData, setFormData] = useState({
         id: selected?._id || undefined,
         trip_id: selected?.trip_id ? selected.trip_id : tripId ? tripId : '',
         partyBill: false,
@@ -77,31 +47,14 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
 
 
     const [selectedCategory, setSelectedCategory] = useState(truckpage ? 'Truck Expense' : trippage ? 'Trip Expense' : officepage ? 'Office Expense' : '');
-    const [trip, setTrip] = useState<ITrip | undefined>()
-    const [file, setFile] = useState<File | null>()
-    const [fileUrl, setFileUrl] = useState<string | null>(selected?.url || null);
+    const [trip, setTrip] = useState()
+    const [file, setFile] = useState()
+    const [fileUrl, setFileUrl] = useState(selected?.url || null);
     const [modalOpen, setModalOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [expenseTypeModal, setExpenseTypeModal] = useState(false)
-    const [userExpenseTypes, setUserExpenseTypes] = useState<string[] | []>([])
-    const modalRef = useRef<HTMLDivElement | null>(null)
-
-    // useEffect(() => {
-    //     const handleClickOutside = (event: MouseEvent) => {
-    //       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-    //         onClose(); // Close modal if clicked outside
-    //       }
-    //     };
-    
-    //     if (isOpen) {
-    //       document.addEventListener('mousedown', handleClickOutside);
-    //     }
-    
-    //     return () => {
-    //       document.removeEventListener('mousedown', handleClickOutside);
-    //     };
-    //   }, [isOpen, onClose]);
-    
+    const [userExpenseTypes, setUserExpenseTypes] = useState([])
+    const modalRef = useRef(null)
 
     const fetchUserExpenseTypes = async () => {
         try {
@@ -163,7 +116,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
             })
             if (!res.ok) throw new Error('Failed to save draft')
             const data = await res.json()
-            setDrafts((prev: IExpense[]) => [
+            setDrafts((prev) => [
                 {
                     ...data.expense,
                     driverName: data.expense.driver ? drivers.find((driver) => driver.driver_id === data.expense.driver)?.driverName : '',
@@ -185,7 +138,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
         }
     }
 
-    const saveDraft = async (id: string) => {
+    const saveDraft = async (id) => {
         if (!id) {
             toast({
                 description: 'No draft selected',
@@ -206,7 +159,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
             if (!res.ok) throw new Error('Failed to save draft')
             const data = await res.json()
             if (data.status === 200) {
-                setDrafts((prev: IExpense[] | any[]) => prev.map(exp => exp._id === id ? {
+                setDrafts((prev) => prev.map(exp => exp._id === id ? {
                     ...data.expense,
                     driverName: data.expense.driver ? drivers.find((driver) => driver.driver_id === data.expense.driver)?.driverName : '',
                     shopName: data.expense.shop_id ? shops.find((shop) => shop.id === data.expense.shop_id)?.shop_id : ''
@@ -223,7 +176,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
         }
     }
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e) => {
         const selectedFile = e.target.files ? e.target.files[0] : null;
         setFile(selectedFile);
 
@@ -320,7 +273,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
         }
     }, [formData.truck])
 
-    const handleSelectChange = (name: string, value: string) => {
+    const handleSelectChange = (name, value) => {
         setFormData((prevData) => {
             let updatedData = { ...prevData, [name]: value };
 
@@ -337,7 +290,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
 
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const handleChange = (e) => {
         const { name, value, type } = e.target;
         setFormData({ ...formData, [name]: type === 'checkbox' ? !formData.partyBill : value });
     };
@@ -376,9 +329,9 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
         onClose();
     };
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = (e) => {
         if (e.target.value === '0') {
-            handleChange({ target: { name: e.target.name, value: '' } } as React.ChangeEvent<HTMLInputElement>);
+            handleChange({ target: { name: e.target.name, value: '' } });
         }
     };
 
@@ -471,7 +424,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
                     <PreviewDocument 
                         isOpen={modalOpen} 
                         onClose={() => setModalOpen(false)} 
-                        documentUrl={fileUrl as string}
+                        documentUrl={fileUrl}
                         documentName={file?.name || selected?.filename || 'document'}
                     />
 
@@ -555,16 +508,16 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
                                     <SelectValue placeholder='Select Trip' />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {trips?.map((trip: ITrip) => (
+                                    {trips?.map((trip) => (
                                         <SelectItem key={trip.trip_id} value={trip.trip_id}>
                                             <div className='flex items-center space-x-2 w-full'>
                                                 <span className='font-semibold w-1/2'>{trip.route.origin.split(',')[0]} &rarr; {trip.route.destination.split(',')[0]}</span>
                                                 <div className="flex flex-col items-center space-x-2 w-1/2">
-                                                    <span>{statuses[trip.status as number]}</span>
+                                                    <span>{statuses[trip.status]}</span>
                                                     <div className="relative w-full bg-gray-200 h-1 rounded">
                                                         <div
                                                             className={`absolute top-0 left-0 h-1 rounded transition-width duration-500 ${trip.status === 0 ? 'bg-red-500' : trip.status === 1 ? 'bg-yellow-500' : trip.status === 2 ? 'bg-blue-500' : trip.status === 3 ? 'bg-green-500' : 'bg-green-800'}`}
-                                                            style={{ width: `${(trip.status as number / 4) * 100}%` }}
+                                                            style={{ width: `${(trip.status / 4) * 100}%` }}
                                                         ></div>
                                                     </div>
                                                 </div>
@@ -607,7 +560,7 @@ const AddExpenseModal: React.FC<ChargeModalProps> = ({ categories, isOpen, onClo
                                 key={type}
                                 type="button"
                                 className={`p-2 rounded-md ${formData.paymentMode === type ? 'bg-bottomNavBarColor text-white' : 'bg-lightOrangeButtonColor text-black'}`}
-                                onClick={() => handleChange({ target: { name: 'paymentMode', value: type } } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)}
+                                onClick={() => handleChange({ target: { name: 'paymentMode', value: type } })}
                             >
                                 {type}
                             </button>
