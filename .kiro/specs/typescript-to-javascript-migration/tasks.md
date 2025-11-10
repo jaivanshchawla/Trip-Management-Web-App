@@ -154,7 +154,10 @@
   - Convert src/app/sitemap.ts to .js
   - _Requirements: 1.1, 1.2, 1.5, 4.5_
 
-- [ ] 14. Convert public-facing page routes
+- [-] 14. Convert public-facing page routes
+
+
+
   - Convert src/app/about/page.tsx to .jsx
   - Convert src/app/contact/page.tsx to .jsx
   - Convert src/app/privacy-policy/page.tsx to .jsx

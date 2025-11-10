@@ -136,7 +136,7 @@ const TermsPage = () => {
                         <h2 className="text-2xl font-bold mt-6">Limitation of Liability</h2>
                         <ul className="list-disc pl-6 mt-2 text-lg">
                             <li>Awajahi is provided &quot;as is&quot; and &quot;as available.&quot; We do not guarantee that the platform will always be available, error-free, or secure. We disclaim all liability for any damages arising from the use or inability to use the platform.</li>
-                            <li>Awajahi will not be held responsible for any loss or damage, including financial losses, that may occur due to delays, interruptions, or failures in the platform’s functionality.</li>
+                            <li>Awajahi will not be held responsible for any loss or damage, including financial losses, that may occur due to delays, interruptions, or failures in the platform's functionality.</li>
                         </ul>
 
                         <h2 className="text-2xl font-bold mt-6">Termination</h2>
