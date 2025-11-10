@@ -1,17 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ITrip } from '@/utils/interface'
+import { createSlice } from '@reduxjs/toolkit'
 
-interface TripsState {
-  visibleColumns: string[]
-  sortConfig: {
-    key: keyof ITrip | null
-    direction: 'asc' | 'desc'
-  }
-  searchQuery: string
-  selectedStatus: number | undefined
-}
-
-const initialState: TripsState = {
+const initialState = {
   visibleColumns: ['Start Date', 'LR Number', 'Truck Number', 'Party Name', 'Route', 'Status', 'Invoice Amt', 'Truck Hire Cost'],
   sortConfig: { key: null, direction: 'asc' },
   searchQuery: '',
@@ -22,16 +11,16 @@ const tripsSlice = createSlice({
   name: 'trips',
   initialState,
   reducers: {
-    setVisibleColumns: (state, action: PayloadAction<string[]>) => {
+    setVisibleColumns: (state, action) => {
       state.visibleColumns = action.payload
     },
-    setSortConfig: (state, action: PayloadAction<{ key: keyof ITrip | null; direction: 'asc' | 'desc' }>) => {
+    setSortConfig: (state, action) => {
       state.sortConfig = action.payload
     },
-    setSearchQuery: (state, action: PayloadAction<string>) => {
+    setSearchQuery: (state, action) => {
       state.searchQuery = action.payload
     },
-    setSelectedStatus: (state, action: PayloadAction<number | undefined>) => {
+    setSelectedStatus: (state, action) => {
       state.selectedStatus = action.payload
     },
   },
@@ -39,4 +28,3 @@ const tripsSlice = createSlice({
 
 export const { setVisibleColumns, setSortConfig, setSearchQuery, setSelectedStatus } = tripsSlice.actions
 export default tripsSlice.reducer
-
